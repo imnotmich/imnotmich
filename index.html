@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael "Mich" - Personal Portfolio & AtlantisRP</title>
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* RESET E VARIABILI */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --color-main-bg: #f9f6f0;
+      --color-card-bg: #ffffff;
+      --color-text-dark: #37352f;
+      --color-text-muted: #787774;
+      --color-accent: #d96b63;
+      --color-border: #f0ece1;
+      --color-bullet: #d96b63;
+
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-title: 'Lora', Georgia, serif;
+      --container-max-width: 680px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-main-bg);
+      color: var(--color-text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 5.5rem;
+      padding-bottom: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    /* BARRA DI NAVIGAZIONE IN ALTO */
+    .navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(249, 246, 240, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .nav-btn {
+      background-color: var(--color-card-bg);
+      color: var(--color-text-dark);
+      border: 1px solid var(--color-border);
+      padding: 0.45rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .nav-btn:hover {
+      background-color: var(--color-accent);
+      color: #ffffff;
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(217, 107, 99, 0.3);
+    }
+
+    /* CONTAINER PRINCIPALE */
+    .container {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      width: 100%;
+    }
+
+    /* STRUTTURA SEZIONI */
+    .page-section {
+      scroll-margin-top: 6.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .overtitle {
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .mc-main-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--color-text-dark);
+    }
+
+    .mc-main-title span.accent {
+      color: var(--color-accent);
+    }
+
+    .png-img {
+      display: block;
+    }
+
+    .mc-skin-head {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 1.5rem;
+      object-fit: contain;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .mc-skin-head:hover {
+      transform: scale(1.15) rotate(5deg);
+    }
+
+    .intro-text {
+      font-size: 1.05rem;
+      color: var(--color-text-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    /* CARDS */
+    .mc-card {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .mc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      border-color: rgba(217, 107, 99, 0.3);
+    }
+
+    .card-icon-wrapper {
+      width: 40px;
+      height: 40px;
+      background-color: #fdf2f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: var(--color-accent);
+      transition: all 0.3s ease;
+    }
+
+    .mc-card:hover .card-icon-wrapper {
+      transform: scale(1.1);
+      background-color: var(--color-accent);
+      color: #ffffff;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+      color: var(--color-text-dark);
+      font-size: 0.95rem;
+    }
+
+    /* BIO & ROLEPLAY CARD */
+    .bio-card {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .mc-bio-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .bio-meta-info {
+      list-style: none;
+      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+    }
+
+    .bio-meta-info li {
+      margin-bottom: 0.25rem;
+    }
+
+    .bio-meta-info span.label {
+      color: var(--color-text-muted);
+    }
+
+    .section-divider {
+      border: 0;
+      border-top: 1px solid var(--color-border);
+      margin: 1.75rem 0;
+    }
+
+    .sub-section-title {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .work-list, .simple-list {
+      list-style: none;
+      padding-left: 1.25rem;
+    }
+
+    .work-list li, .simple-list li {
+      position: relative;
+      margin-bottom: 0.85rem;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    .work-list li:hover, .simple-list li:hover {
+      transform: translateX(4px);
+    }
+
+    .work-list li::before, .simple-list li::before {
+      content: '•';
+      color: var(--color-bullet);
+      position: absolute;
+      left: -1.1rem;
+      font-size: 1.2rem;
+      top: -0.15rem;
+    }
+
+    .work-meta {
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      margin-top: -0.4rem;
+      margin-bottom: 0.85rem;
+      padding-left: 0.2rem;
+    }
+
+    .telegram-links {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .telegram-links a {
+      color: var(--color-text-dark);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+      display: inline-block;
+    }
+
+    .telegram-links a:hover {
+      color: var(--color-accent);
+      text-decoration: underline;
+      padding-left: 2px;
+    }
+
+    /* CONTATTI CARD & PERSONAGGIO */
+    .contacts-card {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .contact-item {
+      margin-bottom: 1rem;
+    }
+
+    .contact-label {
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .contact-value a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-value a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .mc-skin-footer {
+      position: absolute;
+      right: 1rem;
+      bottom: 0;
+      width: 120px;
+      height: auto;
+      pointer-events: none;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 1rem 1rem;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 480px) {
+      .mc-main-title { font-size: 1.8rem; }
+      .bio-card, .contacts-card { padding: 1.5rem 1.25rem; }
+      .mc-skin-footer { width: 95px; }
+      .nav-btn { padding: 0.4rem 0.7rem; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DI NAVIGAZIONE SUPERIORE -->
+  <header class="navbar-container">
+    <nav class="navbar">
+      <a href="#chisono" class="nav-btn">Chi Sono</a>
+      <a href="#minecraft" class="nav-btn">Minecraft</a>
+      <a href="#roleplay" class="nav-btn">Roleplay</a>
+      <a href="#contatti" class="nav-btn">Contatti</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    
+    <!-- SEZIONE VITA REALE (CHI SONO) -->
+    <section id="chisono" class="page-section reveal">
+      
+      <h1 class="mc-main-title">Michael,<br><span class="accent">per tutti Mich.</span></h1>
+
+      <div class="mc-card">
+        <p class="card-text" style="font-size: 1rem;">
+          Mi occupo prevalentemente di <strong>stampa 3D</strong>: un'attività che mi diverte e mi insegna nuove skill ogni giorno. Ultimamente creo anche i miei modelli per risolvere piccoli problemi quotidiani.
+        </p>
+      </div>
+
+      <div class="mc-card">
+        <h2 class="card-title" style="color: var(--color-accent);">Passioni</h2>
+        <p class="card-text">
+          Nel tempo libero amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
+        </p>
+      </div>
+
+      <div class="mc-card">
+        <h2 class="card-title" style="color: var(--color-accent);">Obiettivi</h2>
+        <p class="card-text">
+          Guardo sempre avanti con positività. Il mio sogno è <strong>aprire un'azienda</strong>, probabilmente nell'ambito dell'orologeria, dove precisione e creatività si incontrano.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- SEZIONE MINECRAFT -->
+    <section id="minecraft" class="page-section reveal">
+      <div class="overtitle">UN MONDO A PARTE</div>
+      <h1 class="mc-main-title">La mia vita su <span class="accent">Minecraft</span></h1>
+
+      <img src="https://pngup.com/xFjI/1000131025.png" alt="Testa Minecraft" class="mc-skin-head png-img">
+
+      <p class="intro-text">
+        Minecraft per me non è solo un gioco: è un secondo posto dove vivere storie, incontrare persone e dare vita a personaggi che nella realtà non potrei essere.
+      </p>
+
+      <!-- Card 1: Roleplay -->
+      <div class="mc-card">
+        <div class="card-icon-wrapper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><circle cx="15" cy="13" r="1"/><circle cx="18" cy="11" r="1"/></svg>
+        </div>
+        <h2 class="card-title">Roleplay</h2>
+        <p class="card-text">Il mio stile di gioco preferito è il <strong>roleplay</strong>. Mi piace entrare nei panni di un personaggio, costruire la sua storia e viverla insieme agli altri, momento dopo momento.</p>
+      </div>
+
+      <!-- Card 2: Community -->
+      <div class="mc-card">
+        <div class="card-icon-wrapper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2 class="card-title">Community</h2>
+        <p class="card-text">Gioco principalmente su <strong>server pubblici</strong>, dove posso conoscere persone nuove e far parte di community grandi e vive. È lì che nascono le avventure migliori.</p>
+      </div>
+
+      <!-- Card 3: Perché mi piace -->
+      <div class="mc-card">
+        <div class="card-icon-wrapper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>
+        </div>
+        <h2 class="card-title">Perché mi piace</h2>
+        <p class="card-text">Amo la <strong>libertà creativa</strong> e le possibilità infinite: ogni sessione può diventare qualcosa di completamente diverso dalla precedente.</p>
+      </div>
+    </section>
+
+    <!-- SEZIONE ROLEPLAY (ATLANTISRP) -->
+    <section id="roleplay" class="page-section reveal">
+      <div class="bio-card">
+        <div class="sub-section-title">BIO DEL PERSONAGGIO</div>
+        <h2 class="mc-bio-title">Su <span class="accent">AtlantisRP</span></h2>
+
+        <ul class="bio-meta-info">
+          <li><span class="label">Nick:</span> <strong>ImNotMich</strong></li>
+          <li><span class="label">Nome RP:</span> <strong>Michael Basalari Sabaku</strong></li>
+        </ul>
+
+        <hr class="section-divider">
+
+        <div class="sub-section-title">ESPERIENZE LAVORATIVE</div>
+        <ul class="work-list">
+          <li>Ho lavorato in <strong>Posta</strong> (mi sono licenziato per lavorare in Ospedale)</li>
+          <li><strong>Medico di Laboratorio</strong> in Ospedale</li>
+          <div class="work-meta">dal 04/07/2025</div>
+          
+          <li>Ho lavorato in <strong>Magazzino</strong></li>
+          
+          <li><strong>Vice-Presidente della S.S.C. QuackLegion</strong></li>
+          <div class="work-meta">Società Sportiva Calcistica.</div>
+          
+          <li><strong>Casinò</strong></li>
+          <div class="work-meta">dal 22/07/2026</div>
+          
+          <li><strong>Vice-Direttore del Quack Store</strong></li>
+          <div class="work-meta">
+            Il Quack Store è poi diventato <strong>QuackTV</strong>.
+            <div class="telegram-links">
+              📱 Telegram Quack Store: <a href="https://t.me/QuackStoreAtlantisRP" target="_blank">@QuackStoreAtlantisRP</a><br>
+              📱 Telegram QuackTV: <a href="https://t.me/QuackTVAtlantisRP" target="_blank">@QuackTVAtlantisRP</a>
+            </div>
+          </div>
+
+          <li><strong>Vice-Direttore della Sartoria Nico</strong></li>
+        </ul>
+
+        <hr class="section-divider">
+
+        <div class="sub-section-title">FAMIGLIA</div>
+        <ul class="simple-list">
+          <li>Faccio parte della famiglia <strong>SABAKU</strong>, figlio di <strong>ImNotSara</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SEZIONE CONTATTI -->
+    <section id="contatti" class="page-section reveal">
+      <div class="contacts-card">
+        <h2 class="mc-bio-title" style="margin-bottom: 1.5rem;">Restiamo in <span class="accent">Contatto</span></h2>
+
+        <!-- Sottogruppo Contatti Social / Fuori Minecraft -->
+        <div class="sub-section-title">CONTATTI PERSONALI</div>
+
+        <div class="contact-item">
+          <div class="contact-label">TELEGRAM</div>
+          <div class="contact-value"><a href="https://t.me/DiciassetteMich" target="_blank">@DiciassetteMich</a></div>
+        </div>
+
+        <div class="contact-item" style="margin-bottom: 1.5rem;">
+          <div class="contact-label">DISCORD</div>
+          <div class="contact-value">_17mich</div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Sottogruppo Contatti In Gioco -->
+        <div class="sub-section-title">IN GIOCO (ATLANTISRP)</div>
+
+        <div class="contact-item" style="margin-bottom: 0;">
+          <div class="contact-label">NUMERO DI TELEFONO RP</div>
+          <div class="contact-value">514 941</div>
+        </div>
+
+        <!-- PERSONAGGIO SEDUTO -->
+        <img src="https://pngup.com/Hcrc/1000131024.png" alt="Personaggio Minecraft" class="mc-skin-footer png-img">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="reveal">
+    <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
+  </footer>
+
+  <!-- SCRIPT ANIMAZIONI SCROLL E NAVIGAZIONE -->
+  <script>
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 80) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+  </script>
+
+</body>
+</html>
