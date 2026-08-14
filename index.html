@@ -42,7 +42,7 @@
       color: var(--color-text-dark);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      padding-top: 6.5rem;
+      padding-top: 7rem;
       padding-bottom: 2rem;
       min-height: 100vh;
       display: flex;
@@ -87,7 +87,7 @@
       font-weight: 700;
       cursor: pointer;
       color: var(--color-text-muted);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .switch-btn.active {
@@ -102,24 +102,27 @@
       gap: 0.4rem;
       flex-wrap: wrap;
       justify-content: center;
+      transition: opacity 0.3s ease;
     }
 
     .nav-btn {
       background-color: var(--color-card-bg);
       color: var(--color-text-dark);
       border: 1px solid var(--color-border);
-      padding: 0.35rem 0.8rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 30px;
       font-size: 0.75rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
+      cursor: pointer;
     }
 
     .nav-btn:hover {
       background-color: var(--color-accent);
       color: #ffffff;
       border-color: var(--color-accent);
+      transform: translateY(-2px);
     }
 
     /* CONTAINER PRINCIPALE */
@@ -130,25 +133,44 @@
       width: 100%;
     }
 
-    /* GESTIONE DEI DUE "SITI" CON DISPLAY TAB */
+    /* GESTIONE DEI DUE "SITI" E ANIMAZIONI */
     .site-view {
       display: none;
-      animation: fadeIn 0.4s ease-in-out;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .site-view.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ANIMAZIONE EVIDENZIATORE SEZIONE QUANDO CLICCATA */
+    .section-highlight {
+      animation: sectionPulse 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes sectionPulse {
+      0% {
+        transform: scale(0.98);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.02);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     /* STRUTTURA SEZIONI */
     .page-section {
-      scroll-margin-top: 7.5rem;
-      margin-bottom: 2.5rem;
+      scroll-margin-top: 8rem;
+      margin-bottom: 3.5rem;
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
     .overtitle {
@@ -422,15 +444,15 @@
 
     <!-- SOTTO-NAVIGAZIONE VITA REALE -->
     <nav id="nav-real" class="sub-navbar">
-      <a href="#chisono" class="nav-btn">Chi Sono</a>
-      <a href="#contatti-reali" class="nav-btn">Contatti</a>
+      <button class="nav-btn" onclick="scrollToSection('chisono')">Chi Sono</button>
+      <button class="nav-btn" onclick="scrollToSection('contatti-reali')">Contatti</button>
     </nav>
 
     <!-- SOTTO-NAVIGAZIONE GAMING (NASCOSTA DI DEFAULT) -->
     <nav id="nav-gaming" class="sub-navbar" style="display: none;">
-      <a href="#minecraft" class="nav-btn">Minecraft</a>
-      <a href="#roleplay" class="nav-btn">AtlantisRP</a>
-      <a href="#contatti-gaming" class="nav-btn">Contatti RP</a>
+      <button class="nav-btn" onclick="scrollToSection('minecraft')">Minecraft</button>
+      <button class="nav-btn" onclick="scrollToSection('roleplay')">AtlantisRP</button>
+      <button class="nav-btn" onclick="scrollToSection('contatti-gaming')">Contatti RP</button>
     </nav>
   </header>
 
@@ -604,8 +626,9 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT SWITCHER DEI DUE SITI -->
+  <!-- SCRIPT CON ANIMAZIONI SITI E SCROLL BOTTONI -->
   <script>
+    // Funzione per lo Switch tra i due siti con transizione
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
@@ -613,24 +636,45 @@
       const navGaming = document.getElementById('nav-gaming');
       const buttons = document.querySelectorAll('.switch-btn');
 
-      if (siteName === 'real') {
-        realSite.classList.add('active');
-        gamingSite.classList.remove('active');
-        navReal.style.display = 'flex';
-        navGaming.style.display = 'none';
-        buttons[0].classList.add('active');
-        buttons[1].classList.remove('active');
-      } else {
-        gamingSite.classList.add('active');
-        realSite.classList.remove('active');
-        navGaming.style.display = 'flex';
-        navReal.style.display = 'none';
-        buttons[1].classList.add('active');
-        buttons[0].classList.remove('active');
-      }
+      const currentActive = siteName === 'real' ? gamingSite : realSite;
+      const targetActive = siteName === 'real' ? realSite : gamingSite;
 
-      // Torna in cima alla pagina ad ogni cambio
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Piccola dissolvenza in uscita
+      currentActive.style.opacity = '0';
+      currentActive.style.transform = 'translateY(-10px)';
+
+      setTimeout(() => {
+        currentActive.classList.remove('active');
+        currentActive.style.transform = '';
+
+        if (siteName === 'real') {
+          navReal.style.display = 'flex';
+          navGaming.style.display = 'none';
+          buttons[0].classList.add('active');
+          buttons[1].classList.remove('active');
+        } else {
+          navGaming.style.display = 'flex';
+          navReal.style.display = 'none';
+          buttons[1].classList.add('active');
+          buttons[0].classList.remove('active');
+        }
+
+        targetActive.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 200);
+    }
+
+    // Funzione per lo scroll fluido ed effetto impulso alla sezione target
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+
+        // Applica l'animazione di risposta visiva
+        element.classList.remove('section-highlight');
+        void element.offsetWidth; // Trigger reflow per riavviare l'animazione
+        element.classList.add('section-highlight');
+      }
     }
   </script>
 
