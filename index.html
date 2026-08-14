@@ -18,9 +18,8 @@
       box-sizing: border-box;
     }
 
-    /* SCROLL FLUIDO NATIVO OBLIGATORIO */
     html {
-      scroll-behavior: smooth !important;
+      scroll-behavior: smooth;
     }
 
     :root {
@@ -59,7 +58,7 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background-color: rgba(249, 246, 240, 0.9);
+      background-color: rgba(249, 246, 240, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
@@ -103,7 +102,6 @@
       gap: 0.4rem;
       flex-wrap: wrap;
       justify-content: center;
-      transition: opacity 0.3s ease;
     }
 
     .nav-btn {
@@ -124,7 +122,6 @@
       background-color: var(--color-accent);
       color: #ffffff;
       border-color: var(--color-accent);
-      transform: translateY(-2px);
     }
 
     /* CONTAINER PRINCIPALE */
@@ -135,44 +132,22 @@
       width: 100%;
     }
 
-    /* GESTIONE DEI DUE "SITI" E ANIMAZIONI */
+    /* GESTIONE DEI DUE "SITI" CON TRANSIZIONE MORBIDA IN DISSOLVENZA */
     .site-view {
       display: none;
       opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.4s ease-in-out;
     }
 
     .site-view.active {
       display: block;
       opacity: 1;
-      transform: translateY(0);
     }
 
-    /* ANIMAZIONE EVIDENZIATORE SEZIONE QUANDO CLICCATA */
-    .section-highlight {
-      animation: sectionPulse 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes sectionPulse {
-      0% {
-        transform: scale(0.98);
-        opacity: 0.8;
-      }
-      50% {
-        transform: scale(1.02);
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* STRUTTURA SEZIONI CON MARGINE PER LA NAV BAR */
+    /* STRUTTURA SEZIONI CON SPAZIATURA PERFETTA */
     .page-section {
       scroll-margin-top: 8rem;
       margin-bottom: 3.5rem;
-      transition: transform 0.4s ease;
     }
 
     .overtitle {
@@ -230,8 +205,8 @@
     }
 
     .mc-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
       border-color: rgba(217, 107, 99, 0.3);
     }
 
@@ -249,7 +224,7 @@
     }
 
     .mc-card:hover .card-icon-wrapper {
-      transform: scale(1.1);
+      transform: scale(1.05);
       background-color: var(--color-accent);
       color: #ffffff;
     }
@@ -446,15 +421,15 @@
 
     <!-- SOTTO-NAVIGAZIONE VITA REALE -->
     <nav id="nav-real" class="sub-navbar">
-      <a href="#chisono" class="nav-btn" onclick="triggerHighlight('chisono')">Chi Sono</a>
-      <a href="#contatti-reali" class="nav-btn" onclick="triggerHighlight('contatti-reali')">Contatti</a>
+      <a href="#chisono" class="nav-btn" onclick="smoothScroll(event, 'chisono')">Chi Sono</a>
+      <a href="#contatti-reali" class="nav-btn" onclick="smoothScroll(event, 'contatti-reali')">Contatti</a>
     </nav>
 
     <!-- SOTTO-NAVIGAZIONE GAMING (NASCOSTA DI DEFAULT) -->
     <nav id="nav-gaming" class="sub-navbar" style="display: none;">
-      <a href="#minecraft" class="nav-btn" onclick="triggerHighlight('minecraft')">Minecraft</a>
-      <a href="#roleplay" class="nav-btn" onclick="triggerHighlight('roleplay')">AtlantisRP</a>
-      <a href="#contatti-gaming" class="nav-btn" onclick="triggerHighlight('contatti-gaming')">Contatti RP</a>
+      <a href="#minecraft" class="nav-btn" onclick="smoothScroll(event, 'minecraft')">Minecraft</a>
+      <a href="#roleplay" class="nav-btn" onclick="smoothScroll(event, 'roleplay')">AtlantisRP</a>
+      <a href="#contatti-gaming" class="nav-btn" onclick="smoothScroll(event, 'contatti-gaming')">Contatti RP</a>
     </nav>
   </header>
 
@@ -628,8 +603,21 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT CON ANIMAZIONI E GESTIONE HIGHLIGHT -->
+  <!-- SCRIPT PER SCROLL FLUIDO E SWITCH SITI -->
   <script>
+    // Funzione per lo scroll continuo e morbido senza balzi
+    function smoothScroll(e, targetId) {
+      e.preventDefault();
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Switch pulito tra le due modalita (Vita Reale / Gaming)
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
@@ -641,11 +629,9 @@
       const targetActive = siteName === 'real' ? realSite : gamingSite;
 
       currentActive.style.opacity = '0';
-      currentActive.style.transform = 'translateY(-10px)';
 
       setTimeout(() => {
         currentActive.classList.remove('active');
-        currentActive.style.transform = '';
 
         if (siteName === 'real') {
           navReal.style.display = 'flex';
@@ -660,19 +646,10 @@
         }
 
         targetActive.classList.add('active');
+        
+        // Torna in cima con uno scroll naturale
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 200);
-    }
-
-    function triggerHighlight(sectionId) {
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.classList.remove('section-highlight');
-          void element.offsetWidth;
-          element.classList.add('section-highlight');
-        }
-      }, 300);
+      }, 250);
     }
   </script>
 
