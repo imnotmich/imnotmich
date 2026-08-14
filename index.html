@@ -18,8 +18,9 @@
       box-sizing: border-box;
     }
 
+    /* SCROLL FLUIDO NATIVO OBLIGATORIO */
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: smooth !important;
     }
 
     :root {
@@ -42,7 +43,7 @@
       color: var(--color-text-dark);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      padding-top: 7rem;
+      padding-top: 7.5rem;
       padding-bottom: 2rem;
       min-height: 100vh;
       display: flex;
@@ -116,6 +117,7 @@
       text-decoration: none;
       transition: all 0.25s ease;
       cursor: pointer;
+      display: inline-block;
     }
 
     .nav-btn:hover {
@@ -138,7 +140,7 @@
       display: none;
       opacity: 0;
       transform: translateY(15px);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     .site-view.active {
@@ -149,13 +151,13 @@
 
     /* ANIMAZIONE EVIDENZIATORE SEZIONE QUANDO CLICCATA */
     .section-highlight {
-      animation: sectionPulse 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: sectionPulse 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes sectionPulse {
       0% {
         transform: scale(0.98);
-        opacity: 0.7;
+        opacity: 0.8;
       }
       50% {
         transform: scale(1.02);
@@ -166,11 +168,11 @@
       }
     }
 
-    /* STRUTTURA SEZIONI */
+    /* STRUTTURA SEZIONI CON MARGINE PER LA NAV BAR */
     .page-section {
       scroll-margin-top: 8rem;
       margin-bottom: 3.5rem;
-      transition: transform 0.4s ease, opacity 0.4s ease;
+      transition: transform 0.4s ease;
     }
 
     .overtitle {
@@ -424,7 +426,7 @@
     }
 
     @media (max-width: 480px) {
-      body { padding-top: 7.5rem; }
+      body { padding-top: 8rem; }
       .mc-main-title { font-size: 1.8rem; }
       .bio-card, .contacts-card { padding: 1.5rem 1.25rem; }
       .mc-skin-footer { width: 95px; }
@@ -444,15 +446,15 @@
 
     <!-- SOTTO-NAVIGAZIONE VITA REALE -->
     <nav id="nav-real" class="sub-navbar">
-      <button class="nav-btn" onclick="scrollToSection('chisono')">Chi Sono</button>
-      <button class="nav-btn" onclick="scrollToSection('contatti-reali')">Contatti</button>
+      <a href="#chisono" class="nav-btn" onclick="triggerHighlight('chisono')">Chi Sono</a>
+      <a href="#contatti-reali" class="nav-btn" onclick="triggerHighlight('contatti-reali')">Contatti</a>
     </nav>
 
     <!-- SOTTO-NAVIGAZIONE GAMING (NASCOSTA DI DEFAULT) -->
     <nav id="nav-gaming" class="sub-navbar" style="display: none;">
-      <button class="nav-btn" onclick="scrollToSection('minecraft')">Minecraft</button>
-      <button class="nav-btn" onclick="scrollToSection('roleplay')">AtlantisRP</button>
-      <button class="nav-btn" onclick="scrollToSection('contatti-gaming')">Contatti RP</button>
+      <a href="#minecraft" class="nav-btn" onclick="triggerHighlight('minecraft')">Minecraft</a>
+      <a href="#roleplay" class="nav-btn" onclick="triggerHighlight('roleplay')">AtlantisRP</a>
+      <a href="#contatti-gaming" class="nav-btn" onclick="triggerHighlight('contatti-gaming')">Contatti RP</a>
     </nav>
   </header>
 
@@ -626,9 +628,8 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT CON ANIMAZIONI SITI E SCROLL BOTTONI -->
+  <!-- SCRIPT CON ANIMAZIONI E GESTIONE HIGHLIGHT -->
   <script>
-    // Funzione per lo Switch tra i due siti con transizione
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
@@ -639,7 +640,6 @@
       const currentActive = siteName === 'real' ? gamingSite : realSite;
       const targetActive = siteName === 'real' ? realSite : gamingSite;
 
-      // Piccola dissolvenza in uscita
       currentActive.style.opacity = '0';
       currentActive.style.transform = 'translateY(-10px)';
 
@@ -664,17 +664,15 @@
       }, 200);
     }
 
-    // Funzione per lo scroll fluido ed effetto impulso alla sezione target
-    function scrollToSection(sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-
-        // Applica l'animazione di risposta visiva
-        element.classList.remove('section-highlight');
-        void element.offsetWidth; // Trigger reflow per riavviare l'animazione
-        element.classList.add('section-highlight');
-      }
+    function triggerHighlight(sectionId) {
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.classList.remove('section-highlight');
+          void element.offsetWidth;
+          element.classList.add('section-highlight');
+        }
+      }, 300);
     }
   </script>
 
