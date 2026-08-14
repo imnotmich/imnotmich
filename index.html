@@ -285,29 +285,25 @@
       top: -0.15rem;
     }
 
+    /* LINK STYLING */
+    .inline-link {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+      opacity: 0.85;
+    }
+
     .work-meta {
       color: var(--color-text-muted);
       font-size: 0.88rem;
       margin-top: -0.4rem;
       margin-bottom: 0.85rem;
       padding-left: 0.2rem;
-    }
-
-    .telegram-links {
-      margin-top: 0.4rem;
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-    }
-
-    .telegram-links a {
-      color: var(--color-text-dark);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .telegram-links a:hover {
-      color: var(--color-accent);
-      text-decoration: underline;
     }
 
     /* CONTATTI CARD & PERSONAGGIO */
@@ -508,28 +504,24 @@
 
           <div class="sub-section-title">ESPERIENZE LAVORATIVE</div>
           <ul class="work-list">
-            <li>Ho lavorato in <strong>Posta</strong> (mi sono licenziato per lavorare in Ospedale)</li>
-            <li><strong>Medico di Laboratorio</strong> in Ospedale</li>
+            <li>Ho lavorato in <a href="https://t.me/PosteAtlantis" target="_blank" class="inline-link">Posta</a> (mi sono licenziato per lavorare in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a>)</li>
+            <li><strong>Medico di Laboratorio</strong> in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a></li>
             <div class="work-meta">dal 04/07/2025</div>
             
-            <li>Ho lavorato in <strong>Magazzino</strong></li>
+            <li>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" class="inline-link">Magazzino</a></li>
             
-            <li><strong>Vice-Presidente della S.S.C. QuackLegion</strong></li>
-            <div class="work-meta">Società Sportiva Calcistica.</div>
-            
-            <li><strong>Casinò</strong></li>
+            <li><strong>Casinò</strong> (<a href="https://t.me/CasinoRevengeAtlantis" target="_blank" class="inline-link">CasinoRevengeAtlantis</a>)</li>
             <div class="work-meta">dal 22/07/2026</div>
             
             <li><strong>Vice-Direttore del Quack Store</strong></li>
             <div class="work-meta">
-              Il Quack Store è poi diventato <strong>QuackTV</strong>.
-              <div class="telegram-links">
-                📱 Telegram Quack Store: <a href="https://t.me/QuackStoreAtlantisRP" target="_blank">@QuackStoreAtlantisRP</a><br>
-                📱 Telegram QuackTV: <a href="https://t.me/QuackTVAtlantisRP" target="_blank">@QuackTVAtlantisRP</a>
-              </div>
+              Il Quack Store è poi diventato <a href="https://t.me/QuackTVAtlantisRP" target="_blank" class="inline-link">QuackTV</a>.
             </div>
 
-            <li><strong>Vice-Direttore della Sartoria Nico</strong></li>
+            <li><strong>Vice-Presidente della <a href="https://t.me/QuackLegionAtlantisRP" target="_blank" class="inline-link">S.S.C. QuackLegion</a></strong></li>
+            <div class="work-meta">Società Sportiva Calcistica.</div>
+
+            <li><strong>Vice-Direttore della <a href="https://t.me/sartorianicoatlantisrp" target="_blank" class="inline-link">Sartoria Nico</a></strong></li>
           </ul>
 
           <hr class="section-divider">
@@ -567,7 +559,7 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT CON SCROLL MATEMATICO PERSONALIZZATO SEMA SCATTI -->
+  <!-- SCRIPT CON SCROLL MATEMATICO PERSONALIZZATO SENZA SCATTI -->
   <script>
     // Algoritmo di Scroll morbido personalizzato (Ease-Out-Cubic)
     function customSmoothScroll(targetId) {
