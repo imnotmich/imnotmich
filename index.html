@@ -137,7 +137,7 @@
     .site-view {
       display: none;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.2s ease;
     }
 
     .site-view.active {
@@ -176,8 +176,8 @@
     }
 
     .mc-skin-head {
-      width: 100px;
-      height:100px;
+      width: 72px;
+      height: 72px;
       margin-bottom: 1.5rem;
       object-fit: contain;
     }
@@ -564,28 +564,26 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT CON SCROLL MATEMATICO PERSONALIZZATO SENZA SCATTI -->
+  <!-- SCRIPT CON SWITCH SENZA BUG E SCROLL SUAVE -->
   <script>
     // Algoritmo di Scroll morbido personalizzato (Ease-Out-Cubic)
     function customSmoothScroll(targetId) {
       const target = document.getElementById(targetId);
       if (!target) return;
 
-      const headerOffset = 130; // Distanza precisa dalla barra superiore
+      const headerOffset = 130;
       const elementPosition = target.getBoundingClientRect().top;
       const startPosition = window.pageYOffset;
       const targetPosition = elementPosition + startPosition - headerOffset;
       const distance = targetPosition - startPosition;
       
-      const duration = 600; // Durata dello scroll in millisecondi (morbido e graduale)
+      const duration = 600;
       let start = null;
 
       function animationStep(timestamp) {
         if (!start) start = timestamp;
         const progress = timestamp - start;
         const timeFraction = Math.min(progress / duration, 1);
-        
-        // Curva di rallentamento fluida (Ease-Out)
         const easeOut = 1 - Math.pow(1 - timeFraction, 3);
 
         window.scrollTo(0, startPosition + distance * easeOut);
@@ -598,7 +596,7 @@
       window.requestAnimationFrame(animationStep);
     }
 
-    // Switch pulito tra le schede
+    // Switch senza ritardi per evitare che le sezioni rimangano nascoste
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
@@ -606,29 +604,31 @@
       const navGaming = document.getElementById('nav-gaming');
       const buttons = document.querySelectorAll('.switch-btn');
 
-      const currentActive = siteName === 'real' ? gamingSite : realSite;
-      const targetActive = siteName === 'real' ? realSite : gamingSite;
+      if (siteName === 'real') {
+        gamingSite.classList.remove('active');
+        gamingSite.style.opacity = '0';
+        
+        realSite.classList.add('active');
+        realSite.style.opacity = '1';
 
-      currentActive.style.opacity = '0';
+        navReal.style.display = 'flex';
+        navGaming.style.display = 'none';
+        buttons[0].classList.add('active');
+        buttons[1].classList.remove('active');
+      } else {
+        realSite.classList.remove('active');
+        realSite.style.opacity = '0';
 
-      setTimeout(() => {
-        currentActive.classList.remove('active');
+        gamingSite.classList.add('active');
+        gamingSite.style.opacity = '1';
 
-        if (siteName === 'real') {
-          navReal.style.display = 'flex';
-          navGaming.style.display = 'none';
-          buttons[0].classList.add('active');
-          buttons[1].classList.remove('active');
-        } else {
-          navGaming.style.display = 'flex';
-          navReal.style.display = 'none';
-          buttons[1].classList.add('active');
-          buttons[0].classList.remove('active');
-        }
+        navGaming.style.display = 'flex';
+        navReal.style.display = 'none';
+        buttons[1].classList.add('active');
+        buttons[0].classList.remove('active');
+      }
 
-        targetActive.classList.add('active');
-        window.scrollTo(0, 0);
-      }, 200);
+      window.scrollTo(0, 0);
     }
   </script>
 
