@@ -52,14 +52,14 @@
       overflow-x: hidden;
     }
 
-    /* BARRA DI NAVIGAZIONE */
+    /* BARRA DI NAVIGAZIONE CON TRASPARENZA LEGGERMENTE AUMENTATA */
     .navbar-container {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background-color: rgba(249, 246, 240, 0.95);
+      background-color: rgba(249, 246, 240, 0.80);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
@@ -358,12 +358,16 @@
       pointer-events: none;
     }
 
-    /* FOOTER */
+    /* FOOTER CON LINEA DI SEPARAZIONE */
     footer {
       text-align: center;
-      padding: 3rem 1rem 1rem 1rem;
+      padding: 2.5rem 1rem 1rem 1rem;
       color: var(--color-text-muted);
       font-size: 0.85rem;
+      border-top: 1px solid var(--color-border);
+      max-width: var(--container-max-width);
+      margin: 2rem auto 0 auto;
+      width: 100%;
     }
 
     @media (max-width: 480px) {
@@ -391,7 +395,7 @@
       <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('contatti-reali')">Contatti</a>
     </nav>
 
-    <!-- SOTTO-NAVIGAZIONE GAMING -->
+    <!-- SOTTO-NAVIGAZIONE GAMING (SOLO MINECRAFT E ATLANTISRP) -->
     <nav id="nav-gaming" class="sub-navbar" style="display: none;">
       <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('minecraft')">Minecraft</a>
       <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('roleplay')">AtlantisRP</a>
@@ -536,8 +540,20 @@
             <li>Faccio parte della famiglia <strong>SABAKU</strong>, figlio di <strong>ImNotSara</strong></li>
           </ul>
 
-          <!-- PERSONAGGIO SEDUTO -->
-          <img src="https://pngup.com/Hcrc/1000131024.png" alt="Personaggio Minecraft" class="mc-skin-footer png-img">
+          <hr class="section-divider">
+
+          <!-- CONTATTI IN GIOCO SUBITO DOPO FAMIGLIA -->
+          <div>
+            <div class="sub-section-title">CONTATTI IN GIOCO</div>
+            
+            <div class="contact-item" style="margin-bottom: 0;">
+              <div class="contact-label">NUMERO DI TELEFONO</div>
+              <div class="contact-value">514 941</div>
+            </div>
+
+            <!-- PERSONAGGIO SEDUTO -->
+            <img src="https://pngup.com/Hcrc/1000131024.png" alt="Personaggio Minecraft" class="mc-skin-footer png-img">
+          </div>
 
         </div>
       </section>
