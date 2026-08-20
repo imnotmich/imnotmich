@@ -395,7 +395,6 @@
     <nav id="nav-gaming" class="sub-navbar" style="display: none;">
       <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('minecraft')">Minecraft</a>
       <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('roleplay')">AtlantisRP</a>
-      <a href="javascript:void(0)" class="nav-btn" onclick="customSmoothScroll('contatti-gaming')">Contatti RP</a>
     </nav>
   </header>
 
@@ -495,7 +494,7 @@
         </div>
       </section>
 
-      <!-- SEZIONE ROLEPLAY (ATLANTISRP + CONTATTI UNIFICATI) -->
+      <!-- SEZIONE ROLEPLAY (ATLANTISRP) -->
       <section id="roleplay" class="page-section">
         <div class="bio-card">
           <div class="sub-section-title">BIO DEL PERSONAGGIO</div>
@@ -537,20 +536,8 @@
             <li>Faccio parte della famiglia <strong>SABAKU</strong>, figlio di <strong>ImNotSara</strong></li>
           </ul>
 
-          <hr class="section-divider">
-
-          <!-- ANCORA CONTATTI GAMING DENTRO LA SCHEDA -->
-          <div id="contatti-gaming">
-            <div class="sub-section-title">CONTATTI IN GIOCO</div>
-            
-            <div class="contact-item" style="margin-bottom: 0;">
-              <div class="contact-label">NUMERO DI TELEFONO</div>
-              <div class="contact-value">514 941</div>
-            </div>
-
-            <!-- PERSONAGGIO SEDUTO -->
-            <img src="https://pngup.com/Hcrc/1000131024.png" alt="Personaggio Minecraft" class="mc-skin-footer png-img">
-          </div>
+          <!-- PERSONAGGIO SEDUTO -->
+          <img src="https://pngup.com/Hcrc/1000131024.png" alt="Personaggio Minecraft" class="mc-skin-footer png-img">
 
         </div>
       </section>
@@ -564,9 +551,8 @@
     <p>&copy; 2026 ImNotMich. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- SCRIPT CON SWITCH SENZA BUG E SCROLL SUAVE -->
+  <!-- SCRIPT CON SWITCH E SCROLL -->
   <script>
-    // Algoritmo di Scroll morbido personalizzato (Ease-Out-Cubic)
     function customSmoothScroll(targetId) {
       const target = document.getElementById(targetId);
       if (!target) return;
@@ -596,7 +582,6 @@
       window.requestAnimationFrame(animationStep);
     }
 
-    // Switch senza ritardi per evitare che le sezioni rimangano nascoste
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
