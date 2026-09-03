@@ -124,9 +124,9 @@
       font-size: 1.1rem;
       color: #00ff41;
       text-shadow: 0 0 8px #00ff41;
-      background: rgba(0, 20, 0, 0.7);
+      background: rgba(0, 20, 0, 0.85);
       padding: 0.4rem 0.8rem;
-      border: 1px solid rgba(0, 255, 65, 0.4);
+      border: 1px solid rgba(0, 255, 65, 0.5);
       border-radius: 6px;
       letter-spacing: 2px;
       pointer-events: none;
@@ -145,11 +145,11 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      background: rgba(0, 10, 0, 0.85);
+      background: rgba(0, 10, 0, 0.88);
       padding: 2.5rem 2rem;
       border: 1px solid #00ff41;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
       backdrop-filter: blur(8px);
       max-width: 90%;
       width: 480px;
@@ -176,7 +176,7 @@
     .matrix-subtitle {
       font-family: var(--font-code);
       font-size: 0.85rem;
-      color: rgba(0, 255, 65, 0.7);
+      color: rgba(0, 255, 65, 0.8);
       margin-bottom: 2rem;
       letter-spacing: 1px;
     }
@@ -793,7 +793,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    /* ENGINE CANVAS MATRIX CON PIOGGIA VERTICALE GIÀ ATTIVA */
+    /* ENGINE CANVAS MATRIX ULTRA-FITTO CON PIOGGIA ISTANTANEA */
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -801,7 +801,8 @@
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
     const alphabet = latin + katakana;
 
-    const fontSize = 16;
+    // Font più piccolo = Raddoppio della densità di colonne e caratteri
+    const fontSize = 8;
     let columns = 0;
     let drops = [];
 
@@ -811,16 +812,15 @@
       columns = Math.floor(canvas.width / fontSize);
       
       drops = [];
-      // Ogni colonna parte da una posizione Y casuale e sfasata
+      // Generiamo posizioni casuali per riempire ogni colonna fin dall'inizio
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * -100); 
+        drops[i] = Math.floor(Math.random() * (canvas.height / fontSize)); 
       }
 
-      // Pre-simuliamo l'animazione per 200 frame.
-      // In questo modo le scie sono già formate e stanno cadendo al primo istante.
-      for (let step = 0; step < 200; step++) {
+      // Pre-simulazione intensa per saturare lo schermo di scie verdi e bianche
+      for (let step = 0; step < 300; step++) {
         for (let i = 0; i < drops.length; i++) {
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
             drops[i] = 0;
           }
           drops[i]++;
@@ -832,8 +832,8 @@
     window.addEventListener('resize', initMatrix);
 
     function drawMatrix() {
-      // Sfondo semi-trasparente per creare l'effetto scia
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      // Dissolvenza ridotta per far durare le scie e rendere lo sfondo più verde e fitto
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = fontSize + 'px monospace';
@@ -843,24 +843,24 @@
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Testa della goccia più luminosa (bianca)
+        // Punta della scia brillante in bianco
         ctx.fillStyle = '#ffffff';
         ctx.fillText(text, x, y);
 
-        // Corpo della goccia (verde)
+        // Corpo della goccia verde intenso
         ctx.fillStyle = '#00ff41';
         ctx.fillText(text, x, y - fontSize);
 
-        // Resetta la goccia quando supera il fondo
-        if (y > canvas.height && Math.random() > 0.975) {
+        // Resetta la goccia in modo da mantenere sempre attivo il flusso
+        if (y > canvas.height && Math.random() > 0.95) {
           drops[i] = 0;
         }
         drops[i]++;
       }
     }
 
-    // Disegna e avvia il loop
-    const matrixInterval = setInterval(drawMatrix, 33);
+    // Frequenza di aggiornamento elevata per massima fluidità
+    const matrixInterval = setInterval(drawMatrix, 20);
 
     /* MOSTRA TESTO DOPO 0.8 SECONDI */
     setTimeout(() => {
