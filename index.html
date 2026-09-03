@@ -5,38 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- TITOLO E FAVICON -->
-  <title>Mich | Portfolio</title>
+  <title>Mich | Portfolio & Gaming Profile</title>
   <link rel="icon" type="image/png" href="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
 
   <!-- METADATI SEO & CANONICAL -->
   <meta name="description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mvenuti.com/">
+  <link rel="sitemap" type="application/xml" href="https://mvenuti.com/sitemap.xml">
 
-  <!-- OPEN GRAPH -->
+  <!-- OPEN GRAPH (Social & IA Parsing) -->
   <meta property="og:title" content="Mich | Portfolio & Gaming Profile">
   <meta property="og:description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
   <meta property="og:url" content="https://mvenuti.com/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
+  <meta property="og:locale" content="it_IT">
 
-  <!-- DATI STRUTTURATI JSON-LD -->
+  <!-- DATI STRUTTURATI JSON-LD POTENZIATI PER IA -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "mainEntity": {
-      "@type": "Person",
-      "name": "Michael",
-      "alternateName": ["Mich", "ImNotMich"],
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://mvenuti.com/#website",
       "url": "https://mvenuti.com/",
-      "image": "https://pngup.com/eMTZ/avatarImNotMichbigger.png",
-      "description": "Appassionato di stampa 3D, modellazione e gaming.",
-      "sameAs": [
-        "https://t.me/DiciassetteMich"
-      ],
-      "knowsAbout": ["3D Printing", "3D Modeling", "Minecraft", "Roleplay"]
+      "name": "Mich Portfolio",
+      "description": "Portfolio personale e profilo gaming di Michael (ImNotMich)",
+      "inLanguage": "it-IT"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": "https://mvenuti.com/#profilepage",
+      "url": "https://mvenuti.com/",
+      "name": "Michael - Profile Page",
+      "isPartOf": { "@id": "https://mvenuti.com/#website" },
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://mvenuti.com/#author",
+        "name": "Michael",
+        "alternateName": ["Mich", "ImNotMich", "Michael Basalari Sabaku"],
+        "url": "https://mvenuti.com/",
+        "image": "https://pngup.com/eMTZ/avatarImNotMichbigger.png",
+        "description": "Appassionato di stampa 3D, modellazione, orologeria e gaming roleplay su Minecraft (AtlantisRP).",
+        "sameAs": [
+          "https://t.me/DiciassetteMich"
+        ],
+        "knowsAbout": [
+          "Stampa 3D",
+          "3D Modeling",
+          "Orologeria",
+          "Minecraft",
+          "Roleplay",
+          "AtlantisRP"
+        ]
+      }
     }
-  }
+  ]
   </script>
   
   <!-- Font Google Futuristic/Tech -->
@@ -561,7 +587,7 @@
 
           <div class="contact-item">
             <div class="contact-label">TELEGRAM</div>
-            <div class="contact-value"><a href="https://t.me/DiciassetteMich" target="_blank">@DiciassetteMich</a></div>
+            <div class="contact-value"><a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">@DiciassetteMich</a></div>
           </div>
 
           <div class="contact-item">
@@ -623,18 +649,18 @@
 
           <div class="sub-section-title">// ESPERIENZE LAVORATIVE</div>
           <ul class="work-list">
-            <li>Ho lavorato in <a href="https://t.me/PosteAtlantis" target="_blank" class="inline-link">Posta</a> (mi sono licenziato per lavorare in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a>)</li>
-            <li>Ho lavorato come <strong>Medico di Laboratorio</strong> in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a></li>
-            <li>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" class="inline-link">Magazzino</a></li>
-            <li>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" class="inline-link">Casinò Revenge</a></li>
+            <li>Ho lavorato in <a href="https://t.me/PosteAtlantis" target="_blank" rel="noopener" class="inline-link">Posta</a> (mi sono licenziato per lavorare in <a href="https://t.me/OspedaleAtlantis" target="_blank" rel="noopener" class="inline-link">Ospedale</a>)</li>
+            <li>Ho lavorato come <strong>Medico di Laboratorio</strong> in <a href="https://t.me/OspedaleAtlantis" target="_blank" rel="noopener" class="inline-link">Ospedale</a></li>
+            <li>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" rel="noopener" class="inline-link">Magazzino</a></li>
+            <li>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" rel="noopener" class="inline-link">Casinò Revenge</a></li>
             <div class="work-meta">dal 22/07/2026</div>
             <li><strong>Vice-Direttore del Quack Store</strong></li>
             <div class="work-meta">
-              Il Quack Store è poi diventato <a href="https://t.me/QuackTVAtlantisRP" target="_blank" class="inline-link">QuackTV</a>.
+              Il Quack Store è poi diventato <a href="https://t.me/QuackTVAtlantisRP" target="_blank" rel="noopener" class="inline-link">QuackTV</a>.
             </div>
-            <li><strong>Vice-Presidente della <a href="https://t.me/QuackLegionAtlantisRP" target="_blank" class="inline-link">S.S.C. QuackLegion</a></strong></li>
+            <li><strong>Vice-Presidente della <a href="https://t.me/QuackLegionAtlantisRP" target="_blank" rel="noopener" class="inline-link">S.S.C. QuackLegion</a></strong></li>
             <div class="work-meta">Società Sportiva Calcistica.</div>
-            <li><strong>Vice-Direttore della <a href="https://t.me/sartorianicoatlantisrp" target="_blank" class="inline-link">Sartoria Nico</a></strong></li>
+            <li><strong>Vice-Direttore della <a href="https://t.me/sartorianicoatlantisrp" target="_blank" rel="noopener" class="inline-link">Sartoria Nico</a></strong></li>
           </ul>
 
           <hr class="section-divider">
@@ -694,7 +720,6 @@
       window.requestAnimationFrame(animationStep);
     }
 
-    /* SWITCHER CON ANIMAZIONE TRANQUILLA */
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
@@ -707,7 +732,6 @@
 
       if (currentVisible === targetSite) return;
 
-      // Sfumatura in uscita
       currentVisible.classList.remove('fade-in');
 
       setTimeout(() => {
@@ -728,17 +752,12 @@
         targetSite.classList.add('active');
         window.scrollTo(0, 0);
 
-        // Sfumatura e leggero scorrimento verso l'alto in entrata
         setTimeout(() => {
           targetSite.classList.add('fade-in');
         }, 50);
 
       }, 250);
     }
-  </script>
-
-</body>
-</html>
   </script>
 
 </body>
