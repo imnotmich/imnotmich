@@ -5,73 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- TITOLO E FAVICON -->
-  <title>Mich | Portfolio & Gaming Profile</title>
+  <title>Mich | Portfolio</title>
   <link rel="icon" type="image/png" href="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
 
   <!-- METADATI SEO & CANONICAL -->
   <meta name="description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
-  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mvenuti.com/">
-  <link rel="sitemap" type="application/xml" href="https://mvenuti.com/sitemap.xml">
 
-  <!-- OPEN GRAPH (Social & IA Parsing) -->
+  <!-- OPEN GRAPH -->
   <meta property="og:title" content="Mich | Portfolio & Gaming Profile">
   <meta property="og:description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
   <meta property="og:url" content="https://mvenuti.com/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
-  <meta property="og:locale" content="it_IT">
 
-  <!-- DATI STRUTTURATI JSON-LD POTENZIATI PER IA -->
+  <!-- DATI STRUTTURATI JSON-LD -->
   <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://mvenuti.com/#website",
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Michael",
+      "alternateName": ["Mich", "ImNotMich"],
       "url": "https://mvenuti.com/",
-      "name": "Mich Portfolio",
-      "description": "Portfolio personale e profilo gaming di Michael (ImNotMich)",
-      "inLanguage": "it-IT"
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "@id": "https://mvenuti.com/#profilepage",
-      "url": "https://mvenuti.com/",
-      "name": "Michael - Profile Page",
-      "isPartOf": { "@id": "https://mvenuti.com/#website" },
-      "mainEntity": {
-        "@type": "Person",
-        "@id": "https://mvenuti.com/#author",
-        "name": "Michael",
-        "alternateName": ["Mich", "ImNotMich", "Michael Basalari Sabaku"],
-        "url": "https://mvenuti.com/",
-        "image": "https://pngup.com/eMTZ/avatarImNotMichbigger.png",
-        "description": "Appassionato di stampa 3D, modellazione, orologeria e gaming roleplay su Minecraft (AtlantisRP).",
-        "sameAs": [
-          "https://t.me/DiciassetteMich"
-        ],
-        "knowsAbout": [
-          "Stampa 3D",
-          "3D Modeling",
-          "Orologeria",
-          "Minecraft",
-          "Roleplay",
-          "AtlantisRP"
-        ]
-      }
+      "image": "https://pngup.com/eMTZ/avatarImNotMichbigger.png",
+      "description": "Appassionato di stampa 3D, modellazione e gaming.",
+      "sameAs": [
+        "https://t.me/DiciassetteMich"
+      ],
+      "knowsAbout": ["3D Printing", "3D Modeling", "Minecraft", "Roleplay"]
     }
-  ]
+  }
   </script>
   
   <!-- Font Google Futuristic/Tech -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* RESET E VARIABILI FUTURISTICHE */
+    /* RESET BASE */
     * {
       margin: 0;
       padding: 0;
@@ -93,7 +67,14 @@
 
       --font-body: 'Space Grotesk', sans-serif;
       --font-title: 'Orbitron', sans-serif;
+      --font-code: 'Fira Code', monospace;
       --container-max-width: 720px;
+    }
+
+    /* BLOCCO SCROLL INIZIALE PER SCHERMO INTERO */
+    body.no-scroll {
+      overflow: hidden !important;
+      height: 100vh;
     }
 
     body {
@@ -112,7 +93,100 @@
       position: relative;
     }
 
-    /* SFONDO FISSO AD ALTE PRESTAZIONI */
+    /* OVERLAY MATRIX INTRO SCHERMO INTERO */
+    #matrix-intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background-color: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #matrix-intro.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #matrix-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .matrix-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      background: rgba(0, 10, 0, 0.85);
+      padding: 2.5rem 2rem;
+      border: 1px solid #00ff41;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+      backdrop-filter: blur(8px);
+      max-width: 90%;
+      width: 480px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .matrix-content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .matrix-title {
+      font-family: var(--font-code);
+      font-size: 1.8rem;
+      color: #00ff41;
+      text-shadow: 0 0 10px #00ff41;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .matrix-subtitle {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      color: rgba(0, 255, 65, 0.7);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .matrix-btn {
+      font-family: var(--font-code);
+      background: transparent;
+      color: #00ff41;
+      border: 2px solid #00ff41;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    }
+
+    .matrix-btn:hover {
+      background: #00ff41;
+      color: #000000;
+      box-shadow: 0 0 25px rgba(0, 255, 65, 0.8);
+      transform: scale(1.03);
+    }
+
+    /* SFONDO FISSO DEL SITO PRINCIPALE */
     body::before {
       content: '';
       position: fixed;
@@ -129,7 +203,7 @@
       will-change: transform;
     }
 
-    /* BARRA DI NAVIGAZIONE SPAZIALE */
+    /* NAVBAR */
     .navbar-container {
       position: fixed;
       top: 0;
@@ -175,9 +249,7 @@
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .switch-btn:hover {
-      color: #ffffff;
-    }
+    .switch-btn:hover { color: #ffffff; }
 
     .switch-btn.active {
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(224, 36, 195, 0.25));
@@ -239,18 +311,14 @@
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    .site-view.active {
-      display: block;
-    }
+    .site-view.active { display: block; }
 
     .site-view.fade-in {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .page-section {
-      margin-bottom: 3.5rem;
-    }
+    .page-section { margin-bottom: 3.5rem; }
 
     .overtitle {
       font-family: var(--font-title);
@@ -280,9 +348,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .png-img {
-      display: block;
-    }
+    .png-img { display: block; }
 
     .mc-skin-head {
       width: 76px;
@@ -330,9 +396,7 @@
       transform: translateY(-2px);
     }
 
-    .mc-card:hover::before {
-      opacity: 1;
-    }
+    .mc-card:hover::before { opacity: 1; }
 
     .card-icon-wrapper {
       width: 42px;
@@ -386,9 +450,7 @@
       font-size: 0.95rem;
     }
 
-    .bio-meta-info li {
-      margin-bottom: 0.4rem;
-    }
+    .bio-meta-info li { margin-bottom: 0.4rem; }
 
     .bio-meta-info span.label {
       color: var(--color-text-muted);
@@ -467,9 +529,7 @@
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
-    .contact-item {
-      margin-bottom: 1.2rem;
-    }
+    .contact-item { margin-bottom: 1.2rem; }
 
     .contact-label {
       font-family: var(--font-title);
@@ -524,10 +584,21 @@
       .bio-card, .contacts-card { padding: 1.5rem 1.25rem; }
       .mc-skin-footer { width: 80px; right: 1rem; bottom: 1rem; }
       .switch-btn { padding: 0.45rem 0.95rem; font-size: 0.8rem; }
+      .matrix-title { font-size: 1.4rem; }
     }
   </style>
 </head>
-<body>
+<body class="no-scroll">
+
+  <!-- OVERLAY MATRIX HACKER LANDING PAGE -->
+  <div id="matrix-intro">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="matrix-content" id="matrix-box">
+      <h1 class="matrix-title">&gt; PORTFOLIO DI MICH</h1>
+      <p class="matrix-subtitle">[SISTEMA PRONTO - ACCESSO CONSENTITO]</p>
+      <button class="matrix-btn" onclick="enterPortfolio()">&gt; ENTRA NEL SISTEMA &lt;</button>
+    </div>
+  </div>
 
   <header class="navbar-container">
     <div class="site-switcher">
@@ -587,7 +658,7 @@
 
           <div class="contact-item">
             <div class="contact-label">TELEGRAM</div>
-            <div class="contact-value"><a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">@DiciassetteMich</a></div>
+            <div class="contact-value"><a href="https://t.me/DiciassetteMich" target="_blank">@DiciassetteMich</a></div>
           </div>
 
           <div class="contact-item">
@@ -649,18 +720,18 @@
 
           <div class="sub-section-title">// ESPERIENZE LAVORATIVE</div>
           <ul class="work-list">
-            <li>Ho lavorato in <a href="https://t.me/PosteAtlantis" target="_blank" rel="noopener" class="inline-link">Posta</a> (mi sono licenziato per lavorare in <a href="https://t.me/OspedaleAtlantis" target="_blank" rel="noopener" class="inline-link">Ospedale</a>)</li>
-            <li>Ho lavorato come <strong>Medico di Laboratorio</strong> in <a href="https://t.me/OspedaleAtlantis" target="_blank" rel="noopener" class="inline-link">Ospedale</a></li>
-            <li>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" rel="noopener" class="inline-link">Magazzino</a></li>
-            <li>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" rel="noopener" class="inline-link">Casinò Revenge</a></li>
+            <li>Ho lavorato in <a href="https://t.me/PosteAtlantis" target="_blank" class="inline-link">Posta</a> (mi sono licenziato per lavorare in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a>)</li>
+            <li>Ho lavorato come <strong>Medico di Laboratorio</strong> in <a href="https://t.me/OspedaleAtlantis" target="_blank" class="inline-link">Ospedale</a></li>
+            <li>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" class="inline-link">Magazzino</a></li>
+            <li>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" class="inline-link">Casinò Revenge</a></li>
             <div class="work-meta">dal 22/07/2026</div>
             <li><strong>Vice-Direttore del Quack Store</strong></li>
             <div class="work-meta">
-              Il Quack Store è poi diventato <a href="https://t.me/QuackTVAtlantisRP" target="_blank" rel="noopener" class="inline-link">QuackTV</a>.
+              Il Quack Store è poi diventato <a href="https://t.me/QuackTVAtlantisRP" target="_blank" class="inline-link">QuackTV</a>.
             </div>
-            <li><strong>Vice-Presidente della <a href="https://t.me/QuackLegionAtlantisRP" target="_blank" rel="noopener" class="inline-link">S.S.C. QuackLegion</a></strong></li>
+            <li><strong>Vice-Presidente della <a href="https://t.me/QuackLegionAtlantisRP" target="_blank" class="inline-link">S.S.C. QuackLegion</a></strong></li>
             <div class="work-meta">Società Sportiva Calcistica.</div>
-            <li><strong>Vice-Direttore della <a href="https://t.me/sartorianicoatlantisrp" target="_blank" rel="noopener" class="inline-link">Sartoria Nico</a></strong></li>
+            <li><strong>Vice-Direttore della <a href="https://t.me/sartorianicoatlantisrp" target="_blank" class="inline-link">Sartoria Nico</a></strong></li>
           </ul>
 
           <hr class="section-divider">
@@ -691,6 +762,71 @@
   </footer>
 
   <script>
+    /* ENGINE CANVAS MATRIX */
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const alphabet = latin + katakana;
+
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / fontSize);
+    let rainDrops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px monospace';
+
+      // Ricalcola se cambia la dimensione della finestra
+      const currentColumns = Math.floor(canvas.width / fontSize);
+      if (currentColumns !== columns) {
+        columns = currentColumns;
+        rainDrops = Array(columns).fill(1);
+      }
+
+      for (let i = 0; i < rainDrops.length; i++) {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+      }
+    }
+
+    const matrixInterval = setInterval(drawMatrix, 30);
+
+    /* MOSTRA TESTO DOPO 3 SECONDI */
+    setTimeout(() => {
+      document.getElementById('matrix-box').classList.add('show');
+    }, 3000);
+
+    /* FUNZIONE INGRESSO NEL SITO */
+    function enterPortfolio() {
+      const intro = document.getElementById('matrix-intro');
+      intro.classList.add('fade-out');
+      
+      // Sblocca lo scroll della pagina
+      document.body.classList.remove('no-scroll');
+
+      setTimeout(() => {
+        clearInterval(matrixInterval);
+      }, 800);
+    }
+
+    /* SCROLL FLUIDO */
     function customSmoothScroll(targetId) {
       const target = document.getElementById(targetId);
       if (!target) return;
@@ -720,6 +856,7 @@
       window.requestAnimationFrame(animationStep);
     }
 
+    /* SWITCHER TRA VITA REALE E GAMING */
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
