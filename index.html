@@ -793,50 +793,74 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    /* ENGINE CANVAS MATRIX */
+    /* ENGINE CANVAS MATRIX CON PIOGGIA VERTICALE GIÀ ATTIVA */
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
     const alphabet = latin + katakana;
 
     const fontSize = 16;
-    let columns = Math.floor(canvas.width / fontSize);
-    let rainDrops = Array(columns).fill(1);
+    let columns = 0;
+    let drops = [];
 
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#00ff41';
-      ctx.font = fontSize + 'px monospace';
-
-      const currentColumns = Math.floor(canvas.width / fontSize);
-      if (currentColumns !== columns) {
-        columns = currentColumns;
-        rainDrops = Array(columns).fill(1);
+    function initMatrix() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      
+      drops = [];
+      // Ogni colonna parte da una posizione Y casuale e sfasata
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -100); 
       }
 
-      for (let i = 0; i < rainDrops.length; i++) {
-        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          rainDrops[i] = 0;
+      // Pre-simuliamo l'animazione per 200 frame.
+      // In questo modo le scie sono già formate e stanno cadendo al primo istante.
+      for (let step = 0; step < 200; step++) {
+        for (let i = 0; i < drops.length; i++) {
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
         }
-        rainDrops[i]++;
       }
     }
 
-    const matrixInterval = setInterval(drawMatrix, 30);
+    initMatrix();
+    window.addEventListener('resize', initMatrix);
+
+    function drawMatrix() {
+      // Sfondo semi-trasparente per creare l'effetto scia
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Testa della goccia più luminosa (bianca)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(text, x, y);
+
+        // Corpo della goccia (verde)
+        ctx.fillStyle = '#00ff41';
+        ctx.fillText(text, x, y - fontSize);
+
+        // Resetta la goccia quando supera il fondo
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    // Disegna e avvia il loop
+    const matrixInterval = setInterval(drawMatrix, 33);
 
     /* MOSTRA TESTO DOPO 0.8 SECONDI */
     setTimeout(() => {
