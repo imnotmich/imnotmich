@@ -105,12 +105,30 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
     }
 
     #matrix-intro.fade-out {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* OROLOGIO MATRIX NELL'ANGOLO IN ALTO A DESTRA */
+    .matrix-clock {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 3;
+      font-family: var(--font-code);
+      font-size: 1.1rem;
+      color: #00ff41;
+      text-shadow: 0 0 8px #00ff41;
+      background: rgba(0, 20, 0, 0.7);
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(0, 255, 65, 0.4);
+      border-radius: 6px;
+      letter-spacing: 2px;
       pointer-events: none;
     }
 
@@ -137,8 +155,8 @@
       width: 480px;
 
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transform: translateY(15px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .matrix-content.show {
@@ -175,7 +193,7 @@
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 2px;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
     }
 
@@ -585,6 +603,7 @@
       .mc-skin-footer { width: 80px; right: 1rem; bottom: 1rem; }
       .switch-btn { padding: 0.45rem 0.95rem; font-size: 0.8rem; }
       .matrix-title { font-size: 1.4rem; }
+      .matrix-clock { top: 1rem; right: 1rem; font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -592,6 +611,7 @@
 
   <!-- OVERLAY MATRIX HACKER LANDING PAGE -->
   <div id="matrix-intro">
+    <div class="matrix-clock" id="matrix-clock">00:00:00</div>
     <canvas id="matrix-canvas"></canvas>
     <div class="matrix-content" id="matrix-box">
       <h1 class="matrix-title">&gt; PORTFOLIO DI MICH</h1>
@@ -762,6 +782,17 @@
   </footer>
 
   <script>
+    /* OROLOGIO REALE */
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('matrix-clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
     /* ENGINE CANVAS MATRIX */
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
@@ -788,7 +819,6 @@
       ctx.fillStyle = '#00ff41';
       ctx.font = fontSize + 'px monospace';
 
-      // Ricalcola se cambia la dimensione della finestra
       const currentColumns = Math.floor(canvas.width / fontSize);
       if (currentColumns !== columns) {
         columns = currentColumns;
@@ -808,10 +838,10 @@
 
     const matrixInterval = setInterval(drawMatrix, 30);
 
-    /* MOSTRA TESTO DOPO 3 SECONDI */
+    /* MOSTRA TESTO DOPO 0.8 SECONDI */
     setTimeout(() => {
       document.getElementById('matrix-box').classList.add('show');
-    }, 3000);
+    }, 800);
 
     /* FUNZIONE INGRESSO NEL SITO */
     function enterPortfolio() {
@@ -823,7 +853,7 @@
 
       setTimeout(() => {
         clearInterval(matrixInterval);
-      }, 800);
+      }, 600);
     }
 
     /* SCROLL FLUIDO */
