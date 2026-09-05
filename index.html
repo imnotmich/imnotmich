@@ -4,22 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- TITOLO E FAVICON -->
   <title>Mich | Portfolio</title>
   <link rel="icon" type="image/png" href="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
 
-  <!-- METADATI SEO & CANONICAL -->
   <meta name="description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
   <link rel="canonical" href="https://mvenuti.com/">
 
-  <!-- OPEN GRAPH -->
   <meta property="og:title" content="Mich | Portfolio & Gaming Profile">
   <meta property="og:description" content="Portfolio personale di Michael (Mich) - Progetti di Stampa 3D, orologeria, e presenza gaming su Minecraft e AtlantisRP.">
   <meta property="og:url" content="https://mvenuti.com/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://pngup.com/eMTZ/avatarImNotMichbigger.png">
 
-  <!-- DATI STRUTTURATI JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,13 +35,11 @@
   }
   </script>
   
-  <!-- Font Google Futuristic/Tech -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* RESET BASE */
     * {
       margin: 0;
       padding: 0;
@@ -71,7 +65,6 @@
       --container-max-width: 720px;
     }
 
-    /* BLOCCO SCROLL INIZIALE PER SCHERMO INTERO */
     body.no-scroll {
       overflow: hidden !important;
       height: 100vh;
@@ -93,7 +86,6 @@
       position: relative;
     }
 
-    /* OVERLAY MATRIX INTRO SCHERMO INTERO */
     #matrix-intro {
       position: fixed;
       top: 0;
@@ -114,7 +106,6 @@
       pointer-events: none;
     }
 
-    /* OROLOGIO MATRIX NELL'ANGOLO IN ALTO A DESTRA */
     .matrix-clock {
       position: absolute;
       top: 1.5rem;
@@ -204,7 +195,6 @@
       transform: scale(1.03);
     }
 
-    /* SFONDO FISSO DEL SITO PRINCIPALE */
     body::before {
       content: '';
       position: fixed;
@@ -221,7 +211,6 @@
       will-change: transform;
     }
 
-    /* NAVBAR */
     .navbar-container {
       position: fixed;
       top: 0;
@@ -321,7 +310,6 @@
       width: 100%;
     }
 
-    /* VISTE SITO CON TRANSIZIONE TRANQUILLA */
     .site-view {
       display: none;
       opacity: 0;
@@ -609,7 +597,6 @@
 </head>
 <body class="no-scroll">
 
-  <!-- OVERLAY MATRIX HACKER LANDING PAGE -->
   <div id="matrix-intro">
     <div class="matrix-clock" id="matrix-clock">00:00:00</div>
     <canvas id="matrix-canvas"></canvas>
@@ -645,7 +632,6 @@
 
   <main class="container">
     
-    <!-- SITO 1: VITA REALE -->
     <div id="site-real" class="site-view active fade-in">
       <section id="chisono" class="page-section">
         <div class="overtitle">// PROFILO PERSONALE</div>
@@ -689,7 +675,6 @@
       </section>
     </div>
 
-    <!-- SITO 2: MINECRAFT & ROLEPLAY -->
     <div id="site-gaming" class="site-view">
       <section id="minecraft" class="page-section">
         <div class="overtitle">// UN MONDO A PARTE</div>
@@ -782,7 +767,6 @@
   </footer>
 
   <script>
-    /* OROLOGIO REALE */
     function updateClock() {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
@@ -793,7 +777,6 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    /* ENGINE CANVAS MATRIX ULTRA-FITTO CON PIOGGIA ISTANTANEA */
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -801,7 +784,6 @@
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
     const alphabet = latin + katakana;
 
-    // Font più piccolo = Raddoppio della densità di colonne e caratteri
     const fontSize = 8;
     let columns = 0;
     let drops = [];
@@ -812,12 +794,10 @@
       columns = Math.floor(canvas.width / fontSize);
       
       drops = [];
-      // Generiamo posizioni casuali per riempire ogni colonna fin dall'inizio
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.floor(Math.random() * (canvas.height / fontSize)); 
       }
 
-      // Pre-simulazione intensa per saturare lo schermo di scie verdi e bianche
       for (let step = 0; step < 300; step++) {
         for (let i = 0; i < drops.length; i++) {
           if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
@@ -832,7 +812,6 @@
     window.addEventListener('resize', initMatrix);
 
     function drawMatrix() {
-      // Dissolvenza ridotta per far durare le scie e rendere lo sfondo più verde e fitto
       ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -843,15 +822,12 @@
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Punta della scia brillante in bianco
         ctx.fillStyle = '#ffffff';
         ctx.fillText(text, x, y);
 
-        // Corpo della goccia verde intenso
         ctx.fillStyle = '#00ff41';
         ctx.fillText(text, x, y - fontSize);
 
-        // Resetta la goccia in modo da mantenere sempre attivo il flusso
         if (y > canvas.height && Math.random() > 0.95) {
           drops[i] = 0;
         }
@@ -859,20 +835,15 @@
       }
     }
 
-    // Frequenza di aggiornamento elevata per massima fluidità
     const matrixInterval = setInterval(drawMatrix, 20);
 
-    /* MOSTRA TESTO DOPO 0.8 SECONDI */
     setTimeout(() => {
       document.getElementById('matrix-box').classList.add('show');
     }, 800);
 
-    /* FUNZIONE INGRESSO NEL SITO */
     function enterPortfolio() {
       const intro = document.getElementById('matrix-intro');
       intro.classList.add('fade-out');
-      
-      // Sblocca lo scroll della pagina
       document.body.classList.remove('no-scroll');
 
       setTimeout(() => {
@@ -880,7 +851,6 @@
       }, 600);
     }
 
-    /* SCROLL FLUIDO */
     function customSmoothScroll(targetId) {
       const target = document.getElementById(targetId);
       if (!target) return;
@@ -910,7 +880,6 @@
       window.requestAnimationFrame(animationStep);
     }
 
-    /* SWITCHER TRA VITA REALE E GAMING */
     function switchSite(siteName) {
       const realSite = document.getElementById('site-real');
       const gamingSite = document.getElementById('site-gaming');
