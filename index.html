@@ -461,7 +461,17 @@
 
     .feature-body .spec-title { margin-bottom: 0.35rem; font-size: 1.05rem; }
 
-    .bio-card { border-radius: 28px 10px 28px 10px; padding: 2rem 1.8rem; }
+    .bio-card { position: relative; border-radius: 28px 10px 28px 10px; padding: 2rem 1.8rem; overflow: hidden; }
+
+    .mc-skin-footer {
+      position: absolute;
+      right: 1rem; bottom: 0.5rem;
+      width: 84px; height: auto;
+      object-fit: contain;
+      pointer-events: none;
+      opacity: 0.9;
+      filter: drop-shadow(0 10px 16px rgba(76, 63, 160, 0.25));
+    }
 
     .bio-meta-info { list-style: none; margin-bottom: 0.5rem; display: flex; gap: 2.5rem; flex-wrap: wrap; }
     .bio-meta-info li { font-size: 0.95rem; }
@@ -832,6 +842,8 @@
           <div class="sub-section-title">// contatti in gioco</div>
           <div class="contact-label" style="margin-bottom: 0.4rem;">Numero di telefono</div>
           <span class="phone-readout">514 941</span>
+
+          <img src="https://pngup.com/Hcrc/1000131024.png" alt="" class="mc-skin-footer" aria-hidden="true">
         </div>
       </section>
     </div>
