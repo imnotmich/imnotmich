@@ -629,6 +629,30 @@
     .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .back-to-top:hover { background: var(--accent); }
 
+    .scroll-hint {
+      position: fixed;
+      left: 50%; bottom: 1.5rem;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-soft);
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      padding: 0.5rem 0.9rem 0.6rem;
+      border-radius: 20px;
+      z-index: 850;
+      opacity: 1;
+      transition: opacity 0.4s var(--ease-fluid);
+    }
+    .scroll-hint.hidden { opacity: 0; pointer-events: none; }
+    .scroll-hint svg { width: 14px; height: 14px; animation: hintBounce 1.6s ease-in-out infinite; }
+    @keyframes hintBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
     @media (max-width: 480px) {
       body { padding-top: 8.25rem; }
       .bio-card, .contacts-card { padding: 1.5rem 1.3rem; }
@@ -864,7 +888,11 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 
-  <!-- ============ PRIVACY POLICY ============ -->
+  <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
+    <span>Scorri</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+
   <dialog id="privacy-dialog" class="policy-dialog">
     <h2>Informativa sulla Privacy</h2>
     <p>Ultimo aggiornamento: settembre 2026. Questa informativa è resa ai sensi degli artt. 13-14 del Regolamento UE 2016/679 (GDPR).</p>
@@ -891,7 +919,6 @@
     <button class="policy-close" type="button" data-close>Chiudi</button>
   </dialog>
 
-  <!-- ============ COOKIE POLICY ============ -->
   <dialog id="cookie-dialog" class="policy-dialog">
     <h2>Cookie Policy</h2>
     <p>Ultimo aggiornamento: settembre 2026. Informativa resa ai sensi dell'art. 122 del Codice Privacy e delle Linee Guida cookie del Garante Privacy.</p>
@@ -1091,6 +1118,8 @@
       const bar = document.getElementById('scroll-progress');
       const navbar = document.getElementById('navbar');
       const backToTop = document.getElementById('back-to-top');
+      const scrollHint = document.getElementById('scroll-hint');
+      let hasScrolledOnce = false;
       let ticking = false;
 
       function update() {
@@ -1100,6 +1129,10 @@
         bar.style.width = pct + '%';
         navbar.classList.toggle('is-compact', scrollTop > 40);
         backToTop.classList.toggle('visible', scrollTop > 500);
+        if (!hasScrolledOnce && scrollTop > 20) {
+          hasScrolledOnce = true;
+          scrollHint.classList.add('hidden');
+        }
         ticking = false;
       }
 
@@ -1109,6 +1142,10 @@
           ticking = true;
         }
       }, { passive: true });
+
+      if (document.documentElement.scrollHeight - window.innerHeight < 80) {
+        scrollHint.classList.add('hidden');
+      }
 
       backToTop.addEventListener('click', () => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1162,3 +1199,4 @@
 
 </body>
 </html>
+
