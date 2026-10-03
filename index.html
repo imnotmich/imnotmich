@@ -162,6 +162,24 @@
       letter-spacing: 0.04em;
     }
 
+    .intro-copyright {
+      position: absolute;
+      left: 50%; bottom: 1.5rem;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      opacity: 0.75;
+      text-align: center;
+      width: 100%;
+      padding: 0 1rem;
+    }
+    .intro-policy-links {
+      display: block;
+      margin-top: 0.35rem;
+      opacity: 1;
+    }
+
     .intro-content {
       text-align: center; padding: 0 1.5rem; max-width: 560px; width: 100%; min-width: 0;
       transition: opacity 0.3s var(--ease-fluid), transform 0.3s var(--ease-fluid);
@@ -240,17 +258,22 @@
       background: var(--ink);
       color: var(--bg);
       border: none;
-      padding: 0.85rem 1.7rem;
-      font-size: 0.9rem;
-      border-radius: 30px;
+      padding: 1.05rem 2.3rem;
+      font-size: 1.02rem;
+      border-radius: 34px;
       cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: background 0.28s var(--ease-fluid), gap 0.28s var(--ease-fluid);
-      opacity: 0; animation: fadeUp 0.5s var(--ease-fluid) forwards 1.05s;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: background 0.28s var(--ease-fluid), gap 0.28s var(--ease-fluid), transform 0.28s var(--ease-fluid);
+      opacity: 0; animation: fadeUp 0.5s var(--ease-fluid) forwards 1.05s, btnGlow 2.6s ease-in-out infinite 1.6s;
     }
-    .intro-btn svg { width: 15px; height: 15px; transition: transform 0.28s var(--ease-fluid); }
-    .intro-btn:hover { background: var(--accent); gap: 0.8rem; }
+    .intro-btn svg { width: 17px; height: 17px; transition: transform 0.28s var(--ease-fluid); }
+    .intro-btn:hover { background: var(--accent); gap: 0.9rem; transform: scale(1.04); }
     .intro-btn:hover svg { transform: translateX(3px); }
+
+    @keyframes btnGlow {
+      0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft), 0 8px 20px -8px rgba(76, 63, 160, 0.35); }
+      50% { box-shadow: 0 0 0 10px transparent, 0 8px 28px -6px rgba(135, 120, 236, 0.55); }
+    }
 
     @keyframes fadeUp { from { opacity: 0; } to { opacity: 1; } }
 
@@ -611,6 +634,8 @@
         transform: none !important;
         transition: opacity 0.2s linear !important;
       }
+
+      .intro-btn { animation: fadeUp 0.5s var(--ease-fluid) forwards 1.05s !important; }
     }
 
     .back-to-top {
@@ -668,6 +693,44 @@
       .switch-btn { font-size: 0.75rem; gap: 4px; padding: 0.55rem 0.4rem; }
       .nav-icon { width: 13px; height: 13px; }
     }
+
+    @media (min-width: 900px) {
+      .container { max-width: 920px; }
+
+      .card-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+        align-items: stretch;
+      }
+      .card-grid-2 .spec-card { margin-bottom: 0; height: 100%; }
+
+      .card-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        align-items: stretch;
+      }
+      .card-grid-3 .feature-card {
+        margin-bottom: 0;
+        flex-direction: column;
+        text-align: center;
+      }
+      .card-grid-3 .feature-icon { margin: 0 auto; }
+
+      .skin-viewer-card { max-width: 340px; margin: 0 auto 1.5rem; }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
+        background-size: 30px 30px;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+    }
   </style>
 </head>
 <body class="no-scroll">
@@ -690,7 +753,7 @@
       <h1 class="intro-title" id="intro-title-text" aria-label="Il lavoro di Mich, in bella vista."></h1>
       <p class="intro-sub">Stampa 3D, orologeria e un mondo parallelo su Minecraft.</p>
       <button class="intro-btn" id="intro-enter-btn" type="button">
-        Entra nel portfolio
+        Clicca per entrare
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
     </div>
@@ -703,6 +766,15 @@
       </div>
       <div class="terminal-body" id="terminal-body"></div>
     </div>
+
+    <p class="intro-copyright">
+      &copy; 2026 ImNotMich. Tutti i diritti riservati.
+      <span class="intro-policy-links">
+        <button type="button" class="footer-link" data-open="privacy-dialog">Privacy Policy</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" class="footer-link" data-open="cookie-dialog">Cookie Policy</button>
+      </span>
+    </p>
   </div>
 
   <header class="navbar-container" id="navbar">
@@ -744,18 +816,20 @@
 
         <div class="pull-quote reveal">Curioso, e sempre pronto a imparare qualcosa di nuovo.</div>
 
-        <div class="spec-card reveal">
-          <h2 class="spec-title">Passioni</h2>
-          <p class="spec-text">
-            Nel tempo libero amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
-          </p>
-        </div>
+        <div class="card-grid-2">
+          <div class="spec-card reveal">
+            <h2 class="spec-title">Passioni</h2>
+            <p class="spec-text">
+              Nel tempo libero amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
+            </p>
+          </div>
 
-        <div class="spec-card reveal">
-          <h2 class="spec-title">Obiettivi</h2>
-          <p class="spec-text">
-            Guardo sempre avanti con positività. Il mio sogno è <strong>aprire un'azienda</strong>, probabilmente nell'ambito dell'orologeria, dove precisione e creatività si incontrano.
-          </p>
+          <div class="spec-card reveal">
+            <h2 class="spec-title">Obiettivi</h2>
+            <p class="spec-text">
+              Guardo sempre avanti con positività. Il mio sogno è <strong>aprire un'azienda</strong>, probabilmente nell'ambito dell'orologeria, dove precisione e creatività si incontrano.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -793,33 +867,35 @@
           <canvas id="skin-canvas" class="skin-canvas" aria-label="Modello 3D della skin Minecraft di Mich"></canvas>
         </div>
 
-        <div class="feature-card reveal">
-          <div class="feature-icon">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><circle cx="15" cy="13" r="1"/><circle cx="18" cy="11" r="1"/></svg>
+        <div class="card-grid-3">
+          <div class="feature-card reveal">
+            <div class="feature-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><circle cx="15" cy="13" r="1"/><circle cx="18" cy="11" r="1"/></svg>
+            </div>
+            <div class="feature-body">
+              <h2 class="spec-title">Roleplay</h2>
+              <p class="spec-text">Il mio stile di gioco preferito è il <strong>roleplay</strong>. Mi piace entrare nei panni di un personaggio, costruire la sua storia e viverla insieme agli altri, momento dopo momento.</p>
+            </div>
           </div>
-          <div class="feature-body">
-            <h2 class="spec-title">Roleplay</h2>
-            <p class="spec-text">Il mio stile di gioco preferito è il <strong>roleplay</strong>. Mi piace entrare nei panni di un personaggio, costruire la sua storia e viverla insieme agli altri, momento dopo momento.</p>
-          </div>
-        </div>
 
-        <div class="feature-card reveal">
-          <div class="feature-icon">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1 0 7.75"/></svg>
+          <div class="feature-card reveal">
+            <div class="feature-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="feature-body">
+              <h2 class="spec-title">Community</h2>
+              <p class="spec-text">Gioco principalmente su <strong>server pubblici</strong>, dove posso conoscere persone nuove e far parte di community grandi e vive. È lì che nascono le avventure migliori.</p>
+            </div>
           </div>
-          <div class="feature-body">
-            <h2 class="spec-title">Community</h2>
-            <p class="spec-text">Gioco principalmente su <strong>server pubblici</strong>, dove posso conoscere persone nuove e far parte di community grandi e vive. È lì che nascono le avventure migliori.</p>
-          </div>
-        </div>
 
-        <div class="feature-card reveal">
-          <div class="feature-icon">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>
-          </div>
-          <div class="feature-body">
-            <h2 class="spec-title">Perché mi piace</h2>
-            <p class="spec-text">Amo la <strong>libertà creativa</strong> e le possibilità infinite: ogni sessione può diventare qualcosa di completamente diverso dalla precedente.</p>
+          <div class="feature-card reveal">
+            <div class="feature-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>
+            </div>
+            <div class="feature-body">
+              <h2 class="spec-title">Perché mi piace</h2>
+              <p class="spec-text">Amo la <strong>libertà creativa</strong> e le possibilità infinite: ogni sessione può diventare qualcosa di completamente diverso dalla precedente.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -848,7 +924,7 @@
               <p>Ho lavorato in <a href="https://t.me/MagazzinoAtlantis" target="_blank" class="inline-link">Magazzino</a></p>
             </div>
             <div class="timeline-item">
-              <p>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" class="inline-link">Casinò Revenge</a></p>
+              <p>Lavoro al <a href="https://t.me/CasinoRevengeAtlantis" target="_blank" class="inline-link">Casinò Revenge</a> come <strong>Quartiermastro (Sotto-Direzione)</strong></p>
               <span class="timeline-date">dal 22/07/2026</span>
             </div>
             <div class="timeline-item">
@@ -3197,7 +3273,9 @@ float contrastN=contrast(rgbaM,rgbaN);float contrastS=contrast(rgbaM,rgbaS);floa
     function initPolicyDialogs() {
       document.querySelectorAll('[data-open]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          document.getElementById(btn.dataset.open).showModal();
+          const dialog = document.getElementById(btn.dataset.open);
+          dialog.scrollTop = 0;
+          dialog.showModal();
         });
       });
 
