@@ -820,7 +820,7 @@
           <div class="spec-card reveal">
             <h2 class="spec-title">Passioni</h2>
             <p class="spec-text">
-              Nel tempo libero amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
+              Amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
             </p>
           </div>
 
@@ -3056,39 +3056,43 @@ float contrastN=contrast(rgbaM,rgbaN);float contrastS=contrast(rgbaM,rgbaS);floa
       el.textContent = hh + ':' + mm;
     }
 
-    function typeTerminalLine(container, text, onDone) {
-      const line = document.createElement('div');
-      line.className = 'terminal-line';
-      container.appendChild(line);
-
-      const cursor = document.createElement('span');
-      cursor.className = 'terminal-cursor';
-
-      let i = 0;
-      function step() {
-        if (i < text.length) {
-          line.textContent = text.slice(0, i + 1);
-          line.appendChild(cursor);
-          i += 1;
-          setTimeout(step, 28);
-        } else {
-          cursor.remove();
-          if (onDone) setTimeout(onDone, 350);
-        }
-      }
-      step();
-    }
-
     function runTerminalSequence(onComplete) {
       const body = document.getElementById('terminal-body');
       const lines = ['-> Richiesta di accesso al Portfolio', '-> Accesso consentito'];
+      const cursor = document.createElement('span');
+      cursor.className = 'terminal-cursor';
       let index = 0;
+
+      function typeLine(text, onDone) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        const textSpan = document.createElement('span');
+        line.appendChild(textSpan);
+        line.appendChild(cursor);
+        body.appendChild(line);
+
+        let i = 0;
+        function step() {
+          if (i < text.length) {
+            textSpan.textContent = text.slice(0, i + 1);
+            i += 1;
+            setTimeout(step, 28);
+          } else {
+            setTimeout(onDone, 350);
+          }
+        }
+        step();
+      }
+
       function next() {
         if (index >= lines.length) {
-          setTimeout(onComplete, 450);
+          setTimeout(() => {
+            cursor.remove();
+            onComplete();
+          }, 450);
           return;
         }
-        typeTerminalLine(body, lines[index], () => {
+        typeLine(lines[index], () => {
           index += 1;
           next();
         });
