@@ -91,9 +91,6 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 
 /* fiamma del logo e fenice animale */
 .fenice{width:22px;height:40px;display:inline-block;vertical-align:middle;margin-right:10px}
-.fenice-bg{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:min(380px,70vw);opacity:.10;pointer-events:none}
-.phoenix{width:min(260px,70%);height:auto;display:block;margin:0 0 18px;animation:float 6s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-8px)}}
 .stripes{height:14px;background:linear-gradient(to bottom,var(--navy) 0 4px,transparent 4px 6px,var(--gold) 6px 9px,transparent 9px 11px,var(--blue) 11px 14px)}
 .stripes.thin{height:8px;background:linear-gradient(to bottom,var(--gold) 0 3px,transparent 3px 5px,var(--blue) 5px 8px)}
 footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
@@ -110,6 +107,18 @@ footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
 .branch{display:flex;gap:18px;position:relative;margin:0}
 .branch::before{content:"";position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--navy);opacity:.5}
 @media(max-width:600px){.branch{flex-direction:column;align-items:center;gap:8px}.branch::before{display:none}.node{min-width:200px}}
+
+/* spiegazione organi, telegram, griglia persone */
+.organs{margin-top:50px}
+.sub{font-size:20px;margin:0 0 14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.people{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))!important}
+.tg{display:inline-block;margin-top:12px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.08em;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px}
+.tg:hover{color:var(--gold)}
+
+/* logo nella sezione Chi siamo */
+.chi-logo{width:min(220px,60%);height:auto;display:block;margin:0 0 18px}
 </style>
 </head>
 <body>
@@ -141,7 +150,7 @@ footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
   <div class="rule"></div>
   <div class="cols">
     <div>
-      <svg class="phoenix" viewBox="0 0 200 160" aria-hidden="true"><path d="M70 110 C60 70 90 40 120 50 C140 56 150 70 150 84 C150 100 130 112 100 114 Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="2"/><path d="M80 80 C60 40 20 20 10 40 C30 44 40 60 50 72 C30 62 20 66 14 80 C40 78 60 90 80 100 Z" fill="#0f2d5c"/><path d="M80 80 C70 46 50 20 30 14 C40 34 52 56 60 80 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><path d="M120 50 C128 36 142 28 156 30 C148 40 146 46 150 56 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><circle cx="150" cy="44" r="10" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.5"/><circle cx="153" cy="42" r="2" fill="#ffffff"/><path d="M158 42 L172 46 L158 50 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1"/><path d="M70 110 C50 120 40 140 30 150 C50 146 60 136 70 126 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><path d="M90 114 C80 130 80 146 84 158 C92 146 98 132 100 116 Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.5"/><path d="M100 114 C110 128 120 140 130 150 C128 136 124 124 116 112 Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.5"/></svg>
+      <img class="chi-logo" src="assets/logo.png" alt="Logo di Fratelli di Canaria">
       <p>Fratelli di Canaria è un partito nazionalista e conservatore, incentrato sulle ideologie di tradizione e di tutela dell'ordine. Il suo orientamento politico è la Destra.</p>
       <p style="margin-top:14px">Il partito è stato rifondato il 2 giugno 2026, a circa un anno dalla sua dissoluzione. Il simbolo scelto è la Fenice: l'animale che rinasce dalle proprie ceneri, a significare rinascita e intraprendenza.</p>
     </div>
@@ -175,7 +184,7 @@ footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
 
   <div class="art"><span class="tag">Codici</span><p><b>Partito nazionalista e conservatore.</b> La fiamma tricolore e la Fenice sono il simbolo del partito: rinascita, intraprendenza, resilienza.</p></div>
   <div class="art"><span class="tag">Merito</span><p><b>Avanzamento e disciplina.</b> Le promozioni si basano su merito, militanza e consenso. Le sanzioni vanno dall'avvertimento all'espulsione, a discrezione del Doge.</p></div>
-  <div class="art"><span class="tag">Gerarchia</span><p><b>Doge e fiducia.</b> Il Doge ha la massima carica. La sfiducia richiede violazioni comprovate dello statuto o inattività prolungata, e la maggioranza qualificata dei 2/3.</p></div>
+  <div class="art"><span class="tag">Gerarchia</span><p><b>Doge e fiducia.</b> Il Doge ha la massima carica. La sfiducia richiede violazioni comprovate dello statuto o inattività prolungata, e l'approvazione di almeno 2/3 dei membri del Consiglio del partito e del Foro Coordinativo.</p></div>
 
   <a class="btn" href="https://docs.google.com/document/d/1yen2MMcNfWxiAt1qxqgJUwsSuIabes9rozGST7Lyn7I/edit?usp=sharing" target="_blank" rel="noopener">Apri lo statuto completo</a>
 </div></section>
@@ -208,6 +217,16 @@ footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
     <div class="link"></div>
     <div class="node"><b>Tesserato</b><span>primo grado</span></div>
   </div>
+
+  <div class="organs">
+    <h3 class="sub">Come funzionano gli organi</h3>
+    <div class="grid2">
+      <div class="card"><h3>Gran Consiglio</h3><p>Composto da Doge, Vice Doge e Consigliere Capo. Prende le decisioni finali sul partito e sulla sua gestione.</p></div>
+      <div class="card"><h3>Consiglio del partito</h3><p>Riunione mensile dei consiglieri, con il Gran Consiglio. Da 5 a 15 membri. Discute la linea politica e può proporre, ma la decisione finale spetta al Gran Consiglio.</p></div>
+      <div class="card"><h3>Foro Coordinativo</h3><p>Guardiano, coordinatori, Consigliere Capo, Doge e Vice Doge. Da 5 a 15 membri. Gestisce eventi, richieste dei tesserati e sanzioni per chi non rispetta il regolamento.</p></div>
+      <div class="card"><h3>Camera della propaganda</h3><p>Responsabili della propaganda e Guardiani. Valuta i moduli dei nuovi tesserati per il passaggio a propagandisti e veterani, e gestisce le promozioni.</p></div>
+    </div>
+  </div>
 </div></section>
 
 <div class="stripes thin"></div>
@@ -218,22 +237,37 @@ footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
   <p class="gallery-line">Fratelli di Canaria: rinasciamo dalle nostre ceneri.</p>
   <div class="people">
     <div class="person">
-      <img class="avatar" src="assets/tortello.png" alt="Testa del personaggio">
+      <img class="avatar" src="assets/tortello.png" alt="Testa di Tortello_Magno">
       <div class="role">Doge</div>
       <div class="name">Tortello_Magno</div>
       <p>Massima carica e guida del partito.</p>
+      <a class="tg" href="https://t.me/Pulcino_di_nibbio" target="_blank" rel="noopener">Telegram</a>
     </div>
     <div class="person">
-      <img class="avatar" src="assets/dieghito.png" alt="Testa del personaggio">
+      <img class="avatar" src="assets/imnotmich.png" alt="Testa di ImNotMich">
       <div class="role">Vice Doge</div>
       <div class="name">ImNotMich</div>
       <p>Secondo in comando, rappresentanza e mediazione.</p>
+      <a class="tg" href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">Telegram</a>
     </div>
     <div class="person">
-      <img class="avatar" src="assets/imnotmich.png" alt="Testa del personaggio">
+      <img class="avatar" src="assets/dieghito.png" alt="Testa di Dieghito_08">
       <div class="role">Vice Doge</div>
       <div class="name">Dieghito_08</div>
       <p>Secondo in comando, rappresentanza e mediazione.</p>
+      <a class="tg" href="https://t.me/Dieghito_08" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <div class="person">
+      <img class="avatar" src="assets/giuse.png" alt="Testa di Giuse345">
+      <div class="role">Primo Doge</div>
+      <div class="name">Giuse345</div>
+      <p>Giuse Van City: figura che ha guidato la rifondazione del partito.</p>
+    </div>
+    <div class="person">
+      <img class="avatar" src="assets/andeici.png" alt="Testa di Andeici">
+      <div class="role">Secondo Doge</div>
+      <div class="name">Andeici</div>
+      <p>Secondo Doge del partito, nella fase precedente alla dissoluzione.</p>
     </div>
   </div>
 </div></section>
