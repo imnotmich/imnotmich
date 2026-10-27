@@ -88,6 +88,28 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 .modal p{font-size:14px;color:var(--ink);margin-bottom:8px}
 .draft{background:#fff7d6;border:1px solid var(--gold);padding:10px 14px;font-size:13px;margin-bottom:16px;font-family:"Helvetica Neue",Arial,sans-serif}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* fiamma del logo e fenice animale */
+.fenice{width:22px;height:40px;display:inline-block;vertical-align:middle;margin-right:10px}
+.fenice-bg{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:min(380px,70vw);opacity:.10;pointer-events:none}
+.phoenix{width:min(260px,70%);height:auto;display:block;margin:0 0 18px;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.stripes{height:14px;background:linear-gradient(to bottom,var(--navy) 0 4px,transparent 4px 6px,var(--gold) 6px 9px,transparent 9px 11px,var(--blue) 11px 14px)}
+.stripes.thin{height:8px;background:linear-gradient(to bottom,var(--gold) 0 3px,transparent 3px 5px,var(--blue) 5px 8px)}
+footer .fenice{width:18px;height:32px;margin:0 8px 0 0}
+
+/* gerarchia ad albero */
+.tree{display:flex;flex-direction:column;align-items:center;margin-top:24px;position:relative}
+.node{background:#fff;border:1px solid var(--line);border-top:3px solid var(--navy);padding:12px 18px;min-width:240px;text-align:center;font-family:"Helvetica Neue",Arial,sans-serif;position:relative;z-index:1}
+.node b{display:block;color:var(--navy);font-size:15px}
+.node span{display:block;color:var(--muted);font-size:13px;font-family:Georgia,serif}
+.node.top{border-top-color:var(--gold);background:var(--navy)}
+.node.top b{color:#fff}.node.top span{color:#dfe7f5}
+.node.small{min-width:200px}
+.link{width:2px;height:18px;background:var(--navy);opacity:.5}
+.branch{display:flex;gap:18px;position:relative;margin:0}
+.branch::before{content:"";position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--navy);opacity:.5}
+@media(max-width:600px){.branch{flex-direction:column;align-items:center;gap:8px}.branch::before{display:none}.node{min-width:200px}}
 </style>
 </head>
 <body>
@@ -104,7 +126,7 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 </div></nav>
 
 <header class="hero" id="top">
-  <div class="wrap">
+    <div class="wrap">
     <img class="logo" src="assets/logo.png" alt="Logo Fratelli di Canaria">
     <h1>Fratelli di Canaria</h1>
     <p class="motto">"Si vis pacem, para bellum"</p>
@@ -112,12 +134,14 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
   </div>
 </header>
 
-<section id="chi"><div class="wrap reveal">
-  <div class="kicker">Chi siamo</div>
+<div class="stripes"></div>
+<section id="chi" class="section-flame"><div class="wrap reveal">
+  <div class="kicker"><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg>Chi siamo</div>
   <h2>La Fenice</h2>
   <div class="rule"></div>
   <div class="cols">
     <div>
+      <svg class="phoenix" viewBox="0 0 200 160" aria-hidden="true"><path d="M70 110 C60 70 90 40 120 50 C140 56 150 70 150 84 C150 100 130 112 100 114 Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="2"/><path d="M80 80 C60 40 20 20 10 40 C30 44 40 60 50 72 C30 62 20 66 14 80 C40 78 60 90 80 100 Z" fill="#0f2d5c"/><path d="M80 80 C70 46 50 20 30 14 C40 34 52 56 60 80 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><path d="M120 50 C128 36 142 28 156 30 C148 40 146 46 150 56 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><circle cx="150" cy="44" r="10" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.5"/><circle cx="153" cy="42" r="2" fill="#ffffff"/><path d="M158 42 L172 46 L158 50 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1"/><path d="M70 110 C50 120 40 140 30 150 C50 146 60 136 70 126 Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.5"/><path d="M90 114 C80 130 80 146 84 158 C92 146 98 132 100 116 Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.5"/><path d="M100 114 C110 128 120 140 130 150 C128 136 124 124 116 112 Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.5"/></svg>
       <p>Fratelli di Canaria è un partito nazionalista e conservatore, incentrato sulle ideologie di tradizione e di tutela dell'ordine. Il suo orientamento politico è la Destra.</p>
       <p style="margin-top:14px">Il partito è stato rifondato il 2 giugno 2026, a circa un anno dalla sua dissoluzione. Il simbolo scelto è la Fenice: l'animale che rinasce dalle proprie ceneri, a significare rinascita e intraprendenza.</p>
     </div>
@@ -130,7 +154,7 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 </div></section>
 
 <section id="ideologia" class="alt"><div class="wrap reveal">
-  <div class="kicker">Ideologia</div>
+  <div class="kicker"><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg>Ideologia</div>
   <h2>Principi e priorità</h2>
   <div class="rule"></div>
   <div class="grid3">
@@ -144,48 +168,54 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 </div></section>
 
 <section id="statuto"><div class="wrap reveal">
-  <div class="kicker">Statuto</div>
+  <div class="kicker"><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg>Statuto</div>
   <h2>Lo statuto in sintesi</h2>
   <div class="rule"></div>
-  <p>Questa è una sintesi degli articoli principali. Il testo integrale e vincolante è lo statuto ufficiale.</p>
+  <p>Ecco i punti principali. Il testo completo è nello statuto ufficiale.</p>
 
-  <div class="art"><span class="tag">Art. 1</span><p><b>Proemio.</b> Gli ex rappresentanti hanno deciso di rifondare ufficialmente il partito, con l'impegno a risorgere dalle proprie ceneri.</p></div>
-  <div class="art"><span class="tag">Art. 2</span><p><b>Codici del partito.</b> Il partito è nazionalista e conservatore. Il suo stemma è legato al partito "Fratelli d'Italia" per simbologia e idee. La sua fiamma tricolore ha bianco a sinistra, blu al centro e giallo a destra.</p></div>
-  <div class="art"><span class="tag">Art. 3</span><p><b>Comportamento e disciplina.</b> Ogni iscritto rispetta la linea politica. L'avanzamento si basa sul merito, sulla militanza attiva e sul consenso elettorale. Le sanzioni sono Warn (avvertimento), Kick (espulsione temporanea) e Ban (espulsione a tempo indefinito, a discrezione del Doge).</p></div>
-  <div class="art"><span class="tag">Art. 4</span><p><b>Promozioni e stipendi.</b> I propagandisti meritevoli ricevono un compenso settimanale aggiuntivo. Il Doge, o un suo delegato, gestisce l'erogazione su base percentuale. Il Doge può decidere di negare o sottrarre lo stipendio a chi non dimostra impegno o viola i principi del partito.</p></div>
-  <div class="art"><span class="tag">Art. 5</span><p><b>Tesseramento.</b> Per essere tesserato occorre la presenza fisica a Liberty Bay e un contatto mail. Ogni tesseramento va registrato nel database del partito.</p></div>
-  <div class="art"><span class="tag">Art. 6</span><p><b>Organi del partito.</b> Il Gran Consiglio prende le decisioni inerenti al partito. Il Consiglio del partito è l'organo deliberativo centrale. Il Foro Coordinativo è l'organo di gestione e coordinamento. La Camera della propaganda gestisce la propaganda e le promozioni.</p></div>
-  <div class="art"><span class="tag">Art. 7</span><p><b>Gerarchia e fiducia.</b> Il Doge ha la massima carica e la rappresentanza legale. La sfiducia può essere presentata solo per violazioni comprovate dello statuto o inattività superiore a 30 giorni, e richiede una maggioranza qualificata di 2/3. Il Doge può chiedere un congedo di rappresentanza fino a 21 giorni.</p></div>
-  <div class="art"><span class="tag">Art. 8–9</span><p><b>Elezioni interne e candidature.</b> Gli accessi alle cariche avvengono per concorso, colloqui e bandi meritocratici. Per candidarsi alle elezioni pubbliche è richiesta l'assenza di condanne penali definitive e una condotta in linea con i principi del partito.</p></div>
-  <div class="art"><span class="tag">Art. 10</span><p><b>Modifica dello statuto.</b> I principi di Rispetto, Forza e Merito, nonché i poteri della Presidenza, non sono modificabili. Possono proporre modifiche il Doge, oppure il Vice Doge insieme a una mozione approvata da 2/3 del Consiglio del partito.</p></div>
-  <div class="art"><span class="tag">Art. 12–13</span><p><b>Fini e contributi.</b> Il partito mira alla pace, all'attività nelle istituzioni e alla difesa delle Isole Canarie. I finanziamenti sono volontari e avvengono tramite bonifico sul conto del partito. Le entrate sono gestite dal Gran Consiglio e dal Consiglio del partito, con resoconti ogni due settimane.</p></div>
-  <div class="art"><span class="tag">Art. 14</span><p><b>Scioglimento.</b> In caso di scioglimento, il patrimonio è ripartito tra il Gran Consiglio, la beneficenza e un altro partito scelto dal Doge.</p></div>
+  <div class="art"><span class="tag">Codici</span><p><b>Partito nazionalista e conservatore.</b> La fiamma tricolore e la Fenice sono il simbolo del partito: rinascita, intraprendenza, resilienza.</p></div>
+  <div class="art"><span class="tag">Merito</span><p><b>Avanzamento e disciplina.</b> Le promozioni si basano su merito, militanza e consenso. Le sanzioni vanno dall'avvertimento all'espulsione, a discrezione del Doge.</p></div>
+  <div class="art"><span class="tag">Gerarchia</span><p><b>Doge e fiducia.</b> Il Doge ha la massima carica. La sfiducia richiede violazioni comprovate dello statuto o inattività prolungata, e la maggioranza qualificata dei 2/3.</p></div>
 
   <a class="btn" href="https://docs.google.com/document/d/1yen2MMcNfWxiAt1qxqgJUwsSuIabes9rozGST7Lyn7I/edit?usp=sharing" target="_blank" rel="noopener">Apri lo statuto completo</a>
 </div></section>
 
-<section id="organi" class="alt"><div class="wrap reveal">
-  <div class="kicker">Organi</div>
+<div class="stripes thin"></div>
+<section id="organi" class="alt section-flame"><div class="wrap reveal">
+  <div class="kicker"><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg>Organi</div>
   <h2>Gerarchia del partito</h2>
   <div class="rule"></div>
-  <div class="ladder">
-    <div class="step">Doge <small>massima carica</small></div>
-    <div class="step">Vice Doge <small>secondo in comando</small></div>
-    <div class="step">Consigliere Capo <small>vicario del Vice Doge</small></div>
-    <div class="step">Consigliere / Consigliere Vicario <small>voce in pubblico</small></div>
-    <div class="step">Guardiano <small>presiede il Foro Coordinativo</small></div>
-    <div class="step">Coordinatore <small>coordina i ruoli sottostanti</small></div>
-    <div class="step">Responsabile Propaganda <small>gestisce la propaganda</small></div>
-    <div class="step">Veterano <small>grado per i bandi successivi</small></div>
-    <div class="step">Propagandista <small>fa tesseramenti</small></div>
-    <div class="step">Tesserato <small>primo grado</small></div>
+  <div class="tree">
+    <div class="node top"><b>Doge</b><span>massima carica, guida del partito</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Vice Doge</b><span>secondo in comando</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Consigliere Capo</b><span>vicario del Vice Doge</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Consigliere Vicario</b><span>fa le veci del Consigliere Capo</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Consigliere</b><span>voce in pubblico</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Guardiano</b><span>presiede il Foro Coordinativo</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Coordinatore</b><span>coordina i ruoli sottostanti</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Responsabile Propaganda</b><span>gestisce la propaganda</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Veterano</b><span>grado per i bandi successivi</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Propagandista</b><span>fa i tesseramenti</span></div>
+    <div class="link"></div>
+    <div class="node"><b>Tesserato</b><span>primo grado</span></div>
   </div>
 </div></section>
 
-<section id="cariche"><div class="wrap reveal">
-  <div class="kicker">Cariche</div>
+<div class="stripes thin"></div>
+<section id="cariche" class="section-flame"><div class="wrap reveal">
+  <div class="kicker"><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg>Cariche</div>
   <h2>I vertici</h2>
   <div class="rule"></div>
+  <p class="gallery-line">Fratelli di Canaria: rinasciamo dalle nostre ceneri.</p>
   <div class="people">
     <div class="person">
       <img class="avatar" src="assets/tortello.png" alt="Testa del personaggio">
@@ -220,10 +250,10 @@ footer .fine{margin-top:26px;font-size:12px;color:#8fa0bd;text-align:center}
 
 <footer><div class="wrap">
   <div class="row">
-    <div><strong style="color:#fff;font-family:'Helvetica Neue',Arial,sans-serif">FRATELLI DI CANARIA</strong><br>Partito nazionalista e conservatore</div>
+    <div><svg class="fenice" viewBox="0 0 60 110" aria-hidden="true"><path d="M30 4 C26 26 18 34 18 58 C18 78 22 92 30 92 C38 92 42 78 42 58 C42 44 36 36 34 22 C32 30 30 34 28 36 C28 22 30 12 30 4Z" fill="#3a7bd5" stroke="#0f2d5c" stroke-width="1.6"/><path d="M32 30 C40 46 50 56 48 76 C46 90 40 98 32 100 C40 92 40 80 37 70 C34 58 30 52 30 42Z" fill="#e8b923" stroke="#0f2d5c" stroke-width="1.6"/><path d="M28 42 C20 52 12 62 14 80 C16 92 22 100 30 102 C22 96 20 88 22 78 C24 68 28 62 28 42Z" fill="#ffffff" stroke="#0f2d5c" stroke-width="1.6"/><path d="M10 106 H50" stroke="#0f2d5c" stroke-width="4" stroke-linecap="round"/></svg><strong style="color:#fff;font-family:'Helvetica Neue',Arial,sans-serif">FRATELLI DI CANARIA</strong><br>Partito nazionalista e conservatore</div>
     <div><a href="https://t.me/FdCAtlantisRP" target="_blank" rel="noopener">Canale Telegram</a><br><a href="#privacy" id="openPrivacy">Privacy policy</a><br><a href="#cookie" id="openCookie">Cookie policy</a><br><a href="https://docs.google.com/document/d/1yen2MMcNfWxiAt1qxqgJUwsSuIabes9rozGST7Lyn7I/edit?usp=sharing" target="_blank" rel="noopener">Statuto</a></div>
   </div>
-  <div class="fine">Questo sito non richiede login o registrazione e non usa cookie.</div>
+  <div class="fine">Questo sito non richiede login o registrazione e non usa cookie.<br>&copy; 2026 Fratelli di Canaria. Tutti i diritti riservati. Progetto di roleplay: partito, statuto e cariche sono fittizi.<br>Logo, nick e skin appartengono ai rispettivi autori e giocatori.</div>
 </div></footer>
 
 
