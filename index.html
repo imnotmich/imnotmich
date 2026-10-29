@@ -141,7 +141,10 @@
     }
     .card.bio:hover { box-shadow: var(--shadow-hover-bio); }
     .card.fdc:hover { box-shadow: var(--shadow-hover-fdc); }
-    .card.mc:hover { box-shadow: var(--shadow-hover-mc); }
+        .card.calc .icon { background: linear-gradient(135deg, #c7d2fe, #818cf8); }
+    .card.calc:hover { box-shadow: 0 20px 40px -12px rgba(129, 140, 248, 0.5); }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+.card.mc:hover { box-shadow: var(--shadow-hover-mc); }
     .icon {
       width: 56px;
       height: 56px;
@@ -273,6 +276,7 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s;
     }
+    .disclaimer { margin-top: 10px; font-size: 12px; opacity: 0.8; }
     footer a:hover { border-bottom-color: var(--blue-deep); }
     .flink { background: none; border: none; cursor: pointer; font: inherit; color: var(--blue-deep); text-decoration: underline; text-underline-offset: 3px; padding: 0; }
     .policy-dialog { border: 1px solid var(--card-border); border-radius: 20px; padding: 28px; max-width: 560px; width: 92vw; max-height: 80vh; overflow-y: auto; background: var(--bg); color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35); }
@@ -332,6 +336,13 @@
         <span class="url">mvenuti.com/fratellidicanaria</span>
         <span class="link">Visita il sito</span>
       </a>
+      <a class="card calc" href="calcolatrice3d/" aria-label="Visita la calcolatrice 3D">
+        <div class="icon" aria-hidden="true">🧮</div>
+        <h2>Calcolatrice filamenti</h2>
+        <p>Inserisci prezzo e peso della bobina e i grammi usati: scopri quanto ti costa il filamento di una stampa.</p>
+        <span class="url">mvenuti.com/calcolatrice3d</span>
+        <span class="link">Apri la calcolatrice</span>
+      </a>
       <div class="card mc" role="region" aria-label="Sezione Minecraft">
         <div class="icon" aria-hidden="true">⛏️</div>
         <h2>Minecraft</h2>
@@ -354,6 +365,7 @@
     </section>
     <footer>
       Creato da Mich · mvenuti.com · <button type="button" class="flink" data-open="privacy-dialog">Privacy Policy</button> · <button type="button" class="flink" data-open="cookie-dialog">Cookie Policy</button>
+      <p class="disclaimer">Questo sito non è affiliato, sponsorizzato o approvato da Mojang o Microsoft. "Minecraft" è un marchio registrato di Mojang Synergies AB.</p>
     </footer>
   </main>
   <dialog id="privacy-dialog" class="policy-dialog">
@@ -368,7 +380,9 @@
     <p>Il sito è ospitato su GitHub Pages. GitHub tratta come fornitore dell'infrastruttura dati tecnici come l'indirizzo IP e i log di navigazione, secondo la propria informativa privacy. Il titolare non accede a tali log. Per i trasferimenti di dati fuori dall'Unione Europea si applicano le garanzie indicate da GitHub nella sua informativa.</p>
     <h3>Servizi esterni</h3>
     <p>Nessuna risorsa esterna viene caricata automaticamente: i caratteri sono quelli di sistema del tuo dispositivo. I link a Telegram e agli altri siti si aprono solo se li selezioni, e su quei siti vale la loro informativa.</p>
-    <h3>Finalità e base giuridica</h3>
+    <h3>Link a Telegram</h3>
+<p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
+<h3>Finalità e base giuridica</h3>
     <p>Il trattamento dei dati tecnici è necessario per erogare il sito richiesto dall'utente (art. 6, par. 1, lett. f del GDPR).</p>
     <h3>Diritti e reclamo</h3>
     <p>Puoi chiedere accesso, rettifica, cancellazione, limitazione od opposizione scrivendo al contatto indicato sopra. Puoi proporre reclamo all'autorità di controllo dello Stato UE in cui risiedi o lavori; in Italia è il Garante per la protezione dei dati personali.</p>
@@ -384,7 +398,9 @@
     <p>Questo sito non installa cookie di profilazione, né tecnici né di terze parti, e non usa strumenti di analisi o pubblicità. Non c'è un banner cookie perché non ci sono cookie da autorizzare.</p>
     <h3>Link esterni</h3>
     <p>I link a Telegram e agli altri siti si aprono solo se li selezioni. Su quei siti vale la loro informativa, non questa.</p>
-    <h3>Come gestire i cookie</h3>
+    <h3>Link a Telegram</h3>
+<p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
+<h3>Come gestire i cookie</h3>
     <p>Puoi disattivare o cancellare i cookie dalle impostazioni del browser. Il sito funziona comunque.</p>
     <button class="policy-close" type="button" data-close>Chiudi</button>
   </dialog>
