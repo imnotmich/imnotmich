@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calcolatore costo filamento · Mich Projects</title>
+<meta name="description" content="Calcola il costo del filamento per una stampa 3D.">
+<meta name="theme-color" content="#4338ca">
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --color-1: #818cf8;
+  --color-1-deep: #4338ca;
+  --color-2: #fb7185;
+  --color-2-deep: #be123c;
+  --color-3: #34d399;
+  --line: #e2e8f0;
+  --shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.12);
+  --draft-bg: #fff7e6;
+  --draft-ink: #5a4208;
+  --draft-line: #d9a441;
+  --error: #b3261e;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  overflow-x: hidden;
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: float 14s ease-in-out infinite;
+}
+.blob.a { width: 420px; height: 420px; background: var(--color-1); top: -120px; left: -120px; }
+.blob.b { width: 360px; height: 360px; background: var(--color-2); bottom: -120px; right: -100px; animation-delay: -6s; }
+.blob.c { width: 260px; height: 260px; background: var(--color-3); top: 40%; left: 55%; animation-delay: -3s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -24px); }
+}
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 72px 24px 56px; }
+
+header { text-align: center; margin-bottom: 44px; animation: fadeUp 0.9s ease both; }
+
+h1 {
+  font-size: clamp(36px, 6vw, 58px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h1 span {
+  background: linear-gradient(90deg, var(--color-1-deep), var(--color-2-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub { margin-top: 14px; color: var(--muted); font-size: 17px; max-width: 520px; margin-inline: auto; }
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+
+.field + .field { margin-top: 20px; }
+
+label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-wrap:focus-within {
+  border-color: var(--color-1);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+}
+
+input, select {
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  padding: 13px 16px;
+  width: 100%;
+  min-width: 0;
+  outline: none;
+}
+
+.suffix { padding-right: 16px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+select {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background-color: var(--bg);
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--color-1);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.25);
+}
+
+.custom-weight { margin-top: 10px; display: none; }
+.custom-weight.show { display: block; }
+
+.hint { font-size: 13.5px; color: var(--muted); margin-top: 8px; }
+
+.error { color: var(--error); font-size: 13.5px; margin-top: 8px; display: none; }
+.error.show { display: block; }
+
+.result { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+
+.empty { color: var(--muted); font-size: 15px; text-align: center; padding: 8px 0; }
+
+.result-label { font-size: 14px; color: var(--muted); }
+
+.result-main {
+  font-size: clamp(30px, 6vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-1-deep);
+  margin: 4px 0 18px;
+}
+
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.stat { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.stat span { display: block; font-size: 13px; color: var(--muted); }
+.stat strong { font-size: 17px; }
+
+.contact {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 26px 30px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.9s 0.3s ease both;
+}
+
+.contact h3 { font-size: 18px; font-weight: 700; }
+.contact p { color: var(--muted); font-size: 14.5px; margin-top: 2px; }
+
+.tg {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-1-deep);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.3);
+}
+.tg:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(67, 56, 202, 0.4); }
+.tg svg { width: 18px; height: 18px; }
+
+footer { margin-top: 48px; text-align: center; color: #94a3b8; font-size: 13px; }
+footer p + p { margin-top: 4px; }
+footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.flink { background: none; border: none; cursor: pointer; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+
+.policy-dialog { border: 1px solid var(--line); border-radius: 20px; padding: 28px; max-width: 560px; width: 92vw; max-height: 80vh; overflow-y: auto; background: var(--card); color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35); }
+.policy-dialog::backdrop { background: rgba(15, 23, 42, 0.5); }
+.policy-dialog h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+.policy-dialog h3 { font-size: 15px; font-weight: 700; margin: 18px 0 6px; color: var(--color-1-deep); }
+.policy-dialog p { font-size: 14.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+.policy-dialog p strong { color: var(--ink); }
+.policy-dialog a { color: var(--color-1-deep); }
+.draft { font-size: 13px; background: var(--draft-bg); color: var(--draft-ink); border: 1px solid var(--draft-line); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
+.policy-close { margin-top: 16px; background: var(--color-1-deep); color: #fff; border: none; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+.policy-close:hover { opacity: 0.9; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 560px) {
+  .wrap { padding: 48px 18px 40px; }
+  .panel { padding: 22px; }
+  .stats { grid-template-columns: 1fr; }
+  .contact { padding: 22px; flex-direction: column; text-align: center; }
+  .tg { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob a"></div>
+<div class="blob b"></div>
+<div class="blob c"></div>
+
+<main class="wrap">
+  <header>
+    <h1>Costo <span>filamento</span></h1>
+    <p class="sub">Calcola solo il costo del filamento per una stampa. Il costo dell'energia elettrica non è ancora incluso e arriverà in una prossima versione.</p>
+  </header>
+
+  <section class="panel" aria-label="Calcolatore">
+    <div class="field">
+      <label for="price">Prezzo della bobina</label>
+      <div class="input-wrap">
+        <input id="price" type="number" inputmode="decimal" min="0" step="0.01" placeholder="es. 18,50">
+        <span class="suffix">€</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="spool">Peso della bobina</label>
+      <select id="spool">
+        <option value="250">250 g</option>
+        <option value="500" selected>500 g</option>
+        <option value="750">750 g</option>
+        <option value="1000">1 kg</option>
+        <option value="2000">2 kg</option>
+        <option value="custom">Altro (personalizzato)</option>
+      </select>
+      <div class="custom-weight" id="customBox">
+        <div class="input-wrap">
+          <input id="customSpool" type="number" inputmode="decimal" min="1" step="1" placeholder="Peso in grammi">
+          <span class="suffix">g</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="grams">Grammi usati nella stampa</label>
+      <div class="input-wrap">
+        <input id="grams" type="number" inputmode="decimal" min="0" step="0.1" placeholder="es. 42">
+        <span class="suffix">g</span>
+      </div>
+      <p class="hint">Lo trovi nello slicer (Bambu Studio, OrcaSlicer, Cura, PrusaSlicer) alla voce peso o filamento.</p>
+      <p class="error" id="error">Inserisci un valore maggiore di zero.</p>
+    </div>
+
+    <div class="result" aria-live="polite">
+      <p class="empty" id="emptyState">Inserisci prezzo e grammi per vedere il costo.</p>
+      <div id="resultBox" hidden>
+        <p class="result-label">Costo filamento per questa stampa</p>
+        <p class="result-main" id="resultMain">0,00 €</p>
+        <div class="stats">
+          <div class="stat"><span>Costo al grammo</span><strong id="perGram">—</strong></div>
+          <div class="stat"><span>Costo al kg</span><strong id="perKg">—</strong></div>
+          <div class="stat"><span>Costo ogni 100 g</span><strong id="per100">—</strong></div>
+          <div class="stat"><span>Grammi per bobina</span><strong id="spoolGrams">—</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div>
+      <h3>Contattami su Telegram</h3>
+      <p>Per domande o suggerimenti sul calcolatore.</p>
+    </div>
+    <a class="tg" href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      @DiciassetteMich
+    </a>
+  </section>
+
+  <footer>
+    <p>© 2026 Mich. Tutti i diritti riservati.</p>
+    <p>Creato da Mich · <a href="https://mvenuti.com/">Scopri altri progetti</a> · <button type="button" class="flink" data-open="privacy-dialog">Privacy Policy</button> · <button type="button" class="flink" data-open="cookie-dialog">Cookie Policy</button></p>
+  </footer>
+</main>
+
+<dialog id="privacy-dialog" class="policy-dialog">
+  <h2>Informativa sulla privacy</h2>
+  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
+
+  <h3>Titolare e contatto</h3>
+  <p>Titolare del trattamento: <strong>Mich</strong>. Per ogni richiesta sulla privacy, incluso l'esercizio dei diritti, scrivi a <a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">@DiciassetteMich su Telegram</a>.</p>
+
+  <h3>Dati trattati</h3>
+  <p>Il calcolatore funziona interamente nel tuo browser: prezzo, peso della bobina e grammi non vengono inviati a nessun server, non vengono salvati e non sono accessibili al titolare. Il sito non prevede registrazione, login né moduli.</p>
+
+  <h3>Servizi esterni</h3>
+  <p>Nessuna risorsa esterna viene caricata automaticamente. Il link a Telegram si apre solo se lo selezioni, e su Telegram vale la sua informativa.</p>
+
+  <h3>Link a Telegram</h3>
+<p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
+<h3>Base giuridica</h3>
+  <p>Il trattamento dei dati tecnici necessari a erogare il sito si fonda sul legittimo interesse del titolare a offrire un sito funzionante (art. 6, par. 1, lett. f, GDPR).</p>
+
+  <h3>Diritti e reclamo</h3>
+  <p>Puoi chiedere accesso, rettifica, cancellazione, limitazione od opposizione scrivendo al contatto indicato sopra. Puoi proporre reclamo all'autorità di controllo dello Stato UE in cui risiedi o lavori; in Italia è il Garante per la protezione dei dati personali.</p>
+
+  <button class="policy-close" type="button" data-close>Chiudi</button>
+</dialog>
+
+<dialog id="cookie-dialog" class="policy-dialog">
+  <h2>Cookie Policy</h2>
+  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
+
+  <h3>Cookie usati dal sito</h3>
+  <p>Questo sito non installa cookie, né tecnici né di profilazione, e non salva dati nel browser (localStorage o strumenti analoghi). Non c'è un banner cookie perché non ci sono cookie da autorizzare.</p>
+
+  <h3>Link esterni</h3>
+  <p>Il link a Telegram si apre solo se lo selezioni. Su Telegram vale la sua informativa, non questa.</p>
+
+  <h3>Link a Telegram</h3>
+<p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
+<h3>Come gestire i cookie</h3>
+  <p>Puoi disattivare o cancellare i cookie dalle impostazioni del browser. Il sito funziona comunque.</p>
+
+  <button class="policy-close" type="button" data-close>Chiudi</button>
+</dialog>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n, digits = 2) =>
+    n.toLocaleString("it-IT", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+  function getSpoolGrams() {
+    if ($("spool").value === "custom") return parseFloat($("customSpool").value);
+    return parseFloat($("spool").value);
+  }
+
+  function calculate() {
+    const price = parseFloat($("price").value);
+    const grams = parseFloat($("grams").value);
+    const spool = getSpoolGrams();
+
+    $("customBox").classList.toggle("show", $("spool").value === "custom");
+    $("error").classList.toggle("show", $("grams").value !== "" && !(grams > 0));
+
+    if (!(price > 0 && grams > 0 && spool > 0)) {
+      $("emptyState").hidden = false;
+      $("resultBox").hidden = true;
+      return;
+    }
+
+    const perGram = price / spool;
+    $("emptyState").hidden = true;
+    $("resultBox").hidden = false;
+    $("resultMain").textContent = fmt(perGram * grams) + " €";
+    $("perGram").textContent = fmt(perGram, 4) + " €";
+    $("perKg").textContent = fmt(perGram * 1000) + " €";
+    $("per100").textContent = fmt(perGram * 100) + " €";
+    $("spoolGrams").textContent = fmt(spool, 0) + " g";
+  }
+
+  ["price", "spool", "customSpool", "grams"].forEach((id) =>
+    $(id).addEventListener("input", calculate)
+  );
+  $("spool").addEventListener("change", calculate);
+  calculate();
+
+  document.querySelectorAll("[data-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const d = document.getElementById(btn.getAttribute("data-open"));
+      if (d && d.showModal) d.showModal();
+    });
+  });
+  document.querySelectorAll(".policy-dialog").forEach((d) => {
+    d.querySelector("[data-close]").addEventListener("click", () => d.close());
+    d.addEventListener("click", (e) => { if (e.target === d) d.close(); });
+  });
+</script>
+</body>
+</html>
