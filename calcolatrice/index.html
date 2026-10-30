@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calcolatrice retro · Mich Projects</title>
+<meta name="description" content="Calcolatrice in stile retro, con pulsanti e tastiera.">
+<meta name="theme-color" content="#2b2a33">
+<style>
+:root {
+  --body: #d9cfb8;
+  --body-dark: #bfb49a;
+  --body-edge: #8f8572;
+  --screen: #9fb89a;
+  --screen-ink: #1b2a1f;
+  --screen-dim: #566b5a;
+  --key: #efe8d6;
+  --key-edge: #a39a84;
+  --key-op: #d9a45a;
+  --key-eq: #c96a4a;
+  --key-fn: #bdb29a;
+  --ink: #2b2a33;
+  --muted: #6b6456;
+  --accent: #c96a4a;
+  --accent-deep: #9a4a2e;
+  --draft-bg: #fff7e6;
+  --draft-ink: #5a4208;
+  --draft-line: #d9a441;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: radial-gradient(ellipse at top, #efe6cf 0%, #cfc4a8 100%);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  overflow-x: hidden;
+}
+
+.wrap { max-width: 440px; margin: 0 auto; padding: 56px 20px 40px; }
+
+header { text-align: center; margin-bottom: 26px; }
+
+h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(26px, 6vw, 34px);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.sub { margin-top: 8px; color: var(--muted); font-size: 15px; }
+
+.calc {
+  background: var(--body);
+  border: 2px solid var(--body-edge);
+  border-radius: 28px;
+  padding: 22px 20px 26px;
+  box-shadow: inset 0 -6px 0 var(--body-dark), 0 18px 40px -16px rgba(43, 42, 51, 0.45);
+}
+
+.screen {
+  background: var(--screen);
+  border: 4px solid #6d7d68;
+  border-radius: 10px;
+  padding: 14px 16px 12px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25);
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.screen-top {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  color: var(--screen-dim);
+  min-height: 20px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.screen-main {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-size: clamp(30px, 9vw, 44px);
+  color: var(--screen-ink);
+  text-align: right;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.screen-main.error { font-size: clamp(22px, 6vw, 30px); }
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.key {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-size: 22px;
+  background: var(--key);
+  color: var(--ink);
+  border: 1px solid var(--key-edge);
+  border-radius: 12px;
+  height: 62px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 var(--key-edge);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.key:hover { background: #f6f0e0; }
+.key:active,
+.key.press {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--key-edge);
+}
+.key.fn { background: var(--key-fn); }
+.key.op { background: var(--key-op); color: #2b1a0a; }
+.key.eq { background: var(--key-eq); color: #fff; border-color: var(--accent-deep); box-shadow: 0 5px 0 var(--accent-deep); }
+.key.eq:active, .key.eq.press { box-shadow: 0 1px 0 var(--accent-deep); }
+.key.wide { grid-column: span 2; }
+.key:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.hint {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.contact {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: #f4eedf;
+  border: 1px solid var(--body-edge);
+  border-radius: 22px;
+  padding: 22px 24px;
+  box-shadow: 0 10px 30px -12px rgba(43, 42, 51, 0.3);
+}
+.contact h3 { font-size: 17px; font-weight: 700; }
+.contact p { color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+.tg {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+.tg svg { width: 18px; height: 18px; }
+
+footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
+footer p + p { margin-top: 6px; }
+footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.scopri { color: var(--accent-deep) !important; font-weight: 600; }
+.flink { background: none; border: none; cursor: pointer; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+
+.policy-dialog { border: 1px solid var(--body-edge); border-radius: 20px; padding: 28px; max-width: 560px; width: 92vw; max-height: 80vh; overflow-y: auto; background: #f4eedf; color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35); }
+.policy-dialog::backdrop { background: rgba(43, 42, 51, 0.5); }
+.policy-dialog h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+.policy-dialog h3 { font-size: 15px; font-weight: 700; margin: 18px 0 6px; color: var(--accent-deep); }
+.policy-dialog p { font-size: 14.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+.policy-dialog p strong { color: var(--ink); }
+.policy-dialog a { color: var(--accent-deep); }
+.draft { font-size: 13px; background: var(--draft-bg); color: var(--draft-ink); border: 1px solid var(--draft-line); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
+.policy-close { margin-top: 16px; background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+.policy-close:hover { opacity: 0.9; }
+
+@media (max-width: 400px) {
+  .key { height: 56px; font-size: 20px; }
+  .keys { gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header>
+    <h1>Calcolatrice</h1>
+    <p class="sub">Usa i pulsanti oppure la tastiera.</p>
+  </header>
+
+  <section class="calc" aria-label="Calcolatrice">
+    <div class="screen" aria-live="polite">
+      <div class="screen-top" id="expr"></div>
+      <div class="screen-main" id="display">0</div>
+    </div>
+
+    <div class="keys">
+      <button class="key fn" data-key="C">C</button>
+      <button class="key fn" data-key="Backspace">⌫</button>
+      <button class="key fn" data-key="%">%</button>
+      <button class="key op" data-key="/">÷</button>
+
+      <button class="key" data-key="7">7</button>
+      <button class="key" data-key="8">8</button>
+      <button class="key" data-key="9">9</button>
+      <button class="key op" data-key="*">×</button>
+
+      <button class="key" data-key="4">4</button>
+      <button class="key" data-key="5">5</button>
+      <button class="key" data-key="6">6</button>
+      <button class="key op" data-key="-">−</button>
+
+      <button class="key" data-key="1">1</button>
+      <button class="key" data-key="2">2</button>
+      <button class="key" data-key="3">3</button>
+      <button class="key op" data-key="+">+</button>
+
+      <button class="key wide" data-key="0">0</button>
+      <button class="key" data-key=".">,</button>
+      <button class="key eq" data-key="Enter">=</button>
+    </div>
+
+    <p class="hint">Tastiera: numeri, + − * /, Invio per il risultato, Backspace per cancellare, Esc per azzerare.</p>
+  </section>
+
+  <section class="contact">
+    <div>
+      <h3>Contattami su Telegram</h3>
+      <p>Per domande o suggerimenti.</p>
+    </div>
+    <a class="tg" href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      @DiciassetteMich
+    </a>
+  </section>
+
+  <footer>
+    <p>© 2026 Mich. Tutti i diritti riservati.</p>
+    <p>Creato da Mich · <a href="https://mvenuti.com/" class="scopri">Scopri altri progetti</a> · <button type="button" class="flink" data-open="privacy-dialog">Privacy Policy</button> · <button type="button" class="flink" data-open="cookie-dialog">Cookie Policy</button></p>
+  </footer>
+</main>
+
+<dialog id="privacy-dialog" class="policy-dialog">
+  <h2>Informativa sulla privacy</h2>
+  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
+
+  <h3>Titolare e contatto</h3>
+  <p>Titolare del trattamento: <strong>Mich</strong>. Per ogni richiesta sulla privacy, incluso l'esercizio dei diritti, scrivi a <a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">@DiciassetteMich su Telegram</a>.</p>
+
+  <h3>Dati trattati</h3>
+  <p>La calcolatrice funziona interamente nel tuo browser: i numeri che inserisci non vengono inviati a nessun server, non vengono salvati e non sono accessibili al titolare. Il sito non prevede registrazione, login né moduli.</p>
+
+  <h3>Servizi esterni</h3>
+  <p>Nessuna risorsa esterna viene caricata automaticamente.</p>
+
+  <h3>Link a Telegram</h3>
+  <p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
+
+  <h3>Base giuridica</h3>
+  <p>Il trattamento dei dati tecnici necessari a erogare il sito si fonda sul legittimo interesse del titolare a offrire un sito funzionante (art. 6, par. 1, lett. f, GDPR).</p>
+
+  <h3>Diritti e reclamo</h3>
+  <p>Puoi chiedere accesso, rettifica, cancellazione, limitazione od opposizione scrivendo al contatto indicato sopra. Puoi proporre reclamo all'autorità di controllo dello Stato UE in cui risiedi o lavori; in Italia è il Garante per la protezione dei dati personali.</p>
+
+  <button class="policy-close" type="button" data-close>Chiudi</button>
+</dialog>
+
+<dialog id="cookie-dialog" class="policy-dialog">
+  <h2>Cookie Policy</h2>
+  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
+
+  <h3>Cookie usati dal sito</h3>
+  <p>Questo sito non installa cookie, né tecnici né di profilazione, e non salva dati nel browser (localStorage o strumenti analoghi). Non c'è un banner cookie perché non ci sono cookie da autorizzare.</p>
+
+  <h3>Link a Telegram</h3>
+  <p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
+
+  <h3>Come gestire i cookie</h3>
+  <p>Puoi disattivare o cancellare i cookie dalle impostazioni del browser. Il sito funziona comunque.</p>
+
+  <button class="policy-close" type="button" data-close>Chiudi</button>
+</dialog>
+
+<script>
+  const display = document.getElementById("display");
+  const expr = document.getElementById("expr");
+  const keys = document.querySelectorAll("[data-key]");
+
+  let current = "0";
+  let stored = null;
+  let operator = null;
+  let fresh = true;
+  let error = false;
+
+  const OPS = { "+": (a, b) => a + b, "-": (a, b) => a - b, "*": (a, b) => a * b, "/": (a, b) => a / b };
+  const OP_SYMBOL = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+
+  function show() {
+    display.textContent = current.replace(".", ",");
+    display.classList.toggle("error", error);
+    if (stored !== null && operator) {
+      expr.textContent = stored.toString().replace(".", ",") + " " + OP_SYMBOL[operator];
+    } else {
+      expr.textContent = "";
+    }
+  }
+
+  function reset() {
+    current = "0";
+    stored = null;
+    operator = null;
+    fresh = true;
+    error = false;
+  }
+
+  function inputDigit(d) {
+    if (error) reset();
+    if (fresh) {
+      current = d;
+      fresh = false;
+    } else if (current === "0") {
+      current = d;
+    } else if (current.replace("-", "").replace(".", "").length < 12) {
+      current += d;
+    }
+  }
+
+  function inputDecimal() {
+    if (error) reset();
+    if (fresh) {
+      current = "0.";
+      fresh = false;
+    } else if (!current.includes(".")) {
+      current += ".";
+    }
+  }
+
+  function compute() {
+    if (stored === null || operator === null) return;
+    const b = parseFloat(current);
+    if (operator === "/" && b === 0) {
+      error = true;
+      current = "Errore";
+      stored = null;
+      operator = null;
+      return;
+    }
+    const result = OPS[operator](stored, b);
+    current = String(Number(result.toPrecision(12)));
+    stored = null;
+    operator = null;
+  }
+
+  function applyOperator(op) {
+    if (error) reset();
+    if (stored !== null && operator && !fresh) {
+      compute();
+      if (error) return;
+    }
+    stored = parseFloat(current);
+    operator = op;
+    fresh = true;
+  }
+
+  function percent() {
+    if (error) reset();
+    current = String(Number((parseFloat(current) / 100).toPrecision(12)));
+    fresh = true;
+  }
+
+  function clearAll() {
+    reset();
+  }
+
+  function backspace() {
+    if (error) { reset(); return; }
+    if (fresh) return;
+    current = current.length > 1 ? current.slice(0, -1) : "0";
+    if (current === "-" || current === "") current = "0";
+  }
+
+  function press(key) {
+    if (/^[0-9]$/.test(key)) inputDigit(key);
+    else if (key === "." || key === ",") inputDecimal();
+    else if (key in OPS) applyOperator(key);
+    else if (key === "Enter" || key === "=") { if (!error) { compute(); fresh = true; } }
+    else if (key === "Backspace") backspace();
+    else if (key === "Escape" || key === "C") clearAll();
+    else if (key === "%") percent();
+    show();
+  }
+
+  keys.forEach((btn) => {
+    btn.addEventListener("click", () => press(btn.dataset.key));
+  });
+
+  function flash(key) {
+    const btn = [...keys].find((b) => b.dataset.key === key);
+    if (!btn) return;
+    btn.classList.add("press");
+    setTimeout(() => btn.classList.remove("press"), 120);
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (document.querySelector("dialog[open]")) return;
+    let key = e.key;
+    if (key === "Esc") key = "Escape";
+    if (key === "Enter" || key === "=") key = "Enter";
+    if (key === "*" || key === "/" || key === "+" || key === "-" || key === "%" || key === "." || key === "," || key === "Backspace" || key === "Escape" || /^[0-9]$/.test(key)) {
+      if (key === "/") e.preventDefault();
+      if (key === "Backspace") e.preventDefault();
+      const mapped = key === "," ? "." : key;
+      const btnKey = key === "*" ? "*" : mapped;
+      flash(btnKey === "Escape" ? "C" : btnKey);
+      press(key);
+    }
+  });
+
+  document.querySelectorAll("[data-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const d = document.getElementById(btn.getAttribute("data-open"));
+      if (d && d.showModal) d.showModal();
+    });
+  });
+  document.querySelectorAll(".policy-dialog").forEach((d) => {
+    d.querySelector("[data-close]").addEventListener("click", () => d.close());
+    d.addEventListener("click", (e) => { if (e.target === d) d.close(); });
+  });
+
+  show();
+</script>
+</body>
+</html>
