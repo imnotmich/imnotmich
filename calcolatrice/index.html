@@ -3,21 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Calcolatrice retro · Mich Projects</title>
-<meta name="description" content="Calcolatrice in stile retro, con pulsanti e tastiera.">
+<title>Calcolatrice · Mich Projects</title>
+<meta name="description" content="Calcolatrice in stile retro, normale e scientifica, con pulsanti e tastiera.">
 <meta name="theme-color" content="#2b2a33">
 <style>
 :root {
   --body: #d9cfb8;
   --body-dark: #bfb49a;
   --body-edge: #8f8572;
+  --body-light: #e8e0cc;
   --screen: #9fb89a;
   --screen-ink: #1b2a1f;
   --screen-dim: #566b5a;
+  --screen-glow: #b8d4b0;
   --key: #efe8d6;
   --key-edge: #a39a84;
+  --key-light: #f6f0e0;
   --key-op: #d9a45a;
+  --key-op-light: #e6b870;
   --key-eq: #c96a4a;
+  --key-eq-light: #d67a5a;
   --key-fn: #bdb29a;
   --ink: #2b2a33;
   --muted: #6b6456;
@@ -26,69 +31,203 @@
   --draft-bg: #fff7e6;
   --draft-ink: #5a4208;
   --draft-line: #d9a441;
+  --mono: 'Courier New', Courier, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  background: radial-gradient(ellipse at top, #efe6cf 0%, #cfc4a8 100%);
+  font-family: var(--mono);
+  background:
+    radial-gradient(ellipse at top, #efe6cf 0%, #cfc4a8 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.01) 2px, rgba(0,0,0,0.01) 4px);
   color: var(--ink);
   min-height: 100vh;
   padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
   overflow-x: hidden;
 }
 
-.wrap { max-width: 440px; margin: 0 auto; padding: 56px 20px 40px; }
+.wrap { max-width: 480px; margin: 0 auto; padding: 56px 20px 40px; }
 
-header { text-align: center; margin-bottom: 26px; }
+header { text-align: center; margin-bottom: 32px; }
 
 h1 {
-  font-family: "Courier New", Courier, monospace;
-  font-size: clamp(26px, 6vw, 34px);
-  letter-spacing: 0.08em;
+  font-family: var(--mono);
+  font-size: clamp(28px, 6.5vw, 36px);
+  letter-spacing: 0.1em;
   color: var(--ink);
   text-transform: uppercase;
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+  position: relative;
+  display: inline-block;
 }
 
-.sub { margin-top: 8px; color: var(--muted); font-size: 15px; }
+h1::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+.sub { margin-top: 16px; color: var(--muted); font-size: 15px; letter-spacing: 0.02em; }
 
 .calc {
-  background: var(--body);
+  background:
+    linear-gradient(135deg, var(--body) 0%, var(--body-dark) 100%),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px);
   border: 2px solid var(--body-edge);
-  border-radius: 28px;
-  padding: 22px 20px 26px;
-  box-shadow: inset 0 -6px 0 var(--body-dark), 0 18px 40px -16px rgba(43, 42, 51, 0.45);
+  border-radius: 32px;
+  padding: 24px 22px 28px;
+  box-shadow:
+    inset 0 -8px 0 var(--body-dark),
+    inset 0 2px 0 var(--body-light),
+    0 20px 50px -16px rgba(43, 42, 51, 0.5),
+    0 8px 16px -8px rgba(43, 42, 51, 0.3);
+  position: relative;
+}
+
+.solar-panel {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 18px;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.solar-cell {
+  flex: 1;
+  height: 12px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #3a3a3a 50%, #1a1a1a 100%);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.brand {
+  position: absolute;
+  top: 28px;
+  right: 26px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--body-edge);
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.modes { display: flex; gap: 10px; margin-bottom: 16px; }
+
+.mode {
+  flex: 1;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--key);
+  color: var(--ink);
+  border: 1px solid var(--key-edge);
+  border-radius: 12px;
+  padding: 10px 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 3px 0 var(--key-edge), inset 0 1px 0 rgba(255,255,255,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.mode::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.mode:hover {
+  background: var(--key-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--key-edge), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.mode:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--key-edge), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.mode[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-deep);
+  box-shadow: 0 3px 0 var(--accent-deep), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.mode[aria-pressed="true"]::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%);
 }
 
 .screen {
-  background: var(--screen);
+  background:
+    linear-gradient(180deg, var(--screen) 0%, var(--screen-glow) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 3px);
   border: 4px solid #6d7d68;
-  border-radius: 10px;
-  padding: 14px 16px 12px;
-  margin-bottom: 20px;
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25);
-  min-height: 112px;
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  margin-bottom: 22px;
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.35), inset 0 -2px 4px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1);
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  position: relative;
+}
+
+.screen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.02) 1px, rgba(0, 0, 0, 0.02) 2px);
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+.screen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: 8px;
+  transform: skewY(-5deg);
 }
 
 .screen-top {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 15px;
   color: var(--screen-dim);
-  min-height: 20px;
+  min-height: 22px;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+  z-index: 1;
 }
 
 .screen-main {
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--mono);
   font-weight: 700;
   font-size: clamp(30px, 9vw, 44px);
   color: var(--screen-ink);
@@ -97,105 +236,255 @@ h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 10px rgba(27, 42, 31, 0.4), 0 1px 2px rgba(27, 42, 31, 0.2);
 }
 
-.screen-main.error { font-size: clamp(22px, 6vw, 30px); }
+.screen-main.error { font-size: clamp(24px, 7vw, 32px); }
 
-.keys {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
+.keys, .sci-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+.sci-keys { display: none; margin-bottom: 12px; }
+.calc.sci .sci-keys { display: grid; }
 
 .key {
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--mono);
   font-weight: 700;
   font-size: 22px;
-  background: var(--key);
+  background:
+    linear-gradient(180deg, var(--key) 0%, var(--key-edge) 100%),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px);
   color: var(--ink);
   border: 1px solid var(--key-edge);
-  border-radius: 12px;
-  height: 62px;
+  border-radius: 14px;
+  height: 64px;
   cursor: pointer;
-  box-shadow: 0 5px 0 var(--key-edge);
-  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+  box-shadow: 0 6px 0 var(--key-edge), inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -2px 0 rgba(0,0,0,0.1);
+  transition: all 0.08s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
 }
-.key:hover { background: #f6f0e0; }
-.key:active,
-.key.press {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 var(--key-edge);
+
+.key::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: 13px;
 }
-.key.fn { background: var(--key-fn); }
-.key.op { background: var(--key-op); color: #2b1a0a; }
-.key.eq { background: var(--key-eq); color: #fff; border-color: var(--accent-deep); box-shadow: 0 5px 0 var(--accent-deep); }
-.key.eq:active, .key.eq.press { box-shadow: 0 1px 0 var(--accent-deep); }
+
+.key:hover {
+  background: var(--key-light);
+  transform: translateY(-1px);
+  box-shadow: 0 7px 0 var(--key-edge), inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -2px 0 rgba(0,0,0,0.1);
+}
+
+.key:active, .key.press {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--key-edge), inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
+}
+
+.key.fn {
+  background: linear-gradient(180deg, var(--key-fn) 0%, #a39a84 100%);
+  box-shadow: 0 6px 0 #8f8572, inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+.key.fn:hover { background: linear-gradient(180deg, #c9bea6 0%, #a39a84 100%); }
+
+.key.fn:active, .key.fn.press {
+  box-shadow: 0 1px 0 #8f8572, inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+.key.op {
+  background: linear-gradient(180deg, var(--key-op) 0%, #b8864a 100%);
+  color: #2b1a0a;
+  box-shadow: 0 6px 0 #8f642a, inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+.key.op:hover { background: var(--key-op-light); }
+
+.key.eq {
+  background: linear-gradient(180deg, var(--key-eq) 0%, var(--accent-deep) 100%);
+  color: #fff;
+  border-color: var(--accent-deep);
+  box-shadow: 0 6px 0 #7a3a2e, inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -2px 0 rgba(0,0,0,0.2);
+}
+
+.key.eq:hover { background: var(--key-eq-light); }
+
+.key.eq:active, .key.eq.press {
+  box-shadow: 0 1px 0 #7a3a2e, inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0,0,0,0.2);
+}
+
 .key.wide { grid-column: span 2; }
+.key.half { grid-column: span 2; }
+
+.key.sm { height: 52px; font-size: 16px; }
+
+.key.sm.fn { box-shadow: 0 5px 0 #8f8572, inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -2px 0 rgba(0,0,0,0.15); }
+
+.key.sm.fn:active, .key.sm.fn.press {
+  box-shadow: 0 1px 0 #8f8572, inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
 .key:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 .hint {
-  margin-top: 18px;
+  margin-top: 20px;
   text-align: center;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.5;
+  padding: 12px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(163, 154, 132, 0.3);
 }
 
 .contact {
-  margin-top: 36px;
+  margin-top: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
-  background: #f4eedf;
-  border: 1px solid var(--body-edge);
-  border-radius: 22px;
-  padding: 22px 24px;
-  box-shadow: 0 10px 30px -12px rgba(43, 42, 51, 0.3);
+  background:
+    linear-gradient(135deg, #f4eedf 0%, #e8e0cc 100%),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px);
+  border: 2px solid var(--body-edge);
+  border-radius: 24px;
+  padding: 24px 26px;
+  box-shadow: 0 12px 36px -12px rgba(43, 42, 51, 0.35), inset 0 2px 0 rgba(255,255,255,0.6);
 }
-.contact h3 { font-size: 17px; font-weight: 700; }
+
+.contact h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .contact p { color: var(--muted); font-size: 14px; margin-top: 2px; }
 
 .tg {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
   color: #fff;
-  padding: 11px 20px;
+  padding: 12px 22px;
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
   font-size: 15px;
+  box-shadow: 0 4px 12px rgba(201, 106, 74, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: all 0.2s ease;
+  border: 2px solid var(--accent-deep);
 }
-.tg svg { width: 18px; height: 18px; }
 
-footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
-footer p + p { margin-top: 6px; }
-footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.tg:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(201, 106, 74, 0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
+.tg:active { transform: translateY(0); }
+.tg svg { width: 20px; height: 20px; }
+
+footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; }
+footer p + p { margin-top: 8px; }
+footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s ease; }
+footer a:hover { color: var(--accent); }
+
 .scopri { color: var(--accent-deep) !important; font-weight: 600; }
-.flink { background: none; border: none; cursor: pointer; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
 
-.policy-dialog { border: 1px solid var(--body-edge); border-radius: 20px; padding: 28px; max-width: 560px; width: 92vw; max-height: 80vh; overflow-y: auto; background: #f4eedf; color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35); }
-.policy-dialog::backdrop { background: rgba(43, 42, 51, 0.5); }
-.policy-dialog h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-.policy-dialog h3 { font-size: 15px; font-weight: 700; margin: 18px 0 6px; color: var(--accent-deep); }
-.policy-dialog p { font-size: 14.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+.flink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.flink:hover { color: var(--accent); }
+
+.policy-dialog {
+  border: 2px solid var(--body-edge);
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 600px;
+  width: 92vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  background:
+    linear-gradient(135deg, #f4eedf 0%, #e8e0cc 100%),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px);
+  color: var(--ink);
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.6);
+}
+
+.policy-dialog::backdrop { background: rgba(43, 42, 51, 0.6); backdrop-filter: blur(4px); }
+
+.policy-dialog h2 { font-size: 24px; font-weight: 700; margin-bottom: 14px; color: var(--accent-deep); }
+.policy-dialog h3 { font-size: 16px; font-weight: 700; margin: 20px 0 8px; color: var(--accent-deep); }
+.policy-dialog p { font-size: 15px; color: var(--muted); margin-bottom: 12px; line-height: 1.7; }
 .policy-dialog p strong { color: var(--ink); }
-.policy-dialog a { color: var(--accent-deep); }
-.draft { font-size: 13px; background: var(--draft-bg); color: var(--draft-ink); border: 1px solid var(--draft-line); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
-.policy-close { margin-top: 16px; background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
-.policy-close:hover { opacity: 0.9; }
+.policy-dialog a { color: var(--accent-deep); font-weight: 600; }
+
+.draft {
+  font-size: 13px;
+  background: var(--draft-bg);
+  color: var(--draft-ink);
+  border: 2px solid var(--draft-line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.policy-close {
+  margin-top: 20px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: #fff;
+  border: 2px solid var(--accent-deep);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(201, 106, 74, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: all 0.2s ease;
+}
+
+.policy-close:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(201, 106, 74, 0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+.policy-close:active { transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .wrap { padding: 48px 16px 32px; }
+  h1 { font-size: clamp(26px, 7vw, 32px); }
+  .calc { padding: 22px 18px 26px; border-radius: 28px; }
+  .contact { flex-direction: column; text-align: center; padding: 22px 20px; }
+  .contact > div { margin-bottom: 16px; }
+  footer { padding: 0 16px; }
+}
 
 @media (max-width: 400px) {
-  .key { height: 56px; font-size: 20px; }
-  .keys { gap: 10px; }
+  .wrap { padding: 40px 12px 28px; }
+  .calc { padding: 20px 16px 24px; border-radius: 24px; }
+  .solar-panel { margin-bottom: 14px; padding: 6px 10px; }
+  .solar-cell { height: 10px; }
+  .screen { min-height: 100px; padding: 14px 16px 12px; border-radius: 10px; }
+  .screen-main { font-size: clamp(28px, 9vw, 40px); }
+  .key { height: 58px; font-size: 20px; border-radius: 12px; }
+  .key.sm { height: 48px; font-size: 14px; }
+  .keys, .sci-keys { gap: 10px; }
+  .modes { gap: 8px; }
+  .mode { padding: 8px 4px; font-size: 12px; }
+  .contact { padding: 20px 18px; border-radius: 20px; }
+  .tg { padding: 10px 18px; font-size: 14px; }
+  .hint { font-size: 12px; padding: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 </style>
 </head>
@@ -207,13 +496,57 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
     <p class="sub">Usa i pulsanti oppure la tastiera.</p>
   </header>
 
-  <section class="calc" aria-label="Calcolatrice">
+  <section class="calc" id="calc" aria-label="Calcolatrice">
+    <span class="brand">Mich</span>
+
+    <div class="solar-panel">
+      <div class="solar-cell"></div>
+      <div class="solar-cell"></div>
+      <div class="solar-cell"></div>
+      <div class="solar-cell"></div>
+      <div class="solar-cell"></div>
+    </div>
+
+    <div class="modes">
+      <button class="mode" type="button" data-mode="normal" aria-pressed="true">Normale</button>
+      <button class="mode" type="button" data-mode="sci" aria-pressed="false">Scientifica</button>
+    </div>
+
     <div class="screen" aria-live="polite">
       <div class="screen-top" id="expr"></div>
       <div class="screen-main" id="display">0</div>
     </div>
 
+    <div class="sci-keys">
+      <button class="key sm fn" data-key="sin">sin</button>
+      <button class="key sm fn" data-key="cos">cos</button>
+      <button class="key sm fn" data-key="tan">tan</button>
+      <button class="key sm fn" data-key="angle" id="angle">DEG</button>
+
+      <button class="key sm fn" data-key="asin">sin⁻¹</button>
+      <button class="key sm fn" data-key="acos">cos⁻¹</button>
+      <button class="key sm fn" data-key="atan">tan⁻¹</button>
+      <button class="key sm fn" data-key="pi">π</button>
+
+      <button class="key sm fn" data-key="ln">ln</button>
+      <button class="key sm fn" data-key="log">log</button>
+      <button class="key sm fn" data-key="sqrt">√</button>
+      <button class="key sm fn" data-key="e">e</button>
+
+      <button class="key sm fn" data-key="sq">x²</button>
+      <button class="key sm fn" data-key="^">xʸ</button>
+      <button class="key sm fn" data-key="inv">1/x</button>
+      <button class="key sm fn" data-key="!">n!</button>
+
+      <button class="key sm fn" data-key="(">(</button>
+      <button class="key sm fn" data-key=")">)</button>
+      <button class="key sm fn" data-key="pm">±</button>
+      <button class="key sm fn" data-key="%">%</button>
+    </div>
+
     <div class="keys">
+      <button class="key sm fn half" data-key="(">(</button>
+      <button class="key sm fn half" data-key=")">)</button>
       <button class="key fn" data-key="C">C</button>
       <button class="key fn" data-key="Backspace">⌫</button>
       <button class="key fn" data-key="%">%</button>
@@ -261,7 +594,7 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
 
 <dialog id="privacy-dialog" class="policy-dialog">
   <h2>Informativa sulla privacy</h2>
-  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <p>Ultimo aggiornamento: 30 ottobre 2026.</p>
   <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
 
   <h3>Titolare e contatto</h3>
@@ -287,7 +620,7 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
 
 <dialog id="cookie-dialog" class="policy-dialog">
   <h2>Cookie Policy</h2>
-  <p>Ultimo aggiornamento: 29 ottobre 2026.</p>
+  <p>Ultimo aggiornamento: 30 ottobre 2026.</p>
   <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
 
   <h3>Cookie usati dal sito</h3>
@@ -303,120 +636,335 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
 </dialog>
 
 <script>
-  const display = document.getElementById("display");
-  const expr = document.getElementById("expr");
-  const keys = document.querySelectorAll("[data-key]");
+  const calc = document.getElementById("calc");
+  const displayEl = document.getElementById("display");
+  const exprEl = document.getElementById("expr");
+  const angleBtn = document.getElementById("angle");
 
-  let current = "0";
-  let stored = null;
-  let operator = null;
-  let fresh = true;
-  let error = false;
+  const state = { tokens: [], entry: "", result: null, open: 0, error: false, angle: "deg", mode: "normal", lastExpr: "" };
 
-  const OPS = { "+": (a, b) => a + b, "-": (a, b) => a - b, "*": (a, b) => a * b, "/": (a, b) => a / b };
-  const OP_SYMBOL = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+  const FN = {
+    sin: (x) => Math.sin(toRad(x)),
+    cos: (x) => Math.cos(toRad(x)),
+    tan: (x) => Math.tan(toRad(x)),
+    asin: (x) => fromRad(Math.asin(x)),
+    acos: (x) => fromRad(Math.acos(x)),
+    atan: (x) => fromRad(Math.atan(x)),
+    ln: (x) => Math.log(x),
+    log: (x) => Math.log10(x),
+    sqrt: (x) => Math.sqrt(x)
+  };
+  const FN_LABEL = { sin: "sin", cos: "cos", tan: "tan", asin: "sin⁻¹", acos: "cos⁻¹", atan: "tan⁻¹", ln: "ln", log: "log", sqrt: "√" };
+  const BIN = new Set(["+", "-", "*", "/", "^"]);
+  const SYM = { "+": "+", "-": "−", "*": "×", "/": "÷", "^": "^", "%": "%", "!": "!" };
 
-  function show() {
-    display.textContent = current.replace(".", ",");
-    display.classList.toggle("error", error);
-    if (stored !== null && operator) {
-      expr.textContent = stored.toString().replace(".", ",") + " " + OP_SYMBOL[operator];
-    } else {
-      expr.textContent = "";
+  function toRad(x) { return state.angle === "deg" ? (x * Math.PI) / 180 : x; }
+  function fromRad(r) { return state.angle === "deg" ? (r * 180) / Math.PI : r; }
+
+  function fact(n) {
+    if (!Number.isInteger(n) || n < 0 || n > 170) throw new Error("fact");
+    let r = 1;
+    for (let i = 2; i <= n; i++) r *= i;
+    return r;
+  }
+
+  function parse(ts) {
+    let i = 0;
+    const peek = () => ts[i];
+    const next = () => ts[i++];
+
+    function expr() {
+      let v = term();
+      while (peek() === "+" || peek() === "-") {
+        const op = next();
+        const r = term();
+        v = op === "+" ? v + r : v - r;
+      }
+      return v;
+    }
+    function term() {
+      let v = unary();
+      while (peek() === "*" || peek() === "/") {
+        const op = next();
+        const r = unary();
+        v = op === "*" ? v * r : v / r;
+      }
+      return v;
+    }
+    function unary() {
+      const t = peek();
+      if (t === "-") { next(); return -unary(); }
+      if (typeof t === "string" && /^-[0-9.]/.test(t)) { ts[i] = t.slice(1); return -unary(); }
+      return power();
+    }
+    function power() {
+      const b = postfix();
+      if (peek() === "^") { next(); return Math.pow(b, unary()); }
+      return b;
+    }
+    function postfix() {
+      let v = primary();
+      while (peek() === "!" || peek() === "%") {
+        const op = next();
+        v = op === "%" ? v / 100 : fact(v);
+      }
+      return v;
+    }
+    function primary() {
+      const t = next();
+      if (t === undefined) throw new Error("fine");
+      if (/^[0-9.]/.test(t)) return parseFloat(t);
+      if (t === "(") {
+        const v = expr();
+        if (next() !== ")") throw new Error("par");
+        return v;
+      }
+      if (FN[t]) {
+        if (next() !== "(") throw new Error("fn");
+        const v = expr();
+        if (next() !== ")") throw new Error("par");
+        return FN[t](v);
+      }
+      throw new Error("token");
+    }
+
+    const v = expr();
+    if (i !== ts.length) throw new Error("extra");
+    return v;
+  }
+
+  function isValueToken(t) {
+    return t !== undefined && (/^[0-9.]/.test(t) || t === ")" || t === "!" || t === "%");
+  }
+  function lastToken() { return state.tokens[state.tokens.length - 1]; }
+  function flush() {
+    if (state.entry !== "") { state.tokens.push(state.entry); state.entry = ""; }
+  }
+  function clearResultIfAny() {
+    if (state.result !== null) { state.tokens = []; state.open = 0; state.result = null; }
+  }
+  function startFromResult() {
+    if (state.result !== null) {
+      state.entry = state.result;
+      state.result = null;
+      state.tokens = [];
+      state.open = 0;
+    }
+  }
+  function formatNumber(v) {
+    return String(Number(v.toPrecision(12)));
+  }
+  function fmtDisplay(s) {
+    return s.replace(".", ",");
+  }
+
+  function digit(d) {
+    if (state.error) reset();
+    clearResultIfAny();
+    if (state.entry === "" && isValueToken(lastToken())) state.tokens.push("*");
+    if (state.entry === "0") state.entry = d;
+    else if (state.entry.replace(/[^0-9]/g, "").length < 14) state.entry += d;
+    else if (state.entry === "") state.entry = d;
+  }
+
+  function decimal() {
+    if (state.error) reset();
+    clearResultIfAny();
+    if (state.entry === "") {
+      if (isValueToken(lastToken())) state.tokens.push("*");
+      state.entry = "0.";
+    } else if (!state.entry.includes(".")) {
+      state.entry += ".";
     }
   }
 
-  function reset() {
-    current = "0";
-    stored = null;
-    operator = null;
-    fresh = true;
-    error = false;
-  }
-
-  function inputDigit(d) {
-    if (error) reset();
-    if (fresh) {
-      current = d;
-      fresh = false;
-    } else if (current === "0") {
-      current = d;
-    } else if (current.replace("-", "").replace(".", "").length < 12) {
-      current += d;
-    }
-  }
-
-  function inputDecimal() {
-    if (error) reset();
-    if (fresh) {
-      current = "0.";
-      fresh = false;
-    } else if (!current.includes(".")) {
-      current += ".";
-    }
-  }
-
-  function compute() {
-    if (stored === null || operator === null) return;
-    const b = parseFloat(current);
-    if (operator === "/" && b === 0) {
-      error = true;
-      current = "Errore";
-      stored = null;
-      operator = null;
+  function operator(op) {
+    if (state.error) reset();
+    startFromResult();
+    flush();
+    const last = lastToken();
+    if (last === undefined || last === "(") {
+      if (op === "-") state.tokens.push("-");
       return;
     }
-    const result = OPS[operator](stored, b);
-    current = String(Number(result.toPrecision(12)));
-    stored = null;
-    operator = null;
-  }
-
-  function applyOperator(op) {
-    if (error) reset();
-    if (stored !== null && operator && !fresh) {
-      compute();
-      if (error) return;
+    if (BIN.has(last)) {
+      if (op === "-" && last !== "-") state.tokens.push("-");
+      else if (last !== "-") state.tokens[state.tokens.length - 1] = op;
+      return;
     }
-    stored = parseFloat(current);
-    operator = op;
-    fresh = true;
+    state.tokens.push(op);
   }
 
-  function percent() {
-    if (error) reset();
-    current = String(Number((parseFloat(current) / 100).toPrecision(12)));
-    fresh = true;
+  function postfixOp(op) {
+    if (state.error) reset();
+    startFromResult();
+    flush();
+    if (isValueToken(lastToken())) state.tokens.push(op);
   }
 
-  function clearAll() {
-    reset();
+  function powerOp(exp) {
+    if (state.error) reset();
+    startFromResult();
+    flush();
+    if (isValueToken(lastToken())) state.tokens.push("^", exp);
+  }
+
+  function openParen() {
+    if (state.error) reset();
+    clearResultIfAny();
+    flush();
+    if (isValueToken(lastToken())) state.tokens.push("*");
+    state.tokens.push("(");
+    state.open++;
+  }
+
+  function closeParen() {
+    if (state.error) reset();
+    if (state.open === 0) return;
+    flush();
+    if (!isValueToken(lastToken())) return;
+    state.tokens.push(")");
+    state.open--;
+  }
+
+  function fn(name) {
+    if (state.error) reset();
+    clearResultIfAny();
+    flush();
+    if (isValueToken(lastToken())) state.tokens.push("*");
+    state.tokens.push(name, "(");
+    state.open++;
+  }
+
+  function constant(value) {
+    if (state.error) reset();
+    clearResultIfAny();
+    flush();
+    if (isValueToken(lastToken())) state.tokens.push("*");
+    state.tokens.push(value);
+  }
+
+  function sign() {
+    if (state.error) return;
+    if (state.entry !== "") {
+      state.entry = state.entry.startsWith("-") ? state.entry.slice(1) : "-" + state.entry;
+    } else if (state.result !== null) {
+      state.result = state.result.startsWith("-") ? state.result.slice(1) : "-" + state.result;
+    }
+  }
+
+  function equals() {
+    if (state.error) { reset(); return; }
+    if (state.result !== null) return;
+    flush();
+    if (state.tokens.length === 0) return;
+    if (BIN.has(lastToken()) || lastToken() === "(") return;
+    while (state.open > 0) { state.tokens.push(")"); state.open--; }
+    const shown = state.tokens.map(tokenLabel).join(" ");
+    try {
+      const v = parse(state.tokens.slice());
+      if (!Number.isFinite(v)) throw new Error("inf");
+      state.result = formatNumber(v);
+      state.error = false;
+    } catch (e) {
+      state.result = null;
+      state.error = true;
+    }
+    state.tokens = [];
+    state.entry = "";
+    state.open = 0;
+    state.lastExpr = shown;
+  }
+
+  function tokenLabel(t) {
+    if (FN[t]) return FN_LABEL[t];
+    if (SYM[t]) return SYM[t];
+    if (t === "(" || t === ")") return t;
+    return fmtDisplay(t);
   }
 
   function backspace() {
-    if (error) { reset(); return; }
-    if (fresh) return;
-    current = current.length > 1 ? current.slice(0, -1) : "0";
-    if (current === "-" || current === "") current = "0";
+    if (state.error || state.result !== null) { reset(); return; }
+    if (state.entry !== "") {
+      state.entry = state.entry.slice(0, -1);
+      return;
+    }
+    const t = state.tokens.pop();
+    if (t === "(") state.open--;
+    if (t === "(" && FN[lastToken()]) state.tokens.pop();
+  }
+
+  function reset() {
+    state.tokens = [];
+    state.entry = "";
+    state.result = null;
+    state.open = 0;
+    state.error = false;
+    state.lastExpr = "";
+  }
+
+  function render() {
+    if (state.error) {
+      displayEl.textContent = "Errore";
+      displayEl.classList.add("error");
+    } else {
+      displayEl.classList.remove("error");
+      let v;
+      if (state.entry !== "") v = state.entry;
+      else if (state.result !== null) v = state.result;
+      else v = "0";
+      displayEl.textContent = fmtDisplay(v);
+    }
+    if (state.result !== null || state.error) {
+      exprEl.textContent = state.lastExpr || "";
+    } else {
+      const hist = state.tokens.map(tokenLabel).join(" ");
+      exprEl.textContent = hist + (state.entry ? " " + fmtDisplay(state.entry) : "");
+    }
   }
 
   function press(key) {
-    if (/^[0-9]$/.test(key)) inputDigit(key);
-    else if (key === "." || key === ",") inputDecimal();
-    else if (key in OPS) applyOperator(key);
-    else if (key === "Enter" || key === "=") { if (!error) { compute(); fresh = true; } }
-    else if (key === "Backspace") backspace();
-    else if (key === "Escape" || key === "C") clearAll();
-    else if (key === "%") percent();
-    show();
+    switch (key) {
+      case "0": case "1": case "2": case "3": case "4":
+      case "5": case "6": case "7": case "8": case "9": digit(key); break;
+      case ".": case ",": decimal(); break;
+      case "+": case "-": case "*": case "/": case "^": operator(key); break;
+      case "%": postfixOp("%"); break;
+      case "!": postfixOp("!"); break;
+      case "(": openParen(); break;
+      case ")": closeParen(); break;
+      case "Enter": case "=": equals(); break;
+      case "Backspace": backspace(); break;
+      case "C": case "Escape": reset(); break;
+      case "pm": sign(); break;
+      case "pi": constant(String(Math.PI)); break;
+      case "e": constant(String(Math.E)); break;
+      case "sq": powerOp("2"); break;
+      case "inv": powerOp("-1"); break;
+      case "angle":
+        state.angle = state.angle === "deg" ? "rad" : "deg";
+        angleBtn.textContent = state.angle.toUpperCase();
+        break;
+      default:
+        if (FN[key]) fn(key);
+    }
+    render();
   }
 
-  keys.forEach((btn) => {
+  document.querySelectorAll("[data-key]").forEach((btn) => {
     btn.addEventListener("click", () => press(btn.dataset.key));
   });
 
+  document.querySelectorAll(".mode").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.mode = btn.dataset.mode;
+      calc.classList.toggle("sci", state.mode === "sci");
+      document.querySelectorAll(".mode").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    });
+  });
+
   function flash(key) {
-    const btn = [...keys].find((b) => b.dataset.key === key);
+    const btn = document.querySelector('.keys [data-key="' + key + '"]');
     if (!btn) return;
     btn.classList.add("press");
     setTimeout(() => btn.classList.remove("press"), 120);
@@ -424,17 +972,23 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
 
   document.addEventListener("keydown", (e) => {
     if (document.querySelector("dialog[open]")) return;
-    let key = e.key;
-    if (key === "Esc") key = "Escape";
-    if (key === "Enter" || key === "=") key = "Enter";
-    if (key === "*" || key === "/" || key === "+" || key === "-" || key === "%" || key === "." || key === "," || key === "Backspace" || key === "Escape" || /^[0-9]$/.test(key)) {
-      if (key === "/") e.preventDefault();
-      if (key === "Backspace") e.preventDefault();
-      const mapped = key === "," ? "." : key;
-      const btnKey = key === "*" ? "*" : mapped;
-      flash(btnKey === "Escape" ? "C" : btnKey);
-      press(key);
-    }
+    const k = e.key;
+    let key = null;
+    if (/^[0-9]$/.test(k)) key = k;
+    else if (k === "," || k === ".") key = ".";
+    else if (k === "+" || k === "-" || k === "*" || k === "/") key = k;
+    else if (k === "^" && state.mode === "sci") key = "^";
+    else if (k === "(" || k === ")") key = k;
+    else if (k === "%") key = "%";
+    else if (k === "!" && state.mode === "sci") key = "!";
+    else if (k === "Enter" || k === "=") key = "Enter";
+    else if (k === "Backspace") key = "Backspace";
+    else if (k === "Escape") key = "Escape";
+    if (key === null) return;
+    if (k === "/" || k === "Backspace") e.preventDefault();
+    if (key === "Escape") flash("C");
+    else flash(key);
+    press(key);
   });
 
   document.querySelectorAll("[data-open]").forEach((btn) => {
@@ -443,12 +997,12 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
       if (d && d.showModal) d.showModal();
     });
   });
-  document.querySelectorAll(".policy-dialog").forEach((d) => {
+  document.querySelectorAll("dialog").forEach((d) => {
     d.querySelector("[data-close]").addEventListener("click", () => d.close());
     d.addEventListener("click", (e) => { if (e.target === d) d.close(); });
   });
 
-  show();
+  render();
 </script>
 </body>
 </html>
