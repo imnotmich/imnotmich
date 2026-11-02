@@ -483,6 +483,37 @@ footer a:hover { color: var(--accent); }
   .hint { font-size: 12px; padding: 10px; }
 }
 
+
+.calc-left, .calc-right { display: contents; }
+
+@media (min-width: 900px) {
+  .wrap { max-width: 1120px; padding: 64px 40px 48px; }
+  h1 { font-size: 44px; }
+  .calc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 40px;
+    align-items: start;
+    padding: 40px 44px 40px;
+  }
+  .calc-left, .calc-right { display: block; }
+  .brand { top: 34px; right: 40px; font-size: 13px; }
+  .screen { min-height: 190px; padding: 22px 26px 20px; }
+  .screen-top { font-size: 20px; }
+  .screen-main { font-size: 68px; }
+  .screen-main.error { font-size: 44px; }
+  .keys, .sci-keys { gap: 14px; }
+  .key { height: 80px; font-size: 28px; }
+  .key.sm { height: 64px; font-size: 19px; }
+  .mode { font-size: 15px; padding: 14px 8px; }
+  .hint { font-size: 14px; }
+  .contact { padding: 30px 36px; }
+}
+
+@media (min-width: 1200px) {
+  .calc { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
@@ -498,7 +529,7 @@ footer a:hover { color: var(--accent); }
 
   <section class="calc" id="calc" aria-label="Calcolatrice">
     <span class="brand">Mich</span>
-
+    <div class="calc-left">
     <div class="solar-panel">
       <div class="solar-cell"></div>
       <div class="solar-cell"></div>
@@ -516,7 +547,8 @@ footer a:hover { color: var(--accent); }
       <div class="screen-top" id="expr"></div>
       <div class="screen-main" id="display">0</div>
     </div>
-
+    </div>
+    <div class="calc-right">
     <div class="sci-keys">
       <button class="key sm fn" data-key="sin">sin</button>
       <button class="key sm fn" data-key="cos">cos</button>
@@ -538,10 +570,8 @@ footer a:hover { color: var(--accent); }
       <button class="key sm fn" data-key="inv">1/x</button>
       <button class="key sm fn" data-key="!">n!</button>
 
-      <button class="key sm fn" data-key="(">(</button>
-      <button class="key sm fn" data-key=")">)</button>
-      <button class="key sm fn" data-key="pm">±</button>
-      <button class="key sm fn" data-key="%">%</button>
+      <button class="key sm fn half" data-key="pm">±</button>
+      <button class="key sm fn half" data-key="%">%</button>
     </div>
 
     <div class="keys">
@@ -573,6 +603,7 @@ footer a:hover { color: var(--accent); }
     </div>
 
     <p class="hint">Tastiera: numeri, + − * /, Invio per il risultato, Backspace per cancellare, Esc per azzerare.</p>
+    </div>
   </section>
 
   <section class="contact">
@@ -694,7 +725,11 @@ footer a:hover { color: var(--accent); }
     function unary() {
       const t = peek();
       if (t === "-") { next(); return -unary(); }
-      if (typeof t === "string" && /^-[0-9.]/.test(t)) { ts[i] = t.slice(1); return -unary(); }
+      if (typeof t === "string" && /^-[0-9.]/.test(t)) {
+        if (ts[i + 1] === "!") throw new Error("neg");
+        ts[i] = t.slice(1);
+        return -unary();
+      }
       return power();
     }
     function power() {
@@ -734,7 +769,7 @@ footer a:hover { color: var(--accent); }
   }
 
   function isValueToken(t) {
-    return t !== undefined && (/^[0-9.]/.test(t) || t === ")" || t === "!" || t === "%");
+    return t !== undefined && (/^-?[0-9.]/.test(t) || t === ")" || t === "!" || t === "%");
   }
   function lastToken() { return state.tokens[state.tokens.length - 1]; }
   function flush() {
@@ -986,6 +1021,7 @@ footer a:hover { color: var(--accent); }
     else if (k === "Escape") key = "Escape";
     if (key === null) return;
     if (k === "/" || k === "Backspace") e.preventDefault();
+    if (k === "Enter" && e.target.tagName === "BUTTON") e.preventDefault();
     if (key === "Escape") flash("C");
     else flash(key);
     press(key);
