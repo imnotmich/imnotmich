@@ -23,9 +23,7 @@
   --shadow-sm: 0 2px 8px rgba(15,45,92,.06);
   --shadow-md: 0 12px 32px rgba(15,45,92,.10);
   --shadow-lg: 0 28px 60px rgba(15,45,92,.18);
-  --shadow-gold: 0 12px 40px rgba(232,185,35,.25);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
@@ -37,7 +35,6 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-
 ::selection { background: var(--gold); color: var(--navy); }
 h1, h2, h3, h4 {
   font-family: Georgia, 'Times New Roman', serif;
@@ -49,8 +46,6 @@ h1, h2, h3, h4 {
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-
-/* NAVIGATION */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 0; transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -91,7 +86,6 @@ nav a.l::before {
 nav a.l:hover::before { width: 24px; }
 .menu-toggle { display: none; background: none; border: 0; color: #fff; cursor: pointer; padding: 10px; }
 .menu-toggle svg { width: 24px; height: 24px; }
-
 @media (max-width: 960px) {
   nav ul {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
@@ -105,8 +99,6 @@ nav a.l:hover::before { width: 24px; }
   .menu-toggle { display: block; z-index: 101; }
   .brand-text span { display: none; }
 }
-
-/* HERO */
 .hero {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
   text-align: center; position: relative; overflow: hidden;
@@ -215,8 +207,6 @@ nav a.l:hover::before { width: 24px; }
 }
 @keyframes crestRise { from { opacity: 0; transform: scale(.7) translateY(40px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 @keyframes heroFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-
-/* SECTIONS BASE */
 section { padding: 120px 0; position: relative; }
 section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%); }
 .section-header { text-align: center; max-width: 720px; margin: 0 auto 80px; position: relative; }
@@ -239,8 +229,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 28px auto 0; }
 .ornament span { width: 40px; height: 1px; background: var(--gold); }
 .ornament .diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
-
-/* CHI SIAMO */
 .chi-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
 .chi-visual { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
 .chi-visual::before {
@@ -292,14 +280,11 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
   font-size: clamp(22px, 3vw, 30px); color: #fff; line-height: 1.3; margin-bottom: 16px; position: relative;
 }
 .motto-card-text { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.7; max-width: 520px; }
-
 @media (max-width: 960px) {
   .chi-grid { grid-template-columns: 1fr; gap: 60px; }
   .chi-visual { max-width: 420px; margin: 0 auto; }
   .motto-card { padding: 36px 28px; }
 }
-
-/* IDEOLOGIA */
 .ideology-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .principle {
   background: #fff; padding: 40px 32px; border: 1px solid var(--line); border-radius: 2px;
@@ -324,8 +309,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .principle p { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
 @media (max-width: 960px) { .ideology-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .ideology-grid { grid-template-columns: 1fr; } }
-
-/* STATUTO */
 .statute-container { max-width: 880px; margin: 0 auto; }
 .statute-intro { text-align: center; font-size: 16px; color: var(--muted); margin-bottom: 60px; max-width: 600px; margin-inline: auto; }
 .article { display: grid; grid-template-columns: 120px 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--line); transition: all .3s ease; }
@@ -355,8 +338,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .btn svg { width: 14px; height: 14px; transition: transform .4s; }
 .btn:hover { color: var(--navy); }
 .btn:hover svg { transform: translateX(4px); }
-
-/* ORGANI E GERARCHIA */
 .hierarchy-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 .hierarchy-level {
   background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold);
@@ -372,7 +353,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .hierarchy-title { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
 .hierarchy-desc { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
 .hierarchy-sub { font-size: 11px; color: var(--gold-deep); text-transform: uppercase; letter-spacing: .15em; margin-bottom: 8px; font-weight: 600; }
-
 .organs-work { margin-top: 80px; padding-top: 80px; border-top: 1px solid var(--line); }
 .organs-work h3 { font-size: 32px; text-align: center; margin-bottom: 48px; font-family: Georgia, 'Times New Roman', serif; }
 .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -389,8 +369,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .work-card h4 { font-size: 22px; margin-bottom: 12px; font-family: Georgia, 'Times New Roman', serif; color: var(--navy); }
 .work-card p { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
 @media (max-width: 760px) { .work-grid { grid-template-columns: 1fr; } }
-
-/* ALBO DEI DOGI */
 .dogi-timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 40px; }
 .dogi-timeline::before {
   content: ""; position: absolute; left: 15px; top: 0; bottom: 0;
@@ -422,8 +400,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
   .dogi-card::before { left: -28px; width: 14px; height: 14px; top: 28px; }
   .dogi-card { padding: 20px 24px; }
 }
-
-/* CARICHE */
 .cariche-section {
   background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 100%);
   color: #fff; position: relative; overflow: hidden;
@@ -471,7 +447,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 }
 .person-tg:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 .person-tg svg { width: 12px; height: 12px; }
-
 @media (max-width: 960px) {
   .people-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; gap: 24px; }
   .person-avatar { width: 140px; height: 140px; }
@@ -480,8 +455,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
   .person-avatar { width: 120px; height: 120px; }
   .person-name { font-size: 22px; }
 }
-
-/* CONTATTI */
 .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 880px; margin: 0 auto; }
 .contact-card {
   background: #fff; padding: 48px 40px; border: 1px solid var(--line); text-align: center;
@@ -499,8 +472,6 @@ section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--pa
 .contact-card p { font-size: 14.5px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
 .contact-card .btn { font-size: 11px; padding: 14px 32px; }
 @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
-
-/* FOOTER */
 footer { background: var(--navy-deep); color: #cfd8e8; padding: 80px 0 40px; font-size: 14px; position: relative; overflow: hidden; }
 footer::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -523,8 +494,6 @@ footer::before {
 .footer-fine { padding-top: 32px; text-align: center; font-size: 12.5px; color: rgba(255,255,255,.4); line-height: 1.8; }
 @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } .footer-about { grid-column: 1 / -1; } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
-
-/* MODAL */
 .modal {
   position: fixed; inset: 0; background: rgba(8,26,54,.85); backdrop-filter: blur(8px);
   display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px;
@@ -548,20 +517,14 @@ footer::before {
 .modal a:hover { color: var(--gold-deep); }
 .draft { background: var(--paper-warm); border-left: 3px solid var(--gold); padding: 14px 18px; font-size: 13px; margin-bottom: 24px; color: var(--navy); font-style: italic; }
 .modal-meta { font-size: 12px; color: var(--muted); padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
-
-/* ANIMATIONS & UTILS */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 .reveal-delay-1 { transition-delay: .15s; }
 .reveal-delay-2 { transition-delay: .3s; }
-.reveal-delay-3 { transition-delay: .45s; }
-.text-center { text-align: center; }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
-
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--paper-warm); }
 ::-webkit-scrollbar-thumb { background: var(--navy); border: 2px solid var(--paper-warm); }
@@ -569,7 +532,6 @@ footer::before {
 </style>
 </head>
 <body>
-
 <nav id="nav">
   <div class="wrap">
     <a class="brand" href="#top">
@@ -589,7 +551,6 @@ footer::before {
     </ul>
   </div>
 </nav>
-
 <header class="hero" id="top">
   <div class="hero-bg"></div><div class="hero-grid"></div><div class="hero-glow"></div>
   <div class="hero-content">
@@ -602,7 +563,6 @@ footer::before {
   </div>
   <div class="hero-scroll">Scorri</div>
 </header>
-
 <section id="chi" class="chi-section">
   <div class="wrap">
     <div class="chi-grid">
@@ -631,7 +591,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="ideologia" class="alt">
   <div class="wrap">
     <div class="section-header reveal">
@@ -680,7 +639,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="statuto">
   <div class="wrap">
     <div class="section-header reveal">
@@ -709,7 +667,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="organi" class="alt">
   <div class="wrap">
     <div class="section-header reveal">
@@ -775,7 +732,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="albo-dogi" class="alt">
   <div class="wrap">
     <div class="section-header reveal">
@@ -812,7 +768,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="cariche" class="cariche-section">
   <div class="wrap">
     <div class="section-header reveal">
@@ -847,7 +802,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <section id="contatti">
   <div class="wrap">
     <div class="section-header reveal">
@@ -872,7 +826,6 @@ footer::before {
     </div>
   </div>
 </section>
-
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -908,11 +861,10 @@ footer::before {
       Questo sito non richiede login o registrazione e non usa cookie.<br>
       &copy; 2026 Fratelli di Canaria. Tutti i diritti riservati. Progetto di roleplay.<br>
       Logo, nick e skin appartengono ai rispettivi autori e giocatori.
-    </div>
+    <br>Fratelli di Canaria non è affiliato a Fratelli d'Italia, ma nutriamo grande ammirazione per il loro partito.<br>Logo e nome del partito sono di proprietà del partito: Mich non si assume alcuna responsabilità su di essi. Per questioni che li riguardano bisogna contattare il Doge, Tortello_Magno (<a href="https://t.me/Pulcino_di_nibbio" target="_blank" rel="noopener" style="color:inherit">@Pulcino_di_nibbio</a>).</div>
     <div class="footer-made" style="text-align:center;margin-top:18px;font-size:13px;color:rgba(255,255,255,.6)">Creato da Mich · <a href="https://mvenuti.com" style="color:var(--gold)">Scopri altri progetti</a></div>
   </div>
 </footer>
-
 <div class="modal" id="legalModal" role="dialog" aria-modal="true" aria-label="Informative legali">
   <div class="box">
     <button class="x" aria-label="Chiudi" id="closeLegal">&times;</button>
@@ -925,7 +877,9 @@ footer::before {
     <p>Il sito non prevede registrazione, login, moduli di raccolta dati o statistiche. Non raccogliamo nome, cognome, email o altri dati personali dei visitatori.</p>
     <h3>Dati tecnici e hosting</h3>
     <p>Il sito è ospitato su GitHub Pages. GitHub tratta come fornitore dell'infrastruttura dati tecnici come l'indirizzo IP e i log di navigazione, secondo la propria informativa privacy. Il titolare di questo sito non accede a tali log. Per i trasferimenti di dati fuori dall'Unione Europea, si applicano le garanzie indicate da GitHub nella sua informativa.</p>
-    <h3>Finalità e base giuridica</h3>
+    <h3>Link a Telegram</h3>
+<p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
+<h3>Finalità e base giuridica</h3>
     <p>Il trattamento dei dati tecnici è necessario per erogare il sito richiesto dall'utente (art. 6, par. 1, lett. f del GDPR).</p>
     <h3>Diritti dell'interessato e reclamo</h3>
     <p>Puoi chiedere accesso, rettifica, cancellazione, limitazione od opposizione al trattamento scrivendo al contatto indicato sopra. Hai anche il diritto di proporre reclamo all'autorità di controllo dello Stato UE in cui risiedi o lavori. In Italia è il Garante per la protezione dei dati personali.</p>
@@ -938,18 +892,18 @@ footer::before {
     <p>Questo sito non installa cookie, né tecnici né di profilazione, e non usa strumenti di analisi di terze parti. Non ha un banner cookie perché non ci sono cookie da autorizzare. Il sito non carica risorse esterne al caricamento della pagina: font, script e immagini sono locali.</p>
     <h3>Link esterni</h3>
     <p>Il sito contiene link esterni che si aprono solo se li selezioni: lo statuto su Google Docs e i link a Telegram. Su quei siti vale la loro informativa, non questa.</p>
-    <h3>Come gestire i cookie</h3>
+    <h3>Link a Telegram</h3>
+<p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
+<h3>Come gestire i cookie</h3>
     <p>Puoi disattivare o cancellare i cookie dalle impostazioni del browser. Il sito funziona comunque.</p>
   </div>
 </div>
-
 <script>
 (function(){
   const nav = document.getElementById('nav');
   const legal = document.getElementById('legalModal');
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
-
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     const h = a.getAttribute('href');
     if (h.length < 2) return;
@@ -962,13 +916,10 @@ footer::before {
       }
     });
   });
-
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 20);
   }, { passive: true });
-
   menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
-
   const io = new IntersectionObserver(es => {
     es.forEach(e => {
       if (e.isIntersecting) {
@@ -978,7 +929,6 @@ footer::before {
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
   function openLegal(anchor) {
     legal.classList.add('show');
     document.body.style.overflow = 'hidden';
