@@ -12,35 +12,40 @@
   <meta property="og:url" content="https://mvenuti.com/">
   <style>
     :root {
-      --bg: #f0f2f5;
-      --card-bg: rgba(255, 255, 255, 0.65);
-      --card-border: rgba(255, 255, 255, 0.6);
-      --ink: #1a1d2d;
-      --muted: #64748b;
-      --blue: #a9c7f5;
-      --blue-deep: #4f75d6;
-      --peach: #f7d9c4;
-      --peach-deep: #e89c73;
-      --mint: #c9ecdf;
-      --mint-deep: #2f8f6b;
-      --shadow: 0 8px 32px rgba(34, 38, 58, 0.06);
-      --shadow-hover-bio: 0 20px 40px -12px rgba(169, 199, 245, 0.5);
-      --shadow-hover-fdc: 0 20px 40px -12px rgba(247, 217, 196, 0.5);
-      --shadow-hover-mc: 0 20px 40px -12px rgba(201, 236, 223, 0.5);
+      --bg: #E3EBE1;
+      --card-bg: rgba(255, 255, 255, 0.72);
+      --card-border: rgba(255, 255, 255, 0.85);
+      --ink: #1E3A2B;
+      --muted: #4F6B5C;
+      --blue: #1E3A2B;
+      --blue-deep: #1E3A2B;
+      --peach: #C9D9C6;
+      --peach-deep: #7FA58A;
+      --mint: #D5DFD3;
+      --mint-deep: #1E3A2B;
+      --shadow: 0 8px 32px rgba(30, 58, 43, 0.08);
+      --shadow-hover-bio: 0 20px 40px -12px rgba(30, 58, 43, 0.35);
+      --shadow-hover-fdc: 0 20px 40px -12px rgba(127, 165, 138, 0.5);
+      --shadow-hover-mc: 0 20px 40px -12px rgba(30, 58, 43, 0.3);
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0f111a;
-        --card-bg: rgba(30, 34, 50, 0.6);
-        --card-border: rgba(255, 255, 255, 0.08);
-        --ink: #f1f5f9;
-        --muted: #94a3b8;
-        --blue-deep: #7da0f0;
-        --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        --shadow-hover-bio: 0 20px 40px -12px rgba(91, 134, 214, 0.3);
-        --shadow-hover-fdc: 0 20px 40px -12px rgba(232, 156, 115, 0.3);
-        --shadow-hover-mc: 0 20px 40px -12px rgba(47, 143, 107, 0.3);
-      }
+      --bg: #E3EBE1;
+      --card-bg: rgba(255, 255, 255, 0.72);
+      --card-border: rgba(255, 255, 255, 0.85);
+      --ink: #1E3A2B;
+      --muted: #4F6B5C;
+      --blue: #1E3A2B;
+      --blue-deep: #1E3A2B;
+      --peach: #C9D9C6;
+      --peach-deep: #7FA58A;
+      --mint: #D5DFD3;
+      --mint-deep: #1E3A2B;
+      --shadow: 0 8px 32px rgba(30, 58, 43, 0.08);
+      --shadow-hover-bio: 0 20px 40px -12px rgba(30, 58, 43, 0.35);
+      --shadow-hover-fdc: 0 20px 40px -12px rgba(127, 165, 138, 0.5);
+      --shadow-hover-mc: 0 20px 40px -12px rgba(30, 58, 43, 0.3);
+    }
       .stat { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -95,8 +100,14 @@
       line-height: 1.05;
       margin-bottom: 16px;
     }
+    h1 .w {
+      background: linear-gradient(135deg, #4B2FA8 0%, #7F63D6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
     h1 span {
-      background: linear-gradient(135deg, var(--blue-deep) 0%, #8b5cf6 50%, var(--peach-deep) 100%);
+      background: linear-gradient(135deg, #6E4BD8 0%, #B39DFF 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -139,11 +150,11 @@
     }
     .card.bio:hover { box-shadow: var(--shadow-hover-bio); }
     .card.fdc:hover { box-shadow: var(--shadow-hover-fdc); }
-        .card.calc .icon { background: linear-gradient(135deg, #c7d2fe, #818cf8); }
-    .card.calc:hover { box-shadow: 0 20px 40px -12px rgba(129, 140, 248, 0.5); }
+        .card.calc .icon { background: linear-gradient(135deg, #DDE8DA, #B9CDB5); }
+    .card.calc:hover { box-shadow: 0 20px 40px -12px rgba(127, 165, 138, 0.5); }
     .card:nth-child(4) { animation-delay: 0.4s; }
-    .card.retro .icon { background: linear-gradient(135deg, #e9dcc0, #c96a4a); }
-    .card.retro:hover { box-shadow: 0 20px 40px -12px rgba(201, 106, 74, 0.45); }
+    .card.retro .icon { background: linear-gradient(135deg, #F3F6F1, #D5DFD3); }
+    .card.retro:hover { box-shadow: 0 20px 40px -12px rgba(30, 58, 43, 0.45); }
     .card:nth-child(5) { animation-delay: 0.5s; }
     .card.mc:hover { box-shadow: var(--shadow-hover-mc); }
     .icon {
@@ -160,9 +171,9 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .card:hover .icon { transform: scale(1.1) rotate(-5deg); }
-    .card.bio .icon { background: linear-gradient(135deg, var(--blue), #8bb4f0); }
-    .card.fdc .icon { background: linear-gradient(135deg, var(--peach), var(--peach-deep)); }
-    .card.mc .icon { background: linear-gradient(135deg, var(--mint), var(--mint-deep)); }
+    .card.bio .icon { background: linear-gradient(135deg, #E3EBE1, #C9D9C6); }
+    .card.fdc .icon { background: linear-gradient(135deg, #EEF3EC, #D5DFD3); }
+    .card.mc .icon { background: linear-gradient(135deg, #E6EBE4, #C9D9C6); }
     .card h2 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 24px;
@@ -239,7 +250,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: linear-gradient(135deg, var(--blue-deep), #4361ee);
+      background: linear-gradient(135deg, #1E3A2B, #2F5A44);
       color: #fff;
       padding: 14px 28px;
       border-radius: 999px;
@@ -247,7 +258,7 @@
       font-weight: 600;
       font-size: 15px;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 24px rgba(67, 97, 238, 0.35);
+      box-shadow: 0 8px 24px rgba(30, 58, 43, 0.35);
       white-space: nowrap;
       position: relative;
       overflow: hidden;
@@ -260,7 +271,7 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
       transition: left 0.5s;
     }
-    .tg:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(67, 97, 238, 0.5); }
+    .tg:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(30, 58, 43, 0.5); }
     .tg:hover::before { left: 100%; }
     .tg svg { width: 18px; height: 18px; flex-shrink: 0; }
     footer {
@@ -319,7 +330,7 @@
   <div class="blob c" aria-hidden="true"></div>
   <main class="wrap">
     <header>
-      <h1>Mich <span>Projects</span></h1>
+      <h1><span class="w">Mich</span> <span>Projects</span></h1>
       <p class="sub">Qualche progetto, una bio e un po' di Minecraft.</p>
     </header>
     <div class="grid">
