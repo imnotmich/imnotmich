@@ -5,49 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Mich Projects</title>
   <meta name="description" content="Progetti di Mich: bio, Fratelli di Canaria, mod e texture pack per Minecraft.">
-  <meta name="theme-color" content="#5b86d6">
+  <meta name="theme-color" content="#F2EFE8">
   <meta property="og:title" content="Mich Projects">
   <meta property="og:description" content="Bio, Fratelli di Canaria, mod e texture pack per Minecraft.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mvenuti.com/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' rx='1.6' fill='%231E3A2B'/%3E%3Cg fill='%23F2EFE8'%3E%3Crect x='1' y='1' width='2' height='2'/%3E%3Crect x='5' y='1' width='2' height='2'/%3E%3Crect x='3' y='3' width='2' height='1'/%3E%3Crect x='2' y='4' width='4' height='2'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='5' y='6' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E">
   <style>
     :root {
-      --bg: #E3EBE1;
-      --card-bg: rgba(255, 255, 255, 0.72);
-      --card-border: rgba(255, 255, 255, 0.85);
-      --ink: #1E3A2B;
-      --muted: #4F6B5C;
-      --blue: #1E3A2B;
-      --blue-deep: #1E3A2B;
-      --peach: #C9D9C6;
-      --peach-deep: #7FA58A;
-      --mint: #D5DFD3;
-      --mint-deep: #1E3A2B;
-      --shadow: 0 8px 32px rgba(30, 58, 43, 0.08);
+      --sage-mist: #D9E2D5;
+      --deep-forest: #1E3A2B;
+      --porcelain: #F2EFE8;
+      --midnight-navy: #14213D;
+
+      --bg: var(--porcelain);
+      --ink: var(--deep-forest);
+      --muted: #5C6F63;
+      --accent: var(--midnight-navy);
+      --card-bg: rgba(255, 255, 255, 0.66);
+      --card-border: rgba(255, 255, 255, 0.9);
+      --tile-1: #E9EFE4;
+      --tile-2: #C7D8C1;
+      --icon-ink: var(--deep-forest);
+      --dot: rgba(30, 58, 43, 0.10);
+      --bar-1: var(--deep-forest);
+      --bar-2: var(--midnight-navy);
+      --focus: rgba(20, 33, 61, 0.55);
+      --shadow: 0 8px 32px rgba(30, 58, 43, 0.10);
       --shadow-hover-bio: 0 20px 40px -12px rgba(30, 58, 43, 0.35);
       --shadow-hover-fdc: 0 20px 40px -12px rgba(127, 165, 138, 0.5);
       --shadow-hover-mc: 0 20px 40px -12px rgba(30, 58, 43, 0.3);
+      --stat-bg: rgba(255, 255, 255, 0.55);
+      --stat-border: rgba(30, 58, 43, 0.10);
+      --tg-1: var(--deep-forest);
+      --tg-2: var(--midnight-navy);
+      --tg-ink: var(--porcelain);
+      --tg-shadow: 0 8px 24px rgba(20, 33, 61, 0.35);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-      --bg: #E3EBE1;
-      --card-bg: rgba(255, 255, 255, 0.72);
-      --card-border: rgba(255, 255, 255, 0.85);
-      --ink: #1E3A2B;
-      --muted: #4F6B5C;
-      --blue: #1E3A2B;
-      --blue-deep: #1E3A2B;
-      --peach: #C9D9C6;
-      --peach-deep: #7FA58A;
-      --mint: #D5DFD3;
-      --mint-deep: #1E3A2B;
-      --shadow: 0 8px 32px rgba(30, 58, 43, 0.08);
-      --shadow-hover-bio: 0 20px 40px -12px rgba(30, 58, 43, 0.35);
-      --shadow-hover-fdc: 0 20px 40px -12px rgba(127, 165, 138, 0.5);
-      --shadow-hover-mc: 0 20px 40px -12px rgba(30, 58, 43, 0.3);
-    }
-      .stat { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
-    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -60,11 +55,14 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
+    ::selection { background: var(--deep-forest); color: var(--porcelain); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.15) 1px, transparent 0);
+      background-image: radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0);
       background-size: 24px 24px;
       pointer-events: none;
       z-index: -2;
@@ -78,19 +76,19 @@
       pointer-events: none;
       animation: float 18s ease-in-out infinite;
       will-change: transform;
+      mix-blend-mode: multiply;
     }
-    .blob.a { width: 500px; height: 500px; background: var(--blue); top: -150px; left: -100px; mix-blend-mode: multiply; }
-    .blob.b { width: 400px; height: 400px; background: var(--peach); bottom: -100px; right: -80px; animation-delay: -6s; mix-blend-mode: multiply; }
-    .blob.c { width: 300px; height: 300px; background: var(--mint); top: 45%; left: 60%; animation-delay: -9s; mix-blend-mode: multiply; }
-    @media (prefers-color-scheme: dark) {
-      .blob { opacity: 0.4; mix-blend-mode: screen; }
-    }
+    .blob.a { width: 500px; height: 500px; background: var(--sage-mist); top: -150px; left: -100px; }
+    .blob.b { width: 400px; height: 400px; background: #C7D2E0; bottom: -100px; right: -80px; animation-delay: -6s; }
+    .blob.c { width: 300px; height: 300px; background: #B9CFB4; top: 45%; left: 60%; animation-delay: -9s; }
     @keyframes float {
       0%, 100% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(30px, -40px) scale(1.05); }
       66% { transform: translate(-20px, 20px) scale(0.95); }
     }
+
     .wrap { max-width: 1024px; margin: 0 auto; padding: 80px 24px 64px; }
+
     header { text-align: center; margin-bottom: 64px; animation: fadeUp 0.8s ease both; }
     h1 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -106,7 +104,7 @@
       background-clip: text;
       color: transparent;
     }
-    h1 span {
+    h1 .p {
       background: linear-gradient(135deg, #6E4BD8 0%, #B39DFF 100%);
       -webkit-background-clip: text;
       background-clip: text;
@@ -119,6 +117,7 @@
       margin-inline: auto;
       font-weight: 400;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -136,27 +135,37 @@
       box-shadow: var(--shadow);
       text-decoration: none;
       color: inherit;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, border-color 0.4s ease;
       animation: fadeUp 0.8s ease both;
       position: relative;
       overflow: hidden;
     }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--bar-1), var(--bar-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .card:hover::after, .card:focus-visible::after { transform: scaleX(1); }
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       border-color: rgba(255, 255, 255, 0.8);
     }
     .card.bio:hover { box-shadow: var(--shadow-hover-bio); }
     .card.fdc:hover { box-shadow: var(--shadow-hover-fdc); }
-        .card.calc .icon { background: linear-gradient(135deg, #DDE8DA, #B9CDB5); }
-    .card.calc:hover { box-shadow: 0 20px 40px -12px rgba(127, 165, 138, 0.5); }
-    .card:nth-child(4) { animation-delay: 0.4s; }
-    .card.retro .icon { background: linear-gradient(135deg, #F3F6F1, #D5DFD3); }
-    .card.retro:hover { box-shadow: 0 20px 40px -12px rgba(30, 58, 43, 0.45); }
-    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card.calc:hover { box-shadow: var(--shadow-hover-fdc); }
+    .card.retro:hover { box-shadow: var(--shadow-hover-bio); }
     .card.mc:hover { box-shadow: var(--shadow-hover-mc); }
+
     .icon {
       width: 56px;
       height: 56px;
@@ -164,16 +173,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
       margin-bottom: 24px;
       flex-shrink: 0;
+      color: var(--icon-ink);
+      background: linear-gradient(135deg, var(--tile-1), var(--tile-2));
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
+    .icon svg { width: 26px; height: 26px; display: block; }
     .card:hover .icon { transform: scale(1.1) rotate(-5deg); }
-    .card.bio .icon { background: linear-gradient(135deg, #E3EBE1, #C9D9C6); }
-    .card.fdc .icon { background: linear-gradient(135deg, #EEF3EC, #D5DFD3); }
-    .card.mc .icon { background: linear-gradient(135deg, #E6EBE4, #C9D9C6); }
+
     .card h2 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 24px;
@@ -186,7 +195,7 @@
       margin-top: 24px;
       font-size: 14px;
       font-weight: 600;
-      color: var(--blue-deep);
+      color: var(--accent);
       display: inline-flex;
       align-items: center;
       transition: gap 0.3s ease;
@@ -204,10 +213,11 @@
       font-family: monospace;
       letter-spacing: 0.05em;
     }
+
     .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
     .stat {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--stat-bg);
+      border: 1px solid var(--stat-border);
       border-radius: 12px;
       padding: 8px 16px;
       font-size: 14px;
@@ -217,7 +227,8 @@
       align-items: center;
       backdrop-filter: blur(8px);
     }
-    .stat b { font-size: 18px; font-weight: 700; color: var(--mint-deep); margin-right: 6px; }
+    .stat b { font-size: 18px; font-weight: 700; color: var(--accent); margin-right: 6px; }
+
     .contact {
       margin-top: 48px;
       display: flex;
@@ -241,7 +252,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
     }
     .contact h3 { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; }
     .contact p { color: var(--muted); font-size: 15px; margin-top: 6px; }
@@ -250,15 +261,15 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: linear-gradient(135deg, #1E3A2B, #2F5A44);
-      color: #fff;
+      background: linear-gradient(135deg, var(--tg-1), var(--tg-2));
+      color: var(--tg-ink);
       padding: 14px 28px;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 600;
       font-size: 15px;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 24px rgba(30, 58, 43, 0.35);
+      box-shadow: var(--tg-shadow);
       white-space: nowrap;
       position: relative;
       overflow: hidden;
@@ -268,39 +279,47 @@
       position: absolute;
       top: 0; left: -100%;
       width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
       transition: left 0.5s;
     }
-    .tg:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(30, 58, 43, 0.5); }
+    .tg:hover { transform: translateY(-3px); filter: brightness(1.05); }
     .tg:hover::before { left: 100%; }
     .tg svg { width: 18px; height: 18px; flex-shrink: 0; }
+
     footer {
       margin-top: 56px;
       text-align: center;
       color: var(--muted);
       font-size: 13px;
-      opacity: 0.8;
+      opacity: 0.9;
     }
-    footer a {
-      color: var(--blue-deep);
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
-    }
+    footer a { color: var(--accent); text-decoration: none; font-weight: 500; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    footer a:hover { border-bottom-color: var(--accent); }
     .disclaimer { margin-top: 10px; font-size: 12px; opacity: 0.8; }
-    footer a:hover { border-bottom-color: var(--blue-deep); }
-    .flink { background: none; border: none; cursor: pointer; font: inherit; color: var(--blue-deep); text-decoration: underline; text-underline-offset: 3px; padding: 0; }
-    .policy-dialog { border: 1px solid var(--card-border); border-radius: 20px; padding: 28px; max-width: 560px; width: 92vw; max-height: 80vh; overflow-y: auto; background: var(--bg); color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35); }
-    .policy-dialog::backdrop { background: rgba(10, 14, 28, 0.5); }
+    .flink { background: none; border: none; cursor: pointer; font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+
+    .policy-dialog {
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      max-width: 560px;
+      width: 92vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.35);
+    }
+    .policy-dialog::backdrop { background: rgba(10, 14, 20, 0.55); backdrop-filter: blur(4px); }
     .policy-dialog h2 { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-    .policy-dialog h3 { font-size: 15px; font-weight: 700; margin: 18px 0 6px; color: var(--blue-deep); }
+    .policy-dialog h3 { font-size: 15px; font-weight: 700; margin: 18px 0 6px; color: var(--accent); }
     .policy-dialog p { font-size: 14.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
     .policy-dialog p strong { color: var(--ink); }
-    .policy-dialog a { color: var(--blue-deep); }
+    .policy-dialog a { color: var(--accent); }
     .policy-dialog .draft { font-size: 13px; background: #fff8e6; color: #7a5b00; border: 1px solid #f0dfa8; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
-    .policy-close { margin-top: 16px; background: var(--blue-deep); color: #fff; border: none; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
-    .policy-close:hover { opacity: 0.9; }
+    .policy-close { margin-top: 16px; background: linear-gradient(135deg, var(--tg-1), var(--tg-2)); color: var(--tg-ink); border: none; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+    .policy-close:hover { filter: brightness(1.05); }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: none; }
@@ -330,40 +349,50 @@
   <div class="blob c" aria-hidden="true"></div>
   <main class="wrap">
     <header>
-      <h1><span class="w">Mich</span> <span>Projects</span></h1>
+      <h1><span class="w">Mich</span> <span class="p">Projects</span></h1>
       <p class="sub">Qualche progetto, una bio e un po' di Minecraft.</p>
     </header>
     <div class="grid">
       <a class="card bio" href="bio/" aria-label="Visita la pagina Bio">
-        <div class="icon" aria-hidden="true">👤</div>
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+        </div>
         <h2>Bio</h2>
         <p>Chi sono, cosa faccio e cosa mi piace: nuoto, stampa 3D, orologeria e Minecraft roleplay.</p>
         <span class="url">mvenuti.com/bio</span>
         <span class="link">Apri la bio</span>
       </a>
       <a class="card fdc" href="fdc/" aria-label="Visita il sito Fratelli di Canaria">
-        <div class="icon" aria-hidden="true">🔥</div>
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        </div>
         <h2>Fratelli di Canaria</h2>
         <p>Il sito del partito del roleplay AtlantisRP: ideologia, statuto, organi e cariche.</p>
         <span class="url">mvenuti.com/fdc</span>
         <span class="link">Visita il sito</span>
       </a>
       <a class="card calc" href="calcolatrice3d/" aria-label="Visita la calcolatrice 3D">
-        <div class="icon" aria-hidden="true">🧮</div>
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.25"/><circle cx="12" cy="12" r="5.25" stroke-dasharray="2.6 2.6"/><circle cx="12" cy="12" r="2"/><path d="M20.25 12c0 3.2-.9 5.9-2.4 7.6"/></svg>
+        </div>
         <h2>Calcolatrice filamenti</h2>
         <p>Inserisci prezzo e peso della bobina e i grammi usati: scopri quanto ti costa il filamento di una stampa.</p>
         <span class="url">mvenuti.com/calcolatrice3d</span>
         <span class="link">Apri la calcolatrice</span>
       </a>
       <a class="card retro" href="calcolatrice/" aria-label="Visita la calcolatrice retro">
-        <div class="icon" aria-hidden="true">🔢</div>
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        </div>
         <h2>Calcolatrice retro</h2>
         <p>Una calcolatrice in stile vintage, con pulsanti e tastiera.</p>
         <span class="url">mvenuti.com/calcolatrice</span>
         <span class="link">Apri la calcolatrice</span>
       </a>
       <div class="card mc" role="region" aria-label="Sezione Minecraft">
-        <div class="icon" aria-hidden="true">⛏️</div>
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 8 8" shape-rendering="crispEdges" fill="currentColor"><rect x="1" y="1" width="2" height="2"/><rect x="5" y="1" width="2" height="2"/><rect x="3" y="3" width="2" height="1"/><rect x="2" y="4" width="4" height="2"/><rect x="2" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/></svg>
+        </div>
         <h2>Minecraft</h2>
         <p>Lavori creati per il gioco, tra mod e pacchetti di texture.</p>
         <div class="stats">
@@ -389,7 +418,7 @@
   </main>
   <dialog id="privacy-dialog" class="policy-dialog">
     <h2>Informativa sulla privacy</h2>
-    <p>Ultimo aggiornamento: 28 ottobre 2026.</p>
+    <p>Ultimo aggiornamento: 30 ottobre 2026.</p>
     <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
     <h3>Titolare e contatto</h3>
     <p>Titolare del trattamento: <strong>Mich</strong>, che gestisce questo sito e i progetti collegati su mvenuti.com. Per ogni richiesta sulla privacy, incluso l'esercizio dei diritti, scrivi a <a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener">@DiciassetteMich su Telegram</a>.</p>
@@ -400,8 +429,8 @@
     <h3>Servizi esterni</h3>
     <p>Nessuna risorsa esterna viene caricata automaticamente: i caratteri sono quelli di sistema del tuo dispositivo. I link a Telegram e agli altri siti si aprono solo se li selezioni, e su quei siti vale la loro informativa.</p>
     <h3>Link a Telegram</h3>
-<p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
-<h3>Finalità e base giuridica</h3>
+    <p>Quando clicchi un link a Telegram lasci il sito: i dati trattati da Telegram sono regolati dalla sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>, non da questa. Il sito non trasmette dati a Telegram se non selezioni il link.</p>
+    <h3>Finalità e base giuridica</h3>
     <p>Il trattamento dei dati tecnici è necessario per erogare il sito richiesto dall'utente (art. 6, par. 1, lett. f del GDPR).</p>
     <h3>Diritti e reclamo</h3>
     <p>Puoi chiedere accesso, rettifica, cancellazione, limitazione od opposizione scrivendo al contatto indicato sopra. Puoi proporre reclamo all'autorità di controllo dello Stato UE in cui risiedi o lavori; in Italia è il Garante per la protezione dei dati personali.</p>
@@ -411,15 +440,13 @@
   </dialog>
   <dialog id="cookie-dialog" class="policy-dialog">
     <h2>Cookie Policy</h2>
-    <p>Ultimo aggiornamento: 28 ottobre 2026.</p>
+    <p>Ultimo aggiornamento: 30 ottobre 2026.</p>
     <div class="draft">BOZZA: testo da far revisionare prima della pubblicazione definitiva.</div>
     <h3>Cookie usati dal sito</h3>
     <p>Questo sito non installa cookie di profilazione, né tecnici né di terze parti, e non usa strumenti di analisi o pubblicità. Non c'è un banner cookie perché non ci sono cookie da autorizzare.</p>
-    <h3>Link esterni</h3>
-    <p>I link a Telegram e agli altri siti si aprono solo se li selezioni. Su quei siti vale la loro informativa, non questa.</p>
     <h3>Link a Telegram</h3>
-<p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
-<h3>Come gestire i cookie</h3>
+    <p>I link a Telegram si aprono solo se li selezioni. Su Telegram vale la sua <a href="https://telegram.org/privacy" target="_blank" rel="noopener">informativa privacy</a>.</p>
+    <h3>Come gestire i cookie</h3>
     <p>Puoi disattivare o cancellare i cookie dalle impostazioni del browser. Il sito funziona comunque.</p>
     <button class="policy-close" type="button" data-close>Chiudi</button>
   </dialog>
