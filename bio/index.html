@@ -591,9 +591,69 @@
       .mc-grid { grid-template-columns: 304px minmax(0, 1fr); gap: 3rem; align-items: start; }
       .skin-panel { position: sticky; top: 8rem; }
     }
+
+    :root { --glass: rgba(255, 255, 255, 0.28); --glass-edge: rgba(255, 255, 255, 0.85); }
+    body.mode-gaming { --glass: rgba(255, 255, 255, 0.26); }
+
+    .glass {
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.08);
+      backdrop-filter: blur(24px) saturate(180%) brightness(1.08);
+      border: 1px solid var(--glass-edge);
+      border-radius: 22px;
+      box-shadow: 0 16px 40px -18px rgba(11, 42, 61, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      position: relative;
+    }
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 45%);
+      pointer-events: none;
+    }
+    .lane-row.glass { border-bottom: 1px solid var(--glass-edge); padding: 1.5rem 1.6rem; margin-bottom: 1rem; }
+    .skin-panel.glass { padding: 1.5rem; }
+    .rp-sheet.glass { padding: 1.6rem 1.8rem; }
+
+    .depth { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .depth span {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+      opacity: 0.45;
+      animation: drift 34s ease-in-out infinite;
+    }
+    .depth span:nth-child(1) { width: 520px; height: 520px; top: -160px; left: -140px; }
+    .depth span:nth-child(2) { width: 380px; height: 380px; bottom: -120px; right: -90px; background: radial-gradient(circle, #e89c73 0%, transparent 68%); animation-delay: -12s; }
+    .depth span:nth-child(3) { width: 260px; height: 260px; top: 46%; left: 58%; background: radial-gradient(circle, var(--mint, #9fe0c8) 0%, transparent 68%); animation-delay: -22s; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(34px, -26px) scale(1.06); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .depth span { animation: none; }
+    }
+
+    .site-switcher { border-bottom: none; }
+    .switcher-indicator {
+      left: 3px; top: 3px; bottom: 3px;
+      width: calc(50% - 3px);
+      height: auto;
+      border-radius: 999px;
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(14px) saturate(170%);
+      backdrop-filter: blur(14px) saturate(170%);
+      border: 1px solid var(--glass-edge);
+      box-shadow: 0 8px 20px -10px rgba(11, 42, 61, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    body.mode-gaming .switcher-indicator { transform: translateX(calc(100% + 6px)); }
+    .switch-btn { position: relative; z-index: 1; }
   </style>
 </head>
 <body class="no-scroll">
+
+  <div class="depth" aria-hidden="true"><span></span><span></span><span></span></div>
   <noscript><style>.reveal, .timeline-item { opacity: 1 !important; transform: none !important; }</style></noscript>
   <div id="scroll-progress"></div>
   <div class="pool-bg" id="pool-bg" aria-hidden="true">
@@ -681,19 +741,19 @@
     <div id="site-real" class="site-view active fade-in">
       <section id="chisono" class="page-section">
         <p class="kicker">Profilo personale</p>
-        <h1 class="page-title">Mich, <span class="hl">per tutti.</span></h1>
+        <h1 class="page-title" data-parallax="0.06">Mich, <span class="hl">per tutti.</span></h1>
         <p class="lede reveal">
           Mi occupo prevalentemente di <strong>stampa 3D</strong>: un'attività che mi diverte e mi insegna nuove skill ogni giorno. Ultimamente creo anche i miei modelli per risolvere piccoli problemi quotidiani.
         </p>
         <blockquote class="pull-quote reveal">Curioso, e sempre pronto a imparare qualcosa di nuovo.</blockquote>
         <div class="lane-list">
-          <div class="lane-row reveal">
+          <div class="lane-row glass reveal">
             <h2 class="lane-label">Passioni</h2>
             <p class="lane-text">
               Amo <strong>nuotare</strong> e dedicarmi alle mie curiosità. Mi considero una persona curiosa e simpatica, sempre pronta a imparare qualcosa di nuovo.
             </p>
           </div>
-          <div class="lane-row reveal">
+          <div class="lane-row glass reveal">
             <h2 class="lane-label">Obiettivi</h2>
             <p class="lane-text">
               Guardo sempre avanti con positività. Il mio sogno è <strong>aprire un'azienda</strong>, probabilmente nell'ambito dell'orologeria, dove precisione e creatività si incontrano.
@@ -722,12 +782,12 @@
     <div id="site-gaming" class="site-view">
       <section id="minecraft" class="page-section">
         <p class="kicker">Un mondo a parte</p>
-        <h1 class="page-title">La mia vita su <span class="hl">Minecraft.</span></h1>
+        <h1 class="page-title" data-parallax="0.06">La mia vita su <span class="hl">Minecraft.</span></h1>
         <p class="lede">
           Minecraft per me non è solo un gioco: è un secondo posto dove vivere storie, incontrare persone e dare vita a personaggi che nella realtà non potrei essere.
         </p>
         <div class="mc-grid">
-          <div class="skin-panel reveal">
+          <div class="skin-panel glass reveal">
             <h2 class="lane-label">La mia skin, in 3D</h2>
             <p class="lane-text" style="margin-bottom: 1rem;">Ruota da sola, in cammino.</p>
             <canvas id="skin-canvas" class="skin-canvas" aria-label="Modello 3D della skin Minecraft"></canvas>
@@ -764,7 +824,7 @@
         </div>
       </section>
       <section id="roleplay" class="page-section">
-        <div class="rp-sheet reveal">
+        <div class="rp-sheet glass reveal">
           <h2 class="section-heading">Su AtlantisRP</h2>
           <div class="lane-list">
             <div class="lane-row">
@@ -853,13 +913,15 @@
   </div>
   <dialog id="privacy-dialog" class="policy-dialog">
     <h2>Informativa sulla Privacy</h2>
-    <p>Ultimo aggiornamento: 28 ottobre 2026.</p>
+    <p>Ultimo aggiornamento: 21 novembre 2026.</p>
     <p><em>BOZZA: testo da far revisionare prima della pubblicazione definitiva.</em></p>
     <h3>Titolare e contatto</h3>
-    <p>Titolare del trattamento: <strong>Mich</strong>, che gestisce questo sito e i progetti collegati su mvenuti.com. Per ogni richiesta sulla privacy, incluso l'esercizio dei diritti, scrivi a <a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener" style="color:inherit;">@DiciassetteMich su Telegram</a>.</p>
+    <p>Titolare del trattamento: <strong>Mich</strong>, che gestisce questo sito e i progetti collegati su mvenuti.com. Per ogni richiesta sulla privacy, incluso l'esercizio dei diritti, scrivi a <a href="https://t.me/DiciassetteMich" target="_blank" rel="noopener" style="color:inherit;">@DiciassetteMich su Telegram</a> oppure a <a href="mailto:sitiweb@mvenuti.com">sitiweb@mvenuti.com</a>.</p>
     <h3>Dati raccolti</h3>
     <p>Il sito non prevede moduli, registrazioni o statistiche. Non raccogliamo nome, cognome, email o altri dati personali dei visitatori.</p>
-    <h3>Dati tecnici e hosting</h3>
+    <h3>Conservazione</h3>
+<p>Il titolare non conserva dati personali dei visitatori. I log tecnici del servizio di hosting sono gestiti da GitHub secondo la propria informativa, che indica i tempi di conservazione.</p>
+<h3>Dati tecnici e hosting</h3>
     <p>Il sito è ospitato su GitHub Pages. GitHub tratta come fornitore dell'infrastruttura dati tecnici come l'indirizzo IP e i log di navigazione, secondo la propria informativa privacy. Il titolare non accede a tali log. Per i trasferimenti di dati fuori dall'Unione Europea si applicano le garanzie indicate da GitHub nella sua informativa.</p>
     <h3>Servizi esterni</h3>
     <p>La skin 3D è incorporata nel sito: non viene caricata da servizi esterni. Nessuna risorsa esterna viene caricata automaticamente. I link a Telegram e agli altri siti si aprono solo se li selezioni, e su quei siti vale la loro informativa.</p>
@@ -875,7 +937,7 @@
   </dialog>
   <dialog id="cookie-dialog" class="policy-dialog">
     <h2>Cookie Policy</h2>
-    <p>Ultimo aggiornamento: 28 ottobre 2026.</p>
+    <p>Ultimo aggiornamento: 21 novembre 2026.</p>
     <p><em>BOZZA: testo da far revisionare prima della pubblicazione definitiva.</em></p>
     <h3>Cookie usati dal sito</h3>
     <p>Questo sito non installa cookie, né tecnici né di profilazione, e non usa strumenti di analisi o pubblicità di terze parti. Non c'è un banner cookie perché non ci sono cookie da autorizzare.</p>
@@ -3181,6 +3243,26 @@ float contrastN=contrast(rgbaM,rgbaN);float contrastS=contrast(rgbaM,rgbaS);floa
         btn.addEventListener('click', () => smoothScrollTo(btn.dataset.target));
       });
     });
+  </script>
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var els = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+      if (!els.length) return;
+      var ticking = false;
+      function update() {
+        els.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          var f = parseFloat(el.getAttribute('data-parallax')) || 0;
+          el.style.transform = 'translate3d(0,' + (-r.top * f).toFixed(1) + 'px,0)';
+        });
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
   </script>
 </body>
 </html>
